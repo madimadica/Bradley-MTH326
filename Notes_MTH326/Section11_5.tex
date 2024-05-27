@@ -1,0 +1,46 @@
+\section{Inferences concerning the point estimators}
+
+\noindent Under the assumption $\varepsilon \sim \operatorname{N}(0,\sigma^2)$, we have that $\widehat{\beta_0}$ and $\widehat{\beta_1}$ are normal $\operatorname{N}(\beta_i, \Var*{\beta_i})$. Thus we can do confidence intervals for the true $\widehat{\beta_0}$ and $\widehat{\beta_1}$.
+$$y = \beta_0 + \beta_1 x + \varepsilon$$
+Use the same $\mathcal Z / \mathcal T$ rules as before, ($n \leq 30$ use $\mathcal T$ and $n > 30$ use $\mathcal Z$).
+
+\nl As always, the standardization is 
+$$\frac{\that - \theta}{\sqrt{\sigma_{\that}}} = \frac{\that - \theta}{\sqrt{\Var*{\that}}}$$
+
+\example Given $Z_{\alpha/2}$ ($n > 30$), $\widehat{\beta_1} \pm Z_{\alpha/2}\sqrt{\Var*{\widehat{\beta_1}}}$ is an $\alpha$-level 2-sided C.I. for the true $\beta_i$.
+
+\example Find a 90\% C.I. for the slope $\widehat{\beta_1}$ of the potency example. We have $\widehat{\beta_1} = \dfrac{-19}{60} \approx -0.3166\overline{7}$. 
+\begin{align*}
+    \Var*{\widehat{\beta_1}} &= \frac{\sigma^2}{S_{xx}}\\
+    &\approx \frac{S^2}{S_{xx}}\\
+    &= \frac{19.03}{6000}\\
+    &= 0.00317\\
+    \implies & S_{\widehat{\beta_1}} = \sqrt{\Var*{\widehat{\beta_1}}} = 0.0563
+\end{align*}
+Using $S^2$ implies we use $S^2$ degrees of freedom, $n=12$ implies $10$ degrees of freedom. Thus $S^2 \sim \chi^2(10)$. We need $t_{0.05}(10) = 1.812$ by table and 
+\begin{align*}
+    & \widehat{\beta_1} \pm t_{0.05}(10)S_{\widehat{\beta_1}}\\
+    &- 0.31667 \pm (1.812)(0.0563)\\
+    &- 0.31667 \pm 0.1020\\
+    & \pars{-0.4187,\, -0.214}
+\end{align*}
+
+\example (Potency again)\\
+We will assume that it is commonly know that penicillin derivatives are considered \say{effective} if when stored in a deep freezer ($0^{\circ}$F) the potency is 50 or better. We wish to test if our new drug is \say{effective}.
+
+\nl We have $\widehat y = \widehat{\beta_0} + \widehat{\beta_1}x = 46 - \frac{19}{60}x$. When $\widehat{y}(0)=\widehat{\beta_0} = 46$. We construct the test: If the true $\widehat{\beta_0} = 50$, given our sample observation $\widehat{\beta_0}=46$\dots is this rare or not.
+$$H_0 : \widehat{\beta_0} = 50 \qquad H_a : \widehat{\beta_0} < 50$$
+Again, $S^2 \sim \chi^2(10)$,\dots we need to use t-test. We are assuming $\widehat{\beta_0} \sim \operatorname{N}(\beta_0, \Var*{\beta_0}) \approx \operatorname{N}(\beta_0, \Var*{\widehat{\beta_0}})$. p-value:
+\begin{align*}
+    p &= \Pr \pars{\widehat{\beta_0} \leq 46 \mid \widehat{\beta_0} = 50}\\
+    &= \Pr \pars{\dfrac{\widehat{\beta_0} - \beta_0}{\sqrt{\Var*{\widehat{\beta_0}}}} \leq \dfrac{46-50}{\sqrt{\Var*{\widehat{\beta_0}}}}}
+\end{align*}
+Pausing to compute some of these
+$$\Var*{\widehat{\beta_0}} = \dfrac{\sigma^2 \sum {x_i}^2}{nS_{xx}} \sim \dfrac{S^2 \sum {x_i}^2}{nS_{xx}}$$
+Here $S^2 = 19.0\overline{3}$, $n=12$, and $S_{xx} = 6000$.
+
+\nl $\displaystyle \sum {x_i}^2 = 3\cdot(30^2+50^2+70^2+90^2) =49200$ and $\Var*{\widehat{\beta_0}} = \dfrac{19.03 \cdot 49200}{12 \cdot 6000} = 13.004$ and $\sqrt{\Var*{\widehat{\beta_0}}} = 3.606$. Then,
+$$p = \Pr \pars{T \leq \frac{46-50}{3.606}} = P(T \leq -1.09) = 0.150641$$
+Cannot reject the null hypothesis! So maybe it \textit{is} actually 50. \underline{Let's sell it!}
+
+%tony's notes

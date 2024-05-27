@@ -1,0 +1,157 @@
+\chapter{Hypothesis Testing}
+
+\nl \textbf{Motivational example:}
+
+\nl I claim that I am a 75\% free-throw shooter. You need to verify, and make me shoot 20 free throws. \color{red}I make 8.\color{black}
+
+\nnl You are suspicious of my claim.
+
+\nl Is that suspicion founded?
+
+\nl We can think of a free-throw as $\operatorname{Bern}(0.75)$.
+
+\nl The probability of getting 8 is binomial.
+    $$\P{X = 8} = \binom{20}{8} \pars{\frac{3}{4}}^8 \pars{\frac{1}{4}}^{12} = 0.00075$$
+
+\nl This implies that if $p = \frac{3}{4}$ is true, we observed a \say{rare event.}
+
+\nl But, another way to think about this is if $p = \frac{3}{4}$, what is the probability that I would shoot 8 or worse?
+
+$$\P{X \leq 8} = \sum_{i=0}^8 \binom{20}{i} \pars{\frac{3}{4}}^{i} \pars{\frac{1}{4}}^{20-i} < 0.001$$
+
+\nl The entire array, $0, 1, \dots, 8$ is less than $\over{1000}$ probability. We are \say{safe} to conclude that the true free-throw percentage is less than 75\%.
+
+\nl This is what hypothesis testing is all about.
+\begin{itemize}
+    \item Assume something is true
+    \item Observe and compute the probabilty of this outcome, or more extreme (rarer) events.
+    \item Decide if there is evidence against your assumption.
+\end{itemize}
+
+\nl Flip-side: In chapter 8 we would have constructed a confidence interval for the true $p$.
+
+\nl $n = 20$ is small... we need $t(\df = 19)$ distribution.
+
+\nl A 99\% C.I. for $p$
+
+\nl Uses $t_{0.005}(19) = 2.861 \text{ standard errors}$.
+$$\phat \pm t_{0.005}\sqrt{\frac{\phat\qhat}{20}} \approx 0.4 \pm 0.256 \implies p \in (0.144, 0.656)$$
+
+\nl \color{red} $p = \dfrac{3}{4}$ is very far outside.\color{black} \hspace{.5mm} Again, very unlikely that $p = \dfrac{3}{4}$.\\
+*C.I. and the Hypothesis Test are 2-sides of the same coin.
+
+\nnl Hypothesis Testing Vocab
+\begin{enumerate}[label=\textcircled{\raisebox{-1pt}{\arabic*}}]
+    \item The Hypotheses.
+    \begin{itemize}
+        \item \textbf{\color{neonorange}The null hypothesis} $H_0$ : Assumption of no change.
+        \\ Assumed true unless \say{proven} otherwise.
+        \\\example* $H_0 : p_0 = 0.75$
+        \item \textbf{\color{neonorange}The alternative hypothesis} $H_a$ : The claim we aim to test.
+        \\ $H_a : p < 0.75$
+        \\\example*{One sided} $H_a : p < p_0$ or $H_a : p > p_0 $
+        \\\example*{Two sided} $H_a : p \neq p_0$
+    \end{itemize}
+    \item \textbf{\color{neonorange}The decision rule}. This is the cutoff \setRed $\alpha$ \setBlack we use to accept or reject $H_a$. Usually stated beforehand.
+    \item \textbf{The decision}. After a probability calculation, either
+    \begin{enumerate}[label=(\roman*)]
+        \item Reject the null hypothesis $H_0$ or
+        \item Not enough evidence to reject $H_0$ (accept $H_a$)
+    \end{enumerate}
+    \item \textbf{$p$-value.} The probability of seeing as much, or more evidence for $H_a$ than we saw in the data.
+    $$p = \P{X \leq 8} < 0.001$$
+    *The smaller the $p$-value, the more support for $H_a$.
+    \\Test Results are called \textbf{statistically significant} if $H_0$ is rejected.
+\end{enumerate}
+
+\nnl \textbf{Topic: Error Types}
+
+\nl 2 possible decisions $\implies$ 2 possible mistakes.
+
+
+  \begin{center}
+    \begin{tabular}{|l|c|c|} 
+         \hline
+         The \say{truth} & $H_0$ & $H_a$\\
+         \hline\hline
+         Test Supports $H_0$ & \green{good} & \red{Type II}\\
+         Test Supports $H_a$ & \red{Type I} & \green{good}\\
+         \hline
+    \end{tabular}
+\end{center}
+
+    %H_0  |  H_a  |  "The truth"
+%H_0 Good   Type II
+%H_1 Type I  Good
+%^test supports
+
+\nnl \textbf{Type I:} We reject $H_0$ when $H_0$ is the truth.\\
+*This error comes from the decision rule.\\
+\example* I actually am a 75\% free-throw shooter, but had a bad day.
+
+\nl \textbf{Type II:} We accept $H_0$ when $H_a$ is the truth.
+
+\nnl We will see that we can measure these error types in some sense, but it depends on our decision rule \setRed $\alpha$ \setBlack and the unknown, true population parameter $\theta$.
+\begin{align*}
+    &\P{\text{Type I error}} = \alpha.\\
+    &\P{\text{Type II error}} = \beta.
+\end{align*}
+
+
+\example* Back to the free throws.
+
+\nl \textit{Decision Rule:} Beforehand, you decide if I make 10 or less, you will reject $H_0 : p = 0.75$.
+
+\nl The text calls the set of outcomes the \underline{\textbf{\color{neonorange}rejection region}} (RR). If $T \in \operatorname{RR}$ then we reject $H_0$ (support the alternative).
+
+\nl Here, $RR = \{0,1,2,\dots,10\}$ and we can exactly calculate this:
+\begin{align*}
+    \alpha &= \P{\text{Type I error}}\\
+    &= \P{\text{rejecting } H_0 \text{ when } H_0 \text{ is true}}\\
+    &= \P{0 \leq T \leq 10 \;\text{ and }\; p = \frac34}\\
+    &= \operatorname{pbinom}(10,\;20,\;0.75)\\
+    &= 0.013
+\end{align*}
+Hence, it is very unlikely to get a Type I error.
+
+\nl Computing Type II error probabilities requires a guess for the true $H_a$.
+
+\begin{align*}
+    \beta &= \P{\text{Type II error}}\\
+    &= \P{\text{accept } H_0 \text{ when } H_a \text{ is true}}\\
+    &= \P{11 < T \leq 20 \;\text{ when }\; p = \theta < \frac34}\\
+    &= 1 - \P{0 \leq T \leq 10  \;\text{ when }\; p = \theta < \frac34}\\\beta(\theta) &= 1 - \operatorname{pbinom}(10,\;20,\;\theta) \quad \text{a function of } \theta\\
+\end{align*}
+Here, if $\theta = 0.6$, then $\underbrace{\beta = 0.755}_{\text{This is a lot, 75\%}}$
+
+\nl If $\theta = 0.5, \quad \beta = 0.4119$
+
+\nl Note the larger the true difference between $\theta$ and $p_0 = \dfrac34$ is, the smaller the Type II error.
+
+\nnl \underline{FACT:} $\alpha$ and $\beta$ are inversely related! If we increase $\alpha$ (Probability of Type I error), we see a decrease in $\beta$ (Probability of Type II error) (and vice versa).
+
+\defn* The \bu{power function} of a test is defined as $$\operatorname{power}(\theta) = 1 - \beta(\theta)$$ and this measures Type II error.
+
+\example New ultrasound machine: Claimed to detect dumors better than the old machine.
+
+\nl Hospital designs a test: Take a known patient with a known tumor distribution \say{tumor set.} Scan each patient in both machine: record the proportion of known tumors detected with each machine.
+
+\nl Let $p_0$ be the proportion found of old machine, and $p_1$ be the new.
+\begin{enumerate}[label=(\alph*)]
+    \item $H_0 : p_0 = p_1 \wideand H_a : p_0 < p_1$
+    \item A Type I error occurs when we decide the new machine is better, when it is actually worse.
+    
+    \nl \textit{Real world consequences:} Results in investment in \say{better} equipment when is not better and does not help your patients
+
+    \item A Type II error occurs when we accept $H_0$ when $H_a$ is true. (We think that the old equipment is better when it isn't.)
+
+    \nl \textit{Real world consequences:} We could have had better machines, detected more cancer, and saved more lives (but didn't).
+\end{enumerate}
+
+\setSection{2}
+\noindent \input{Section10_3.tex}
+
+\input{Section10_4.tex}
+
+\setSection{7}
+\input{Section10_8.tex}

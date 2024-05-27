@@ -1,0 +1,59 @@
+\section{Relative Efficiency}
+In general, given two estimators $\that_1$ and $\that_2$ of a parameter $\theta$, we claim the one with smaller MSE is better.
+
+\nl For unbiased estimators, MSE \textit{is} variance $(\sigma^2)$. So an idea of \say{better} is if $\Var*{\that_1} < \Var*{\that_2}$, we say $\that_1$ is the better estimator.
+
+\defn Given unbiased estimators $\that_1$ and $\that_2$ of $\theta$, the \bu{efficiency}of $\that_1$ relative to $\that_2$ is defined by
+$$\eff*{\that_1,\; \that_2} = \dfrac{\Var*{\that_2} }{\Var*{\that_1} }.$$
+\textit{Note: } If $\eff*{\that_1,\; \that_2} > 1$, then $\dfrac{\Var*{\that_2} }{\Var*{\that_1} } > 1 \implies \underbrace{\Var*{\that_1}  < \Var*{\that_2} }_{\textstyle \red{\that_1 \scriptstyle \text{ is \say{better}}}}$
+
+\example Let $\thru{Y}$ be an iid random sample from $\normalDist*$. Two estimators of $\sigma^2$ are:
+$$\widehat{\sigma^2_1} = S^2 = \dfrac{1}{n-1} \sum_{i=1}^n (Y_i -\Ybar)^2$$
+$$\widehat{\sigma^2_2} = \over{2} \pars{Y_1 - Y_2}^2$$
+We know $S^2$ is unbiased.
+
+\newpage Show $\widehat{\sigma^2_2}$ is unbiased.
+\begin{align*}
+    \E*{\widehat{\sigma^2_2}} &= \E{\over{2}\pars{Y_1^2 - 2Y_1Y_2 + Y_2^2} }\\
+    &= \over{2}\bigg[ \E{Y_1^2} -2\E{Y_1Y_2} + \E{Y_2^2} \bigg]\\
+    &= \over{2}\bigg[ \Var{Y_1} + \big(\E{Y_1}\big)^2 -2\E{Y_1}\E{Y_2} + \Var{Y_2} +  \big(\E{Y_2}\big)^2 \bigg]\\
+    &= \over{2}\bigg[ \sigma^2 + \mu^2 - 2\mu\cdot \mu + \sigma^2 + \mu^2 \bigg]\\
+    &= \sigma^2 \qquad \text{\red{unbiased.}}
+\end{align*}
+To compute relative efficiency, we need variances.
+
+\nl For $\Var{S^2}$, we know $\dfrac{(n-1)S^2}{\sigma^2} \sim \chi^2 (n-1)$.
+
+\nl By properties of $\chi^2$ distribution, $\Var{\dfrac{(n-1)S^2}{\sigma^2}} = 2(n-1)$.
+
+\nl Then, $\dfrac{(n-1)^2}{\sigma^4}\cdot \Var{S^2} = 2(n-1) \quad \implies \quad \Var{S^2} = \dfrac{2\sigma^4}{n-1}$.
+
+\nnl For $\Var*{\widehat{\sigma^2_2}}$, this takes more work.
+$$\Var{\over{2}(Y_1 - Y_2)^2} = \color{ggreen}\underbrace{\color{black}\E{\pars{\over{2}(Y_1 - Y_2)^2}^2}}_{\displaystyle \ast} \color{black} - \color{red}  \underbrace{\color{black}\brac{\E{\over{2}(Y_1 - Y_2)^2}}^2}_{\displaystyle \sigma^4}$$
+\begin{align*}
+    {\color{ggreen}\ast} &= \over{4} \E{(Y_1-Y_2)^4}\\
+    &= \over{4} \E{Y_1^4   - 4Y_1^3Y_2    + 6Y_1^2Y_2^2    - 4 Y_1Y_2^3  + Y_2^4}\\
+    &= \over{4} \biggbrac{\E{Y_1^4}  - 4\E{Y_1^3}\E{Y_2}  + 6\E{Y_1^2}\E{Y_2^2} - 4 \E{Y_1}\E{Y_2^3}  + \E{Y_2^4}}\\
+    &= \over{4} \biggbrac{2\E{Y^4}  - 8\E{Y^3}\E{Y}  + 6\E{Y^2}^2}\\
+\end{align*}
+We need the higher moments $m_3'$ and $m_4'$. Recall the mgf for $\normalDist*$ is $m(t) = \exp \biggbrac{\mu t + \dfrac{t^2 \sigma^2}{2}}$
+
+\nl 
+
+\begin{align*}
+    m'(t) &= (\mu + t \sigma^2)m(t)\\m'(0) &= \mu m(0) \\ &= \mu \\ &= \E{Y}\\\\
+    m''(t) &= \sigma^2 m(t) + (\mu + t \sigma^2)^2 m(t)\\
+    m''(0) &= \sigma^2 + \mu^2 m(0) \\ &= \sigma^2 + \mu^2 \\&= \E{Y^2}\\\\
+    m^{(3)}(t) &= \sigma^2 m'(t) + 2(\mu + t \sigma^2) \sigma^2 m(t) + (\mu + t \sigma^2)^2 m'(t)\\
+    m^{(3)}(0) &= \sigma^2 m'(0) + 2(\mu + 0 \sigma^2) \sigma^2 m(0) + (\mu + 0 \sigma^2)^2 m'(0)\\
+    &= \sigma^2 \mu + 2\mu\sigma^2 + \mu^3\\
+    &= \mu^3 + 3\mu\sigma^2\\
+    &= \E{Y^3}\\\\
+    m^{(4)}(t) &= \cdots \\
+    m^{(4)}(0) &= \cdots \\
+    &=  \mu^4 + 6\mu^2\sigma^2 + 3\sigma^4\\
+    &= \E{Y^4}
+\end{align*}
+Substituting back into {\color{ggreen}*}, we get ${\color{ggreen}*} = \dfrac{1}{4} (12\sigma^4) = {\color{ggreen}3\sigma^4}$. Thus, 
+$$\Var{\widehat{\sigma^2_2}} = \Var{\over{2}(Y_1 - Y_2)^2} = \color{ggreen}\underbrace{\color{black}3\sigma^4}_{\displaystyle \ast} \color{black} - \color{red}  \underbrace{\color{black} \sigma^4}_{\displaystyle \sigma^4}\color{black} = 2\sigma^4$$
+Hence, $\eff*{S^2,\, \widehat{\sigma^2_2} } = \dfrac{\quad2\sigma^4\quad}{\frac{2\sigma^4}{n-1}} = n-1$

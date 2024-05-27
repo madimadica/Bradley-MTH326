@@ -1,0 +1,15 @@
+\section{A big ol theorem}
+
+\nl Theorem: Let $Y_i = \beta_0 + \beta_1 f_1(x_i) + \cdots + \beta_k f_k (x_i) + \varepsilon_i$ where $\varepsilon_i \sim \normalDist{0, \sigma^2}$ (with $\Eb{\varepsilon} = 0$).
+
+\nl Then the least-squares estimates are given by $\widehat{\beta} = (X^TX)^{-1}X^Ty$ provided $(X^TX)^{-1}$ exists. Then 
+
+\begin{enumerate}[label=\textcircled{\raisebox{-1pt}{\arabic*}}]
+    \item $\E*{\betah_i} = \betah_i \qquad \text{(unbiased)}$
+    \item $\Var*{\betah_1} = c_{i\,i} \sigma^2$ \hspace{.2in} where $(X^TX)^{-1} = [c_{i\,j}]$
+    \item $\Cov(\betah_i, \betah_j) = c_{i\,j} \sigma^2$
+    \item $S^2 = \dfrac{\operatorname{SSE}}{n-(k+1)}$ \hspace{.1in} with $k+1 \; \betah_i$'s and $\operatorname{SSE} = y^Ty - \betah^T X^Ty$ and $\E{S^2} = \sigma^2$ (unbiased)
+    \item $\betah_i$ is normally distributed.
+    \item $\dfrac{(n-(k+1))S^2}{\sigma^2} \sim \chi^2(n-(k+1))$
+    \item $S^2$ and $\betah_1$ are independent for all $i$.
+\end{enumerate}

@@ -1,0 +1,29 @@
+\section{Evaluating the Goodness of a Point Estimator}
+\defn* Given any $\that$, the exact (theoretical) error is defined as
+$$\varepsilon = \big| \that - \theta \big|$$
+Note that $\varepsilon$ is itself a random variable, and thus we can make probability statements about it. Obviously we want $\varepsilon$ to be small. Consider $\big| \that - \theta \big| < b$. We can make conclusions about
+$$P\big(\big| \that - \theta \big| < b\big)$$
+
+\noindent Chebyshev: $$P\big(\big| \that - \theta \big| < k\sigma\big) > 1 - \over{k^2}$$
+\remark We call $\sigma = \sqrt{\sigma^2}$ the \bu{standard error} in stats.
+
+\nl In practice, $k = 2$ is a common choice.
+$$\P{\big| \that - \theta \big| < 2\sigma} > 1 - \over{2^2} = \frac{3}{4} = 0.75$$
+In the real world, $2\sigma$ is usually much better than this (see Table 8.2) when the underlying distribution
+$\that$ is symmetric and unimodal.
+
+\nl Last working assumption for a few lectures: in real life we use $S^2 \approx \sigma^2$ (more later).
+
+\example (Difference in means)
+
+\nl 2 iid random samples:
+$$n_1 = 100 \qquad \bar{Y_1} = \num[group-separator={,}]{26400} \qquad {S_1}^2 = \num{1440000}$$
+$$n_2 = 200 \qquad \bar{Y_2} = \num{25100} \qquad {S_2}^2 = \num{1960000}$$
+
+\nl Estimating difference in means $\mu_1 - \mu_2$. Here,
+$$\bar{Y_1} - \bar{Y_2} = \underbrace{\num{26400} - \num{25100}}_{\text{a point estimate}} = \num{1300}$$
+\recall $\sigma^2_{\Ybar_1 - \Ybar_2} = \dfrac{\sigma^2_1}{n_1} + \dfrac{\sigma^2_2}{n_2}$. Use $S^2_{\bar{Y_1} - \bar{Y_2}}$ to find a $2\sigma$ interval estimate:
+$$\sigma^2_{\bar{Y_1} - \bar{Y_2}} \approx S^2_{\bar{Y_1} - \bar{Y_2}} = \frac{S_1^2}{n_1} + \frac{S_2^2}{n_2} \approx \frac{\num{1440000}}{100} + \frac{\num{1960000}}{200} = \num{22800}$$
+$$\sigma_{\bar{Y_1} - \bar{Y_2}} \approx S_{\bar{Y_1} - \bar{Y_2}} = \sqrt{S_{\bar{Y_1} - \bar{Y_2}}^2} = \sqrt{\num{22800}} \approx 151$$
+
+\nl Therefore, a $2\sigma$ interval estimate for $\mu_1 - \mu_2$ is $1300 \pm \green{2}(151) \implies 1300 \pm 302 \text{ or } (998, 1602)$

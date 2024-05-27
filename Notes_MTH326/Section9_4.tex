@@ -1,0 +1,197 @@
+\section{Sufficiency}
+\disc Among a collection of estimators, how do we choose which one to work with and why?
+
+\nl Conceptually: A statistic is deemed \bu{\color{neonorange}sufficient} if it \say{contains all of the available information about a parameter,} given some random sample.
+
+\example
+
+\nl Statistician 1 has the data $\thru{X}$ and computes an estimator $\that$.
+
+\nl Statistician 2 has only the stat $T = \tau(\thru{X})$ estimating $\theta$.
+
+\nl Sufficient implies both statisticians can make equally correct estimates about $\theta$. Equivalently, a sufficient estimator $\that$ utilizes all of the information in a sample relating to $\theta$.
+
+\nl In either case, both are able to make the \say{same} conclusions about $\theta$. 
+
+\defn Let $\yn$ be a sample from a probability distribution that is known up to parameter $\theta$.
+
+\nl The statistic $T = \tau(\yn)$ is \bu{sufficient for $\theta$} if the conditional distribution of $\yn$ given $T$ does not depend on $\theta$.
+
+\nnl \textit{Remark:} \bu{Sufficiency Principle:}
+
+\nl Given 2 data sets $\thru{X}$ and $\thru{Y}$ where the stats $$\tau(\thru{X}) = \tau(\thru{Y}) = T$$
+Any inference about $\theta$ should be the same regardless of the data set.
+
+\example (One time only via the definition)
+
+\nl Let $Y \sim \operatorname{Bern}(p)$\\
+i.e. $\Pr(Y=1) = p,\; \Pr(Y=0) = 1-p$.
+
+\nl Let $Y_n$ be a sequence of observations. We have $\phat = \dfrac{\sum Y_i}{n}$.
+
+\nl \red{Sufficiency Principle:}
+
+\nl Any sequence with $k$ 1's and $n-k$ 0's is going to yield the same $\phat$. In other words, same inferences about $p$.
+
+\nl Let $S = \sum Y_i$
+
+\nl To show $S$ is sufficient for $p$, we must show that the conditional distribution of the data $\yn$ given $S$ does not depend on $p$.
+
+\newpage\noindent For $k \in (0, 1, 2, \dots, n), \; S = Y_1 + \cdots + Y_n = k$. We have,
+\begin{align*}
+    \prob{Y_1 = y_1, \dots,\; Y_n = y_n \mid S = k} &= \frac{\prob{Y_1 = y_1, \; \dots, \; Y_n = y_n \text{ and } S = k}}{\Pr(S=k)}\\
+    &= \left\{ \begin{array}{cc}
+        0 & \hspace{5mm} \sum Y_i \neq k \\
+        \displaystyle \frac{\prob{Y_1 = y_2, \; \dots, \; Y_n = y_n \text{ and } S = k}}{\Pr(S=k)} & \hspace{5mm} \sum Y_i = k
+        \end{array} \right.\\
+     &=  \frac
+     {\overbrace{\prod_{i=1}^n \Pr(Y_i=y_i)}^{\color{blue}\text{independent}}}
+     {\underbrace{\Pr(S=k)}_
+     {\color{red}\substack{\text{Binomial, } k \text{ \say{successes}}\\ \text{in } n \text{ trials}}
+     \color{black}}}\\
+     &= \frac
+     {\displaystyle p^{y_1}(1-p)^{1-y_1} \times \cdots \times p^{y_n}(1-p)^{1-y_n}}
+     {\displaystyle  \binom{n}{k}p^k (1-p)^{n-k}}\\\\
+     &=  \frac
+     {\displaystyle  p^{\textstyle \sum_1^n Y_i}(1-p)^{\textstyle n-\sum_1^n Y_i}}
+     {\displaystyle  \binom{n}{k}p^k (1-p)^{n-k}}\\\\
+     &= \frac
+     {\displaystyle  p^k (1-p)^{n-k}}
+     {\displaystyle \binom{n}{k}p^k(1-p)^{n-k}}\\\\
+     &= \left\{ \begin{array}{cl}
+        0 & \hspace{5mm} S \neq k \\\\
+        \displaystyle \dfrac{1}{\displaystyle \binom{n}{k}} & \hspace{5mm} S = k  \qquad \leftarrow \text{ independent of } p
+        \end{array} \right.
+\end{align*}
+
+\noindent \red{By definition, $S = \sum Y_i$ is sufficient.}
+
+\nl \textit{Remark:} Started with $\phat = \frac{S}{n}$.
+
+\nnl \textbf{Note:} Any one-to-one transformation (injection) of a sufficient stat will again be sufficient. 
+
+\example $f(x) = \dfrac{x}{n}$ is an injection (has invertible form).
+
+$$S \text{ sufficient} \implies \frac{S}{n} \text{ sufficient}$$
+Thus $\phat$ is also sufficient.
+
+\example $\sqrt{x}$ is also an injection on $[0,\,1]$.
+
+\nl Thus $\sqrt{S}$ is sufficient.
+
+\nnl \textbf{Topic:} The Factorization Theorem:
+
+\nl \color{red}In practice we do not use the definition.\color{black}
+
+\addcontentsline{toc}{subsection}{The Factorization Theorem}
+\nl \textbf{Theorem: The Factorization Theorem}
+
+
+\nl Let $\thru{X}$ denote a random sample from a distribution with pdf $f(x \mid \theta)$
+
+\nl \color{orange}(distribution depends on the unknown parameter $\theta$)\color{black}
+
+\nnl The statistic $T = \tau(\thru{x})$
+is a sufficient statistic for $\theta$ if and only if the conditional pdf can be factored as follows.
+$$L(\thru{x} \mid \theta) = g(\tau(\thru{x}) \mid \theta) \cdot h(\thru{x})$$
+Where
+\begin{itemize}
+    \item $g$ is a function that depends on the data only through the stat $T$
+    \item $h$ does not depend on $\theta$
+\end{itemize}
+
+\nnl\textit{Remarks:}
+\begin{enumerate}[label=\textcircled{\raisebox{-1pt}{\arabic*}}]
+    \item Via independence (of data)
+    $$L(\thru{x} \mid \theta) = f(x_1 \mid \theta) \cdot f(x_2 \mid \theta) \times \cdots \times f(x_n \mid \theta)$$
+    The product of the marginals.
+    \vspace{.2in}
+    \item The function $L$ is called the \bu{likelihood of the sample.}
+\end{enumerate}
+
+\example Let $\thru{X}$ denote a random sample from a Poisson distribution with parameter $\lambda > 0$. Find a sufficient statistic for the parameter $\lambda$.
+
+\nl Here,
+$$f(x) = \frac{\lambda^x e^{-\lambda}}{x!}\;,\; x = 0,\, 1,\, 2,\,\dots$$
+\begin{align}
+L(x_1,\, x_2\, \dots,\,x_m \mid \lambda) &= 
+f(x_1 \mid \lambda)\cdot f(x_2 \mid \lambda)\times \cdots \times f(x_n \mid \lambda) \notag\\
+&= \frac{\lambda^{x_1} e^{-\lambda}}{x_1!} \cdot \frac{\lambda^{x_2} e^{-\lambda}}{x_2!}\times \cdots \times \frac{\lambda^{x_n} e^{-\lambda}}{x_n!}\notag\\
+&= \underbrace{\lambda^{x_1 + \cdots + x_n}e^{-\lambda n}}_{\substack{\color{ggreen}\textstyle S := \sum X_i\\ \color{ggreen}\textstyle g(S \mid \lambda) }} \cdot \underbrace{\frac{1}{x_1! \cdot x_2! \cdot \cdots \cdot x_n!}}_{\color{red}\textstyle h(\thru{x})}\notag
+\end{align}
+With $S=\sum X_i$,
+$$\color{ggreen}g(S \mid \lambda)\color{black} = e^{-\lambda n}\lambda^S$$
+and
+$$\color{red}h(\thru{x})\color{black} = \over{x_1! \cdot x_2! \cdot \cdots \cdot x_n!}$$
+
+\noindent \color{orange} By Factorization Theorem, $S$ is a sufficient statistic.\color{black}
+
+\nnl \textbf{Note:} $\Xbar = \dfrac{1}{n} \sum X_i$ or $n\Xbar = S = \sum X_i$. So,
+$$g(S \mid \lambda) = e^{-\lambda}\lambda^{n\Xbar} = g(\Xbar \mid \lambda)$$
+Therefore $\Xbar$ is also a sufficient statistic.
+
+\example The $\phat$ example again. $Y\sim \operatorname{Bern}(p)$.
+\begin{align}
+    L(\thru{y} \mid p) &= f(y_1 \mid p) \times \cdots \times f(y_n \mid p)     \notag\\
+    &= p^{y_1}(1-p)^{1-y_1}\times \cdots \times p^{y_n}(1-p)^{1-y_n} \notag\\
+    &= p^{\sum y_i}(1-p)^{n-\sum y_i} \hspace{0.5in} \color{orange}\textstyle S := \sum y_i\color{black} \notag\\
+    &= \color{ggreen}\underbrace{\color{black} p^{\color{orange}S}(1-p)^{n-\color{orange}S}}_{\textstyle g(S \;\mid\; p)}\cdot \color{red} \underbrace{1}_{\textstyle h(\vec{y})} \notag
+\end{align}
+Where $\vec{y}$ is the $n$ tuple $y_1, y_2, \dots, y_n$.
+
+\nl By Factorization Theorem, $S$ is sufficient.
+
+\nnl \textbf{Yesterday:} Sufficiency
+$\underbrace{f(\thru{x}\mid S)}_{S \text{ is sufficient for }\theta} = \underbrace{\frac{f(\thru{x} \text{ and } S(p) = s)}{f(s)}}_{\text{conditional prob is independent of } \theta}$
+
+\nl Factorization theorem:
+$$L(\thru{x} \mid \mu) = \underbrace{g(\mu,\;s)}_{\substack{S \text{ is} \\ \text{sufficient} \\ \text{for } \theta }} \cdot h(\vec{x})$$
+
+\example Let $\thru{X}$ be a random sample from $N(\mu,1)$. \color{blue} (unknown $\mu$, $\sigma^2 = 1$.)\color{black}
+$$f(x) = \frac{1}{\sqrt{2\pi} \exp\brac{\dfrac{-(x-\mu)^2}{2}}}$$
+
+\nl Find a sufficient statistic for $\mu$.
+
+\nl Construct Likelihood function,
+\begin{align}
+    L(\thru{x}\mid \mu) &= f(x_1 \mid \mu) \cdots f(x_n \mid \mu)\notag\\
+    &= \frac{1}{\sqrt{2\pi}} \exp\brac{\frac{-(x_1-\mu)^2}{2}} \times \cdots\times \frac{1}{\sqrt{2\pi}} \exp\brac{\frac{-(x_n-\mu)^2}{2}}\notag\\
+    &= \pars{\over{\sqrt{2\pi}}}^2\exp\brac{-\over{2} \sum (x_i - \mu)^2}\notag\\
+    &= \over{(2\pi)^{n/2}}\exp\brac{-\over{2} \sum (x_i^2 - 2x_i\mu + \mu^2)}\notag\\
+    &= \over{(2\pi)^{n/2}}\exp\brac{-\over{2} \sum (-2x_i\mu + \mu^2)}\cdot \exp\brac{-\over{2}\sum x_i^2}\notag\\
+    &= \over{(2\pi)^{n/2}}\exp\brac{-\over{2}\pars{-2\mu \sum x_i + n\mu^2}}\cdot \exp\brac{-\over{2}\sum x_i^2}\notag\\
+    &= \over{(2\pi)^{n/2}}\underbrace{\exp\brac{\mu \sum x_i -\over{2}n\mu^2}}_{\textstyle \text{Define } S := \sum x_i}\exp\brac{-\over{2}\sum x_i^2}\notag
+\end{align}
+\color{ggreen}
+$$g(S \mid \mu) = \over{(2\pi)^{n/2}} \operatorname{exp}\brac{\mu S - \frac{n\mu^2}{2}}$$
+\color{orange}
+$$h(\vec{x}) = \operatorname{exp}\brac{-\over{2}\sum x_i^2}$$\color{black}
+By Factorization Theorem, $S$ is a sufficient statistic for $\mu$.
+
+\example (9.49)
+
+\nl Suppose $X_i \sim \operatorname{Unif}(0,\,\theta)$, $\theta$ unknown. Then,
+$$f(x) = \over{\theta} \,, \qquad x \in [0, \, \theta]$$
+(In this, we use $X_{(n)} = \operatorname{max}\{\thru{x}\}$ as an estimator of $\theta$.)
+
+\nl $f(x_1 \mid \theta) \times \cdots \times f(x_n \mid \theta) = \dfrac{1}{\theta^n}$
+independent of any $x_i$'s.
+
+\nl To bring the $x_i$'s into the story, we use the indicator function
+$$I_{[0,\,\theta]}(x) = \begin{cases} 1 & x \in [0,\theta]\\ 0 & \text{else} \end{cases}$$
+So, 
+$$f(x) = \frac{I_{[0,\,\theta]}(x)}{\theta}$$
+With this,
+\begin{align}
+    L(\thru{x} \mid \theta) &=  \frac{I_{[0,\,\theta]}(x_1)}{\theta} \times \cdots  \times \frac{I_{[0,\,\theta]}(x_n)}{\theta}\notag\\
+    &= \over{\theta^n}I_{[0,\,\theta]}(x_i \in [0, \theta],\; i=1,2,\dots, n)\notag
+\end{align}
+Now, $x_i \leq \theta$ for all $i$ if and only if $\operatorname{max}\{\thru{x}\} \leq 0$. So,
+$$L(\thru{x} \mid \theta) = \over{\theta^n}I_{[0,\,\theta]}(\operatorname{max}\{\thru{x} \leq \theta\})$$
+Define statistic $T := \operatorname{max}\{\thru{x}\}$ and then
+$$g(T \mid \theta) = \over{\theta^n}I_{[0,\,\theta]}(T)$$
+$$h(\thru{x}) = 1$$
+By the Factorization Theorem, $T = \operatorname{max}(\thru{x})$ is a sufficient statistic.
+
+\nl \textbf{Note:} $\Xbar$ is not sufficient since there is no way to bring $\Xbar$ into $L$.\\
+(Of course, no reason we should be able to do so since $\Xbar$ is also biased for $\theta\dots$ and clearly not consistent. $\Xbar \to \dfrac{\theta}{2}$ and these $\Xbar \to \theta$ in probability)

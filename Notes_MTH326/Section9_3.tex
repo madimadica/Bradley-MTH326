@@ -1,0 +1,172 @@
+\section{Consistency}
+\textbf{Discussion: } \say{Covergence in probability}
+
+\nl This is a different type of analysis than that of Calculus.
+
+\example MTH 420, \say{pointwise} convergence:
+$$f_n(x) = x^n,\quad x \in [0,\,1] \qquad \limn f_n(x) = \begin{cases}0 & x \in [0,\,1)\\ 1 & x = 1\end{cases}$$
+
+\nl Let $x \in (0,1)$. To show $x^n \to 0$:\\
+For any $\epsilon > 0$, need an index $N$ such that when $n > N$ we get $\abs{x^n - 0} < \epsilon$
+$$\text{Choose } \; N > \ceiling{\frac{\ln \epsilon}{\ln x}}$$
+In probability, convergence is about the probabalistic measure of an event.
+
+\example Law of Large Numbers:
+
+\nl $A$, an event associated with an event $E$. $\Pr(A) = p.$
+
+\nl Do $n$ iid repetitions of $E$ and count $n_A := \text{number of times } A \text{ occurs}$.
+
+\nl The relative frequency $f_A = \dfrac{n_A}{n}$. \red{The Law of Large Numbers says $f_A \to p$}
+
+\nl What does this mean exactly? \red{Conclusion: $\underbrace{\Pr(\abs{f_A-p}<\epsilon)}_{{\color{ggreen}*}} \geq 1 - \dfrac{p(1-p)}{n\epsilon^2}$}
+
+\nl {\color{ggreen}*} This means the probability that $p$ is in the confidence interval $f_A - \epsilon \leq p \leq f_A + \epsilon$.
+
+\nl Convergence? $\displaystyle \limn \Pr(\abs{f_A-p} < \epsilon ) \geq \limn \pars{1-\frac{p(1-p)}{n\epsilon^2}} = 1$
+$$\implies \limn \Pr(\abs{f_A - p} < \epsilon) = 1$$
+\begin{center}\red{This is convergence in probability!}\end{center}
+
+\nl In probability, convergence is about the probabalistic measure of an event (measure theory).
+
+\defn Estimatior $\that$ is \bu{consistent} if $\that \to \theta$ in probability.
+
+\nl That is $\that_n$ is a consistent estimator of $\theta$ if for any $\epsilon > 0$
+$$\limn \P{\abs{\that_n - \theta} \leq \epsilon} = 1$$
+
+$$\text{or } \quad \limn \P{\abs{\that_n - \theta} > \epsilon} = 0$$
+
+\disc A tool for showing consistency:
+
+\nl \textbf{Theorem} \addcontentsline{toc}{subsection}{Consistency Theorem} An unbiased estimator $\that_n$ for $\theta$ is consistent if
+$$\limn \Var*{\that_n} = 0$$
+
+\begin{proof}
+Let $\epsilon > 0$, then consider, 
+$$\prob{\left| \that_n - \theta \right| > \epsilon}$$
+
+\nl Recall Chebyshev's Theorem
+$$\Pr (\abs{Y-\mu} > k\sigma) \leq \over{k^2}$$
+Here $\epsilon = k\sigma_{\that_n} \implies k = \dfrac{\epsilon}{\sigma_{\that_n}}, \qquad \displaystyle 0 \leq \P{\left| \that_n - \theta \right| > \epsilon} \leq \frac{1}{(\epsilon \big/\sigma_{\that_n})^2}$
+
+\nl Then
+$$\P{\left|\that_n- \theta \right| > \epsilon} \leq \frac{\sigma_{\that_n}^2}{\epsilon^2} = \frac{\Var*{\that_n}}{\epsilon^2}$$
+
+\nl As $n \to \infty$,
+$$0 \leq \limn \P{\left| \that_n - \theta \right| > \epsilon} \leq \limn \frac{\Var*{\that_n}}{\epsilon^2} = 0$$
+$$\implies \P{\left| \that_n - \theta \right| > \epsilon} = 0$$
+Hence, $\that_n \to \theta$ in probability.
+\end{proof}
+
+\example (Common) Consistent Estimators
+
+\begin{enumerate}[label=\textcircled{\raisebox{-1pt}{\arabic*}}]
+	\item
+		$\Ybar$ know unbiased for $\mu$ and
+		$$\Var*{\Ybar} = \frac{\sigma^2}{n}$$
+		Provided that $\sigma^2$ is finite, $\limn \Var*{\Ybar} = 0$
+
+		\nl $\Ybar$ is consistant, that is, $\Ybar \to \mu$
+
+	\item
+		$\phat$ unbiased for $p$.
+		$$\Var{\phat} = \frac{pq}{n} \quad \text{and}\quad \limn \Var{\phat} = 0$$
+		$$\implies \phat \to p \text{ i.e. consistent}$$
+\end{enumerate}
+
+\nnl \textbf{Example: (9.17 \& 9.18)}\\$\thru{X}$ and $\thru{Y}$ are iid random samples with $\mu_x$ and $\mu_y$ \\but
+$\Var*{X} = \Var*{Y} = \sigma^2$.
+
+\begin{enumerate}[label=\textbf{\alph*}.) ]
+	\item
+		Show that $\Xbar - \Ybar$ is a consistent estimator of $\mu_x - \mu_y$.
+		
+		\nl \textbf{Solution:} We showed in Chapter 8 that $\E*{\Xbar - \Ybar} = \mu_x - \mu_y$ is unbiased.
+
+		\nl Then $\Var*{\Xbar -\Ybar} = \Var*{\Xbar} + (-1)^2\Var{\Ybar} = \dfrac{2\sigma^2}{n}$.
+
+		\nl Because $\displaystyle \limn \Var*{\Xbar -\Ybar} = 0$, we have consistency. 
+
+	\item
+		Show that the pooled estimator,
+		$$S^2_p = \frac{\sum_1^n (X_i - \Xbar)^2 + \sum_1^n(Y_i - \Ybar)^2}{2n-2}$$
+		is a consistent estimator of $\sigma^2$ when $X, Y \sim \normalDist*$.
+
+		\nl \textbf{Solution:} To show unbiased we need $\Var{S_p^2}$.
+
+		\nl \say{Trick,} convert to a distribution we understand well.
+        \begin{align*}
+		\underbrace{\frac{(2n-2)S_p^2}{\color{red}\sigma^2\color{black}}}_{\substack{\chi^2(2n-2)\\ \text{By Fisher's}} } &= \frac{\displaystyle \sum_{i=1}^n (X_i - \Xbar)^2 + \sum_{i=1}^n(Y_i - \Ybar)^2}{\color{red}\sigma^2\color{black}}\\
+		&= \underbrace{\sum_{i=1}^n \pars{\frac{X_i - \Xbar}{\sigma}}^2 + \sum_{i=1}^n \pars{\frac{Y_i - \Ybar}{\sigma}}^2}_{\textstyle U_n \sim \chi^2 (2n-2)}
+		\end{align*}
+
+		$$\E{\frac{(2n-2)S_p^2}{\sigma^2}} = 2n-2 \text{ by properties of } \chi^2$$
+		$$\frac{2n-2}{\sigma^2} \E{S_p^2} = 2n-2 \implies \E{S_p^2} = \sigma^2 \quad \text{\red{unbiased.}}$$
+		
+        \nnl For consistency, use same \say{trick.}
+		$$\Var{\frac{(2n-2)S_p^2}{\sigma^2}} = \Var{U_n}$$
+		$$\pars{\frac{2n-2}{\sigma^2}}^2 \Var{S_p^2} = 2\cdot(2n-2)\quad \text{ by properties of } \chi^2$$
+		$$\Var{S_p^2} = \frac{2\sigma^4}{2n-2}$$
+		$$\limn \Var{S_p^2} = 0 \;\text{ therefore } S_p^2 \text{ is consistent.}$$
+\end{enumerate}
+
+\newpage\noindent \textbf{Theorem:} \say{The Limit Laws} (For probability convergence)
+\addcontentsline{toc}{subsection}{Probabalistic Convergence Limit Laws} 
+
+\nl Let $\that_n \to \theta$ and $\Psihat_n \to \Psi$. Then,
+\begin{enumerate}[label=\textcircled{\raisebox{-1pt}{\arabic*}}]
+\item $\that_n + \Psihat_n \to \theta + \Psi$
+\item $\that_n \cdot \Psihat_n \to \theta \cdot \Psi$
+\item $\dfrac{\that_n}{\Psihat_n} \to \dfrac{\theta}{\Psi}$
+\item If $g$ is a continuous function at $\theta$, then $g(\that_n) \to g(\theta)$
+\end{enumerate}
+
+\example $S_p^2$ again.
+\begin{align}
+    S^2_p &= \frac{\sum_1^n (X_i - \Xbar)^2 + \sum_1^n(Y_i - \Ybar)^2}{2n-2} \notag\\
+    &=  \frac{(n-1)S_{\Xbar}^2 + (n-1)S_{\Ybar}^2}{2n-2}\notag\\
+    &= \frac{S^2_{\Xbar} + S^2_{\Ybar}}{2}\notag
+\end{align}
+
+\nl But we already know $S_{\Xbar}^2 \to \sigma^2 \text{ and } S^2_{\Ybar} \to \sigma^2$
+
+\nl Hence, by the Limit laws,
+$$S_p^2 \to \frac{\sigma^2 + \sigma^2}{2} = \sigma^2$$
+
+\disc Consistency and large $n$ confidence intervals
+
+\nl We have $\Ybar_n \pm Z_{\alpha/2} \dfrac{S_n}{\sqrt{n}}$
+By consistency, $\Ybar_n \to \mu$ and $S_n \to \sigma$
+
+\nl Hence, when $\sigma$ is finite, $\Ybar_n \pm Z_{\alpha/2}\frac{S_n}{\sqrt{n}} \to \mu$
+
+\nl Hence $\displaystyle \limn \Pr\pars{\abs{\Ybar_{(n)} - \mu < Z_{\alpha/2}\frac{S_n}{\sqrt{n}}} < \epsilon } = 1$
+
+\nl That is, $\Ybar_{(n)} \pmp Z_{\alpha/2} \dfrac{S_n}{\sqrt{n}} \to\mu $ in probability.
+
+\nl \say{Consistency justified our working assumption in Chapter 8}
+
+\newpage \noindent \textbf{Example: (9.24)}
+
+\nl Let $\thru{Z}$ be an iid random sample with $Z \sim N(0,1)$
+
+\nl Let $\displaystyle U_n = \sum_{i=1}^n Z_i^2 \qquad Z = \frac{Z_i - \mu}{\sigma}$
+
+\nl We \say{know} $U_n \sim \chi^2(n)$
+$$\text{Showed in old HW that } Z^2 \sim X^2(n)$$
+
+\nl In notes, we used the product of $n$ mgfs to show that $U_n \sim \chi^2(n).$
+
+\nl Hence, $\E{U_n} = n$ and $\Var{U_n} = 2n$. Let
+$$W_n := \over{n} U_n$$
+Note that $\displaystyle \E{W_n} = \over{n}\E{U_n} = 1$
+
+\nl \red{Hence, $W_n$ is an unbiased estimator when $\sigma^2 = 1$}
+\begin{align*}
+\Var{W_n} &= \Var{\over{n} U_n} \\
+&= \over{n^2} \Var{U_n} \\
+&= \over{n^2} \cdot 2n \\
+&= \frac{2}{n}
+\end{align*}
+
+\nl Since $\displaystyle \limn \Var{W_n} = 0$, we get $W_n \to 1$ in probability.

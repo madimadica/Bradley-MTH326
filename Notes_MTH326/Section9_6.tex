@@ -1,0 +1,96 @@
+\section{The Method of Moments}%9.6
+This is out oldest estimation technique. If there are $k$ parameters that have to be estimated, set the $1^{\text{st}}$ $k$ population moments \underline{(given in terms of the parameters)} and set them equal to the sample moments.
+
+\recall*
+$$\underbrace{\mu_k' = \E{Y^k}}_{\textstyle \text{\color{red}population}} \qquad \text{and} \qquad \underbrace{m_k' = \over{n}\sum Y_i^k}_{\textstyle \text{\color{red}data set}}$$
+
+\example Let $Y \sim \normalDist*$. Then
+\begin{align*}
+\mu_1' &= \E{Y} = \mu\\
+\mu_2' &= \E{Y^2} = \sigma^2 + \mu^2\\\\
+m_1' &= \over{n}\sum Y_i = \Ybar\\
+m_2' &= \over{n}\sum Y_i^2
+\end{align*}
+Set equal and solve for paramters, then 
+$$\mu = \Ybar$$
+$$\sigma^2 + \mu^2 = \over{n}\sum Y_i^2$$
+Want $\sigma^2$ in terms of sample moments.
+$$\sigma^2 + \Ybar ^2 = \over{n}\sum Y_i^2$$
+$$\sigma^2 = \over{n}\sum Y_i^2 - (\Ybar)^2$$
+Yields 2 estimators:
+\begin{align*}
+    \that &= \Ybar \quad \text{for } \mu\\
+    \Psihat &= \over{n} \sum Y_i^2 - (\Ybar)^2 \quad \text{for } \sigma^2
+\end{align*}
+Note: $\Psihat$ is our \say{old} biased estimator for $\sigma^2$. While both of these are consistent stats, $\Psihat$ is biased as $\E*{\Psihat} = \dfrac{n-1}{n}\sigma^2$.
+
+\example Suppose $\thru{Y} \sim \gammaDist{\alpha}{\beta}$. Use MoM to find estimators for $\alpha$ and $\beta$.
+
+\nnl Recall for Gamma, $\E{Y} = \alpha\beta$, $\Var{Y} = \alpha\beta^2$. So,
+
+\begin{align*}
+    \mu_1' &= \alpha\beta\\
+    m_1' &= \Ybar\\
+    \mu_2' &= \over{n}\sum Y_1^2\\
+    &= \E{Y^2} \\
+    &= \Var{Y} + \pars{\E{Y}}^2\\
+    &= \alpha\beta^2 + (\alpha\beta)^2\\
+    &= \beta^2(\alpha + \alpha^2)\\
+    m_2' &= \over{n}\sum Y_i^2
+\end{align*}
+
+\nl \red{System:} $\qquad \alpha\beta = \Ybar \qquad  \beta^2(\alpha + \alpha^2) = m_2' \qquad \alpha = \dfrac{\Ybar}{\beta} \qquad$ Then,
+\begin{align}
+m_2' &= \beta^2 \pars{\frac{\Ybar}{\beta} + \frac{\Ybar^2}{\beta^2}}\notag\\
+&= \Ybar^2 + \beta \Ybar \notag\\
+\Longleftrightarrow \quad \beta\Ybar &= m_2' - \Ybar^2 \notag\\
+\Longleftrightarrow \quad \beta &= \frac{m_2' -\Ybar^2}{\Ybar}\notag\\
+\Longrightarrow \quad \alpha &= \frac{\Ybar^2}{m_2'-\Ybar^2}\notag
+\end{align}
+
+\nl Define $\alpha$'s estimator $\displaystyle \that :=  \frac{\Ybar^2}{m_2'-\Ybar^2}$.
+
+\nl and $\beta$'s estimator $\Psihat := \dfrac{m_2' -\Ybar^2}{\Ybar}$.
+
+%new day
+\nnl The following is the last example using MoM:
+
+\example* $\thru{Y} \sim \operatorname{Unif}(0,\,\theta)$, with $\theta$ unknown.
+
+$$\mu_1' = \E{Y} = \frac{\theta}{2} \hspace{1in} m_1' = \over{n} \sum Y_i = \Ybar$$
+Mom set equal solution for population parameters.
+$$\frac{\theta}{2} = \Ybar \quad \Longrightarrow \quad \theta = 2\Ybar$$
+Define $\that := 2\Ybar$.
+
+\nl So this is another estimator for $\theta$. Is it any good?
+
+\nl Well, it is unbiased since $\E{2\Ybar} = 2\cdot\frac{\theta}{2} = \theta$ and it is consistent.
+
+\nl Use variance trick to show$\dots$
+
+$$\Var{2\Ybar} = 4\Var{\Ybar} = 4 \frac{\Var{Y}}{n} = 4 \cdot \frac{\theta^2 / 12}{n} = \frac{\theta^2}{3n}$$
+
+\nl Note:
+$$\limn \Var{2\Ybar} = \limn \frac{\theta^2}{3n} = 0$$
+Consistent by theorem. However, earlier we showed $\Psihat = \max{\thru{Y}}$ is sufficient. Consider $\Var*{\Psihat}$.
+
+\nl Like in Homework, $\displaystyle F(y) = \int_0^y \frac{1}{\theta}\,dy = \frac{y}{\theta}$
+$$\P{Y_{(n)} \leq y} = \pars{\frac{y}{\theta}}^n = \frac{y^n}{\theta^n}.$$
+
+\nl And $\displaystyle f_{(n)}(y) = \frac{ny^{n-1}}{\theta^n}$, thus
+$$\E*{\Psihat} = \int_0^{\theta} y \cdot f_{(n)}(y)\,dy = \frac{n}{n+1}\theta.$$
+$\Psihat$ is biased but it is consistent since $\displaystyle \limn \operatorname{E}[\,\Psihat\,] \to \theta$. For $\Var*{\Psihat} = \E*{\Psihat^2} - \E*{\Psihat}^2$:
+$$\E*{\Psihat^2} = \int_0^{\theta} y^2 \cdot \frac{ny^{n-1}}{\theta^n} = \frac{n}{n+2}\theta^2$$
+So...
+$$\Var*{\Psihat} =  \frac{n}{n+2}\theta^2 - \pars{\frac{n}{n+1}\theta}^2 = \frac{n\theta^2}{(n+1)^2(n+2)}$$
+And this variance is much better than $\Var*{\that}$.
+
+$$\bias*{\that} = 0$$
+$$\bias*{\Psihat} = \frac{n}{n+1} \theta - \theta = -\frac{\theta}{n+1}$$%the RH value is wrong
+$$\MSE*{\that} = \Var{\that} + \bias*{\that}^2 = \frac{\theta^2}{3n}$$
+$$\MSE*{\Psihat} = \frac{n\theta^2}{(n-2)(n+1)^2} + \frac{\theta^2}{(n+1)^2}$$
+We see both $\Var*{\Psihat} < \Var*{\that}$ and $\MSE*{\Psihat} < \MSE*{\that}$
+
+\nl Of course, if we were to define
+$$\Psitil := \frac{n+1}{n}\Psihat$$
+Now we have an unbiased consistent statistic. Last day, we showed that $\Psihat$ is sufficient. So by the Rao-Blackwell Theorem, $\Psitil$ will be an MVUE. That is, $\Var*{\Psitil} \leq \Var*{\Psihat}$.

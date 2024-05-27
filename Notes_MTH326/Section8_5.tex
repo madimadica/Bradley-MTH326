@@ -1,0 +1,104 @@
+\section{Confidence Intervals}
+Goal: Take interval estimates from $\S$8.4 but make more precise comments about the probability $\P{\big| \that - \theta \big| < k\sigma}$
+$$-k\sigma < \that-\theta < k\sigma\quad \iff \quad \that - k \sigma < \theta < \that + k\sigma$$
+
+\nl Consider
+$$\P{\that_L \leq \theta \leq \that_u} = 1 - \alpha$$
+$\that_L$ and $\that_U$ are the lower and upper \bu{confidence limits}, respectively.
+
+\nl $1-\alpha$ is the \bu{confidence coefficient}.
+
+\example
+
+\nl Want $9\%$ CI, chose $\alpha = 5\%$ when we know how $\that$ is distributed. We can use standardization methods to find the limits.
+
+\nnl Two sided confidence interval:
+$$\P{\that_L \leq \theta \leq \that_u} = 1 - \alpha$$
+One sided:
+$$\P{\that_L \leq \theta} = 1 - \alpha \qquad \P{\that_U \geq \theta} = 1 - \alpha$$
+\textbf{Discussion:} The pivotal method for finding confidence intervals.
+\begin{enumerate}[label=\textcircled{\raisebox{-1pt}{\arabic*}}]
+    \item We know how a r.v. $Y$ is distributed, but \underline{not} some underlying parameter $\theta$.
+    \item Using a distribution of an estimator $\that$, we convert to a probability distribution that does not depend on $\theta$ (standardizing).
+\end{enumerate}
+
+\example
+
+\nl $\Xbar$ distributed $\normalDist{\mu}{\frac{\sigma^2}{n}}$, via
+$$Z = \frac{\Xbar - \mu}{\sqrt{\sigma^2/n}} \quad \Longrightarrow \underbrace{N(0,1)}_{\text{Independent of $\mu$}}$$
+
+\nl We use $N(0,1)$ to rescale the limits of $\that_L$ and $\that_U$.
+
+\example
+
+\nl $\yn$ an iid random sample of size $n$ from a uniform distribution on the interval $(0,\; \theta)$.
+
+\nnl We want an estimate for $\theta$, use
+$$\that = \max{\yn}$$
+We know how $\that$ is distributed, but it is clearly dependent on $\theta$. 
+$$\text{For } \, Y_i\;, \quad f(y) = \over{\theta}$$
+$$\implies F(y) = \P{Y \leq y} = \int_0^y \over{\theta} = \frac{y}{\theta}, \qquad y \in [0,\theta]$$
+
+$$F(y) =
+\begin{cases} 
+      0 & y < 0 \\
+      y/\theta & y \in [0, \theta]\\
+      1 & y > \theta\\
+\end{cases}$$
+
+\nl The max order stat $\that$ has CDF:
+\begin{align}
+    \P{\that < w} &= \P{Y_1 \leq w,\; Y_2 \leq w,\; \dots,\; Y_n \leq w} \notag\\
+    &= [\P{Y \leq w}]^n \notag\\
+    &= \begin{cases} 
+        0 & w < 0 \\
+        (w/\theta)^n & w \in [0, \theta]\\
+        1 & w > \theta\\
+    \end{cases} \notag
+\end{align}
+
+\nl Use a change of variables to find an associated pivotal distribution: $U = \dfrac{\that}{\theta}$
+
+\nl The CDF of U,
+
+\begin{align}
+       \P{U\leq u} &= \P{\frac{\that}{\theta} \leq u} \notag\\
+       &= \P{\that \leq \theta u}\notag\\
+       &= \pars{\frac{\theta u}{\theta}}^n \notag\\
+       &= u^n \text{ for } u \in [0,1]\notag
+\end{align}
+$$F(u) = 
+\begin{cases} 
+      0 & u < 0 \\
+      u^n & u \in [0, 1]\\
+      1 & u > 1\\
+\end{cases}$$
+
+\nl\color{red}Pivotal CDF of $u$, no longer depends upon $\theta$.\color{black}
+
+\nl \color{ggreen} We use $U$'s CDF to construct a confidence interval.\color{black}
+
+\nl Goal: Find a $95\%$ lower confidence interval for $\theta$.
+Want:
+$$\P{\underbrace{\that_L \leq \theta}_{\text{\color{red}One-sided C.I.}}} = 0.95$$
+Using $U$'s CDF: \hspace{0.1in} $\P{U\leq u} = 0.95 \quad \iff \quad u^n = 0.95$
+$$\color{red}u = \sqrt[n]{0.95} = (0.95)^{1/n}$$
+Then,
+\begin{align}
+    \P{\frac{\that}{\theta} \leq (0.95)^{1/n} } &= 0.95\notag\\
+    \P{\frac{\that}{(0.95)^{1/n}} \leq \theta} &= 0.95\notag
+\end{align}
+But $\that = \operatorname{max}(\yn) = Y_{(n)}$
+
+\nl So, our $95\%$ confidence interval is
+$$\frac{Y_{(n)}}{(0.95)^{1/n}} \leq \theta.$$
+
+\example
+
+\nl For a random sample
+$$\underbrace{0.76, 0.88, 1.68, 1.74, 1.78}_{\textstyle \setGreen n\,=\, 5}$$
+$$Y_{(5)} = 1.78$$
+A $95\%$ C.I. for $\theta$ is given by $n=5, \; Y_{(5)} = 1.78$
+$$\frac{1.78}{(0.95)^{1/5}} \leq \theta$$
+$$\frac{1.78}{0.98979} \leq \theta$$
+$$1.798 \leq \theta$$

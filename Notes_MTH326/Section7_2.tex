@@ -1,0 +1,75 @@
+\setSection{1}
+\section{Sample Means}
+
+\begin{enumerate}[label=\textcircled{\raisebox{-1pt}{\arabic*}}]
+    \item \textbf{Sample means: }
+    \addcontentsline{toc}{subsection}{Theorem 7.1}
+
+    \nl\textbf{Theorem 7.1}: Let $\yn$ be a random sample from $\normalDist*$ then $\Ybar$ is distributed by $\normalDist{\mu}{\dfrac{\sigma^2}{n}}$. The distribution of sample means, $\Ybar$, is also Normal.
+
+    \reason* Linearity of Expectation and Variance properties 
+
+    \disc* Recall in working with $\normalDist*$, we learned it was easier to standardize\\everything via
+        $Z$-scores: $$Z = \frac{x-\mu}{\sigma}$$
+        and $Z$ is distributed $\normalDist{0}{1}$, the \textbf{Standard Normal Distribution.}
+        
+        
+    \item
+        \textbf{Sample variance:}
+        
+        \nl Recall standard deviation $\sigma$ is a measure of the spread of the random variable and it's derived from $\pars{Y_i - \Ybar}^2$ terms. In all math, we normalize to take the \say{units} out of things.
+        $$\underbrace{U_i = \frac{Y_i - \bar{Y}}{S}}_{\text{Data Driven = Stat}} \approx \underbrace{\frac{Y_i - \mu}{\sigma} = Z_i}_{\text{Not a stat}}$$
+        
+        \reason* $Z_i$ depends on unknown population parameters, nonetheless, it makes it easier to pretend that we start here.
+
+        \addcontentsline{toc}{subsection}{Theorem 7.2}
+        \nnl
+        \textbf{Theorem 7.2} If $\yn$ are a random sample of $\normalDist*$. Then,
+        $$U = \sum Z_i^2 = \sum \pars{\frac{Y_i - \mu}{\sigma}}^2$$
+        has a $\chi^2$ distribution with $n$ degrees of freedom (df).
+
+        \nl
+        \textit{Recall}: $\chi^2$ distribution is a $\gammaDist{\dfrac{\nu}{2}}{2}$ where $\nu = \df$ (degrees of freedom).
+
+        \reason In old homework (325), ${Z_i}^2$ is $\chi^2$ with $\df = 1$.
+        By product of mgf, $\sum {Z_i}^2$ is $\chi^2$ with $\df = n$. Now to get sample variance, we do some algebra:
+        \notab{\begin{align*}
+            && S^2 &= \frac{1}{n-1}\sum(Y_i-\bar{Y})^2 \\
+            &&& \approx \frac{1}{n-1}\sum(Y_i - \mu)^2 \\
+            \iff && \frac{S^2}{\sigma^2} &\approx \frac{1}{n-1}\sum \pars{\frac{Y_i - \mu}{\sigma}}^2\\
+            \iff && \frac{S^2(n-1)}{\sigma^2} &\approx \sum {Z_i}^2
+        \end{align*}}
+
+        \nl Showing it is okay to replace $\Ybar$ with $\mu$ is the point of the proof of the following theorem:
+
+        \addcontentsline{toc}{subsection}{Theorem 7.3 (Fisher's Theorem)}
+        
+        \nnl \textbf{Theorem 7.3 (Fisher's Theorem)} The distribution of sample variance $S^2$
+
+        \nl If $\yn$ is a random sample from $\normalDist*$. Then,
+        \begin{enumerate}[label=\textcircled{\raisebox{-1pt}{\arabic*}}]
+            \item 
+                $\dfrac{S^2(n-1)}{\sigma^2}$ has $\chi^2$ distribution with $(n-1)$ degrees of freedom.
+            
+            \item
+                $\bar{Y}$ and $S^2$ are independent random variables.
+
+        \end{enumerate}
+
+                    
+        \item
+        $t$-distribution and $F$-distribution
+        $$\underbrace{\frac{Y_i-\mu}{\sigma}}_{\text{Normal}} \approx \underbrace{\frac{Y_i -\mu}{S}}_{\text{t-dist'n}} \approx \underbrace{\frac{Y_i - \bar{Y}}{S}}_{\text{Statistic}}$$
+
+        \nl Address when to use what is the point of this class
+
+        \nl Skip definitions (such as moments) for the time being
+
+        \nl Also, The Law of Large Numbers. Used to prove the Central Limit Theorem.
+\end{enumerate}
+
+
+
+
+
+

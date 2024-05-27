@@ -1,0 +1,110 @@
+Our goal this week is to justify hypothesis testing. 
+
+\nl Last day: Pearson Neyman Lamma
+
+\nl $\thru{X} \sim$ via PDF $f(x \mid \theta)$ when $\theta_0$ and $\theta_a$ are two possible values of $\theta$. If there exists $a$ the constant $k$ and a subset $C$ of the sample space such that
+\begin{enumerate}
+    \item $P\{(\thru{x}) \in C \mid \theta_0\} = \alpha$
+    \item $\dfrac{L(\theta_0)}{L(\theta_a)} \leq k$ for $\thru{x} \in C$.
+    \item $\dfrac{L(\theta_0)}{L(\theta_a)} \geq k$ for $\thru{x} \in \overline{C}$
+\end{enumerate}
+Then $C$ is a best critical region of size $\alpha$ for testing $H_0 : \theta = \theta_0$ versus $H_a : \theta = \theta_a$.
+
+\nl Before the proof\dots example.
+
+\example Let $\thru{Y}$ from $\displaystyle f(y \mid \theta) = \frac{2}{\theta}y e^{-y^2/\theta}$ and $y > 0$. The Rayleight distribution.
+
+\nl Want to test  $H_0 : \theta = \theta_0$ versus $H_a : \theta = \theta_a$.
+
+\nl Note $\displaystyle L(\thru{Y} \mid \theta) = \frac{2}{\theta} y_i e^{-y_i^2/\theta} \cdots \frac{2}{\theta} y_n e^{-y_n^2/\theta}$.
+$$\pars{\frac{2}{\theta}}^n \underbrace{\exp \brac{- \pars{\sum_1^n y_i^2} \bigg/ \theta }}_{g(S,\theta)} \underbrace{\prod_1^n y_i}_{h}$$
+We will come back to this and connect to sufficiency next day.
+
+The N-P ratio of likelihood function becomes
+\begin{align*}
+    \dfrac{L(\theta_0)}{L(\theta_a)} &= 
+    \frac
+    {\pars{\frac{2}{\theta_0}}^n \exp \brac{- \pars{\sum_1^n y_i^2} \bigg/ \theta_0 }\prod_1^n y_i}
+    {\pars{\frac{2}{\theta_a}}^n \exp \brac{- \pars{\sum_1^n y_i^2} \bigg/ \theta_a }\prod_1^n y_i}\\
+    &= \pars{\frac{\theta_a}{\theta_0}}^n \exp \brac{-\sum y_i^2 \cdot \pars{\over{\theta_0} - \over{\theta_a}}}
+\end{align*}
+We want $C$ to relate to our rejection region RR.
+
+\nl So (2), implies \say{reject $H_0$ if}
+$$\pars{\frac{\theta_a}{\theta_0}}^n \exp \brac{-\sum y_i^2 \cdot \pars{\over{\theta_0} - \over{\theta_a}}} \leq k$$
+This looks scary, but $\theta_a$ and $\theta_0$ are fixed and $\theta_0 < \theta_a$ so $\pars{\over{\theta_0} - \over{\theta_a}} > 0$. In the end, making $\dfrac{L(\theta_0)}{L(\theta_a)}$ \say{small enough} for $k$ simlifies does to the condition that $\sum_{i}^n y_i^2$ is large enough. i.e. we need $\sum_1^n y_i^2 > k'$ for some $k'$ (dependent upon $k$). 
+
+\nl New problem: To determine an appropriate $k'$, we need to know how $S = \sum_1^n y_i^2$ is distributed. 
+
+\nl Using CDF method ($\S$ 6.3) we can show that the distribution of $y^2$ is exponention with mean $\theta$. Then, via products of moment generating functions. $$S = \sum_1^n y_i^2 \sim \operatorname{Gamma}\pars{n, \over{\theta}}$$
+Stop! What just happened. 
+
+\nl The N-P lemma tells us that the most powerful test of $H_0$ vs $H_a$ is to use the statistic $S = \sum y_i^2$. Then, given any $\alpha$ level significance (5\%, 1\%, whatever), we use the test on $S$ to be if $S$ is larger than $100(1-\alpha)$ percentile of the $\operatorname{Gamma}\pars{n, \over{\theta}}$ distribution\dots we reject $H_0$. 
+
+\nl Picture with some $\gamma_*$ such that $\int_{\gamma_*}^{\infty} = \alpha$.
+
+\nl $S > \gamma_*$, we reject the null hypothesis. Moreover, by the NP lemme, we don't have to compare the powe rof other possible tests because the lemma says any data
+$$(\thru{Y}) \in C \leftrightsquigarrow S \geq \gamma_*$$
+$$C := \left\{ (\thru{Y}) \mid \sum y_i^2 \geq \gamma_* \right\}$$
+which is itself a consequence of our significance level $\alpha$ results in the most powerful test. 
+$$P(C \mid \theta_a) \geq P(D \mid \theta_a)$$
+where $D$ is another critical region $(P(D \mid \theta_a) = \alpha )$.
+
+\defn The test using the best critical region is called the most powerful test. 
+
+\nl Recap: We wanted to construct a hypothesis test at $\alpha$ significance level. All in one fell swoop, the N-P lemme says
+\begin{enumerate}
+    \item Here is the stat to use ($S = \sum y_i^2$ in last example) 
+    \item Here is your rejection region ($S \geq \gamma_a$ in last example)
+    \item in fact, this is the most powerful test possible.
+\end{enumerate}
+(This is kinda awesome)
+
+Theorem: NP lemma;
+\begin{proof} (Continuous)\\
+    Let $B \subseteq \R^n$ and define $\displaystyle \underbrace{\int_B L(\theta) = \int \cdots \int}_{n \text{times}} L(\thru{x} \mid \theta) \, dx_1\, dx_2, \dots, dx_n  $.\\
+    Assume there exists a critical region $C$ satisfying bullets 1 2 and 3.
+
+    \nl $\alpha$ fixed, $\alpha = \int_C L(\theta_0)$ (same as $P(C \mid \theta_0)$)
+
+    \nl Need to prove \say{best}, i.e. $P(C \mid \theta_a) \geq P(D \mid \theta_a)$
+
+    \nl Assume $D$ is another critical region,
+    $$\alpha = \int_D L(\theta)_0 = P(D\mid \theta_0)$$
+    So $\displaystyle 0 = \int_C L(\theta_0) - \int_D L(\theta_0) $
+    \begin{align*}0 = \int_{C \cap D^C} L(\theta_0) + \int_{C \cap D} L(\theta_0) - \brac{ \int_{C \cap D} L(\theta_0) + \int_{C^C \cap D} L(\theta_0) }\\
+        &= \int_{C \cap D^C} L(\theta_0) - \int_{C^C \cap D} L(\theta_0)\\
+    \text{By (2), there exists $k$ such that $\dfrac{L(\theta_0)}{L(\theta_a)} \leq k$ i.e. $L(\theta_0) \leq kL(\theta_a)$ at every point in $C$.}\\
+    & \leq k \int_{C \cap D^C} L(\theta_a) - \int_{C^C \cap D} L(\theta_0)\\
+    \text{By (3) there exists $k$ such that $\dfrac{L(\theta_0)}{L(\theta_a)} \geq k$ i.e.  $L(\theta_0) \geq kL(\theta_a)$}\\
+    & \leq k \brac{\int_{C \cap D^C} L(\theta_a) - \int_{C^C \cap D} L(\theta_a)}\\
+    &= k \brac{\int_{C \cap D^C} L(\theta_a) + \int_{C \cap D} L(\theta_a) - \brac{ \int_{C \cap D} L(\theta_a) + \int_{C^C \cap D} L(\theta_a) }}\\
+    &= k \brac{\int_C L(\theta_a) - \int_D L(\theta_a)}\\
+    & \implies \int_C L(\theta_a) - \int_D L(\theta_a) \geq 0\\
+    & \implies \int_C L(\theta_a) \geq \int_D L(\theta_a)\\
+    & \implies P(C \mid \theta_a) \geq P(D \mid \theta_a)
+    \end{align*}
+    Here, $C$ is a best critical region of size $\alpha$ by defininition.
+\end{proof}
+
+\example Back to our old sample size example. 
+$$\thru{X} \sim \operatorname{N}(\mu,\,36)$$
+We played with $H_0 : \mu = 50$ and $H_a : \mu = 55$. 
+
+\nl Consider the ratio of the likelihood functions.
+
+\begin{align*}
+    \frac{L(50)}{L(55)} &= \dfrac{(72 \pi)^{-n/2} \exp \brac{-\pars{\over{72}} \sum_1^n (X_i - 50)^2} }{{(72 \pi)^{-n/2} \exp \brac{-\pars{\over{72}} \sum_1^n (X_i - 55)^2} }\\
+    &= \exp \brac{ - \over{72} \sum_1^n \brac{(X_i-50)^2-(X_i-55)^2}}\\
+    &= \exp \brac{-\over{72} \sum_1^n (10X_i -525) }\\
+    &= \exp \brac{-\frac{5}{36} \sum_1^n X_i + \frac{175n}{24}} \leq k \text{ to satisfy (2)}\\
+    & \implies -\frac{5}{36} \sum_1^n X_i + \frac{175n}{24}} \leq \ln k\\
+    & \implies \sum_1^n X_i \geq \frac{105n}
+    {2} - \frac{36}{5} \ln k
+    \\ & \implies \xbar = \over{n}\sum_1^n X_i \geq \frac{105}{2} - \frac{36\ln k}{5n}
+\end{align*}
+We have our stat $\xbar \geq k'$ thus will define our rejectoin rejection.
+
+    %\text{    By (2), there exists $k$ such that $\dfrac{L(\theta_0)}{L(\theta_a)} \leq k$ i.e. $L(\theta_0) \leq kL(\theta_a)$ at every point in $C$.
+
+    %By (3) there exists $k$ such that $\dfrac{L(\theta_0)}{L(\theta_a)} \geq k$ i.e.  $L(\theta_0) \geq kL(\theta_a)$}

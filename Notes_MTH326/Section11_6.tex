@@ -1,0 +1,57 @@
+\section{Predictions via least squares regression line}
+Using $\widehat y = \widehat{\beta_0} + \widehat{\beta_1}x$. Our emphasis so far has been on the coefficients $\widehat{\beta_0}$ and $\widehat{\beta_1}$ and their distributions. The goal is to understand $y$ as a function of $x$. $y$ is the exact, deterministic expectation whereas $\widehat y$ is our best attempt to approximate something that isn't exact. 
+
+\example (Potency Example Again)
+$$\widehat y = \widehat{\beta_0} + \widehat{\beta_1}x = 46 - \dfrac{19}{60}x$$
+If we store the antibiotic at temperature $x = 20^{\circ}\text{F}$, what would we expect the potency to be? 
+$$\widehat y = 46 - \frac{19}{60}(20) = 39.\overline{6}$$
+But, what does this really mean? This is the expected value of $y$ when $x = 20$. If we store a bunch of samples at $20^{\circ} \text{F}$, we would expect the sample mean to be approximately $39.\overline6$. In other words, $\widehat y = \widehat{\beta_0} + \widehat{\beta_1}x$ is a point estimator of $\E{Y}$.
+
+\nl $\widehat y$ is a statistic of its own. And, where there exists point estimators, there exists interval estimators (confidence intervals). We have that 
+$$\widehat{\beta_i} \sim \operatorname{N}(\beta_i, \Varb{\beta_i}).$$
+So, $\widehat y$ is also normal for every fixed value of $x$. 
+
+\nl To avoid formula confusion, we use $x^*$ for the fixed $x$. Note:
+$$\E{\widehat y (x^*)} = \E{\widehat{\beta_0} + \widehat{\beta_1}x^*} = \E{\widehat{\beta_0}} + x^* \E{\widehat{\beta_1}} = \beta_0 = \beta_1 x^*.$$
+We now need the variance, $\Varb{\widehat y}$.
+\begin{align*}
+    \Varb{\widehat y} &= \Varb{\widehat{\beta_0} + \widehat{\beta_1}x^*}\\
+    &= \Varb{\widehat{\beta_0}} + (x^*)^2 \Varb{\widehat{\beta_1}} + 2x^* \Cov (\widehat{\beta_0}, \widehat{\beta_1})\\
+    &= \frac{\sigma^2 \sum {x_i}^2}{n S_{xx}} + (x^*)^2 \frac{\sigma^2}{S_{xx}} + 2x^* \pfrac*{-\bar x \sigma^2}{S_{xx}}\\
+    &= \frac{\sigma^2}{S_{xx}} \pfrac*{\sum {x_i}^2 + n(x^*)^2 - 2x^* \bar x n}{n}\\
+    \text{Note: $S_{xx}$} &= \text{$\sum {x_i}^2 - n\bar x^2$}\\
+    &= \frac{\sigma^2}{S_{xx}} \pfrac*{S_{xx} + n \bar x^2 + n(x^*)^2 - 2x^* \bar x n}{n}\\
+    &= \frac{\sigma^2}{S_{xx}} \pfrac*{S_{xx} + n \brac{\bar x^2 + (x^*)^2 - 2x^* \bar x}}{n}\\
+    &= \sigma^2 \pars{\over n + \dfrac{(x^* - \bar x)^2}{S_{xx}}}
+\end{align*}
+When estimating $\sigma^2$, make sure to use the new one:
+$$S^2 = \over{n-2} \operatorname{SSE}.$$
+
+\nnl Recap: $\widehat y$ estimator: $$\E{\widehat y} = \beta_0 + \beta_1 x^*$$ and $$\Varb{\widehat y} = \sigma^2 \pars{\over n + \dfrac{(x^* - \bar x)^2}{S_{xx}}}.$$
+
+\nl Standardize (as always):
+$$\dfrac{\that - \theta}{\sigma_{\that}} = \frac{\widehat y (x^*) - (\beta_0 + \beta_1 x^*)}{\displaystyle S \sqrt{\dfrac{1}{n} + \dfrac{(x^* - x)^2}{S_{xx}}}}.$$
+This is a test statistic with $(n-2)$ degrees of freedom (df).
+
+\nl It follows that $\alpha (1-\alpha)$ level confidence interval is given by:
+$$\pars{\widehat{\beta_0} + \widehat{\beta_1}x^*} \,\pm\, t_{\alpha / 2} (n-2) S \sqrt{\dfrac{1}{n} + \dfrac{(x^* - \bar x)^2}{S_{xx}}}.$$
+
+\example Find a 90\% confidence interval for the average potency when stored at $20^{\circ}$F. 
+\begin{align*}
+    &x^* = 20\\
+    &\widehat y(20) = 39.\overline6
+    &n=12 \implies so \operatorname{d.f.} = 10\\
+    & \bar x = 60\\
+    & S^2 = \frac{571}{30}
+    & S_{xx} = 6000
+\end{align*}
+\textbf{Answer:}
+$$39.\overline6 \pm \underbrace{(1.812)}_{\textstyle \text{table}} \sqrt{ \displaystyle \underbrace{\dfrac{571}{30}}_{\textstyle S^2} \pars{\over{12} + \frac{(20-60)^2}{6000}}}$$
+$$39.\overline6 \pm 4.677$$
+
+\nl \textbf{Remark:} We can now talk about hypothesis testing.
+
+\nl For example,
+$$H_0: \, y(x^*) = y_0 \qquad \text{or} \qquad H_a : \, y(x^*) \neq y_0$$
+Our t-stat
+$$\mathcal T = \dfrac{y-0 - (\widehat{\beta_0} + \widehat{\beta_1}x^* )}{\displaystyle S \sqrt{\over n + \frac{(x^* - \bar x)^2}{S_{xx}}}}$$

@@ -1,0 +1,96 @@
+\section{Z-tests (large samples)}
+\example*{10.18}The hourly wages in a particular industry is distrubuted $N(13.20,\; 2.50)$. A company in this industry emplpoys 40 workers, paying them an average of \$12.20 per hour. Can this company be accused of paying in substandard wages. Use $\alpha = 0.01$.
+
+\nnl \textbf{Solution:} Recall $n=40 > 30$ is considered \say{large}, Hence
+\begin{align*}
+    \Xbar &\sim \normalDist{\mu, \frac{\sigma^2}{n}} \\
+    &= \normalDist{13.20, \frac{2.50}{40}} \\
+    &= \normalDist{13.20, 0.0625}
+\end{align*}
+Our test:
+$$H_0 : \mu_c = 13.20 \hspace{1in} H_a : \mu_c < 13.20$$
+Where $\mu_c$ is the company average. Here, $\alpha = 0.01$ is the decision rule, also the significance level, and also the probability of making a Type I error (reject $H_0$ when $H_0$ is true).
+\begin{align*}
+    \alpha &= \P{\text{Type I error}}\\
+    &= \P{\text{rejecting } H_0 \text{ when it is true}}\\
+    &= 0.01
+\end{align*}
+Compute the $p$-value.
+$$p = \P{\Xbar \leq 12.20 \mid \mu = 13.20}$$
+Convert to a Z-score (like we did in 325).
+$$= \P{Z \leq \frac{12.20-13.20}{0.25}}$$
+$$Z = \frac{\Xbar - \mu}{\sigma-{\Xbar}} \hspace{1in} \sigma_{\Xbar} \sqrt{\frac{2.50}{40}} = \over{4}$$
+\begin{align*}
+    p &= \P{Z \leq -4}\\
+    &= \P{Z \geq 4}\\
+    &= 0.0000317 \text{ by table 4}\\
+    &= \operatorname{pnorm}(12.20, 13.20, 0.25)
+\end{align*}
+Decision and conclusion:
+Since p-value is much less than $0.01 = \alpha$, we reject $H_0$ (accept the alternative). Therefore we conclude that, yes, the company appears to be systematically underpaying its employees in relation to the rest of the industry.
+
+\nnl \textbf{Remark:} 
+\begin{enumerate}[label=\textcircled{\raisebox{-1pt}{\arabic*}}]
+\item $\displaystyle Z = \frac{\Xbar - \mu}{\sigma-{\Xbar}} = \frac{\Xbar - \mu}{\sigma / \sqrt{n}}$
+is called the {\color{neonorange}test statistic} or $Z$-statistic. E.g. $Z = -4$.
+\item R command: $\operatorname{pnorm}(0, \mu, \sigma)$ and is a left tail calculator (opposite of Table 4).
+\end{enumerate}
+
+\example*{10.21} Shear strength measurements are derived from unconfined compression tests for two types of soils. 
+\begin{center}
+\begin{tabular}{ | m{3cm}| m{3cm} | } 
+    \hline
+    \textbf{Soil 1} & \textbf{Soil 2}\\
+    \hline
+    $n_1 = 30$ & $n_2 = 35$ \\ 
+    \hline \vspace{0.1cm}
+    $\Ybar_1 = 1.65$ & \vspace{0.1cm}$\Ybar_2 = 1.43$ \\ 
+    \hline
+    $S_1 = 0.26$ & $S_2 = 0.22$\\
+    \hline
+  \end{tabular}
+  \\Tons per square foot (unit).
+\end{center}
+\nl Do the soils appear to differ with respect to average shear strength at the 1\% significance level ($\alpha = 0.01$).
+
+\nl Note that $n_1, n_2 \geq 30$. This implies that we can use \say{large sample} assumptions.
+
+\nl i.e. $\sigma_1 = S_1$ and $\sigma_2 = S_2$ without loss of precision (i.e. no need for t-distribution).
+$$H_0 : \mu_1 = \mu_2 \implies \mu_1 - \mu_2 = 0$$
+$$H_a : \mu_1 \neq \mu_2 \quad \leftarrow \red{\text{This is called a 2-sided test}}$$ 
+In Chapter 8, we saw $\Ybar_1 - \Ybar_2$ is distrubuted
+$$N\pars{\mu_1 - \mu_2\;,\; \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}$$
+Under null hypothesis,
+$$N\pars{0\;,\; \frac{0.26^2}{30} + \frac{0.22^2}{35}}$$
+$$= N(0, 0.00363)$$
+and $\sigma_{\Ybar_1 - \Ybar_2} = 0.0603$
+
+\nl Note that $\Ybar_1 - \Ybar_2 = 1.65 - 1.43 = 0.22$
+\begin{align*}
+    p &= \P{|\Ybar_1 - \Ybar_2 - 0| > 0.22}\\
+    &= \P{\Ybar_1 - \Ybar_2 < -0.22} + \P{\Ybar_1 - \Ybar_2 > 0.22}\\
+    &= 2\P{\Ybar_1 - \Ybar_2 > 0.22}\\
+    &= 2\P{Z > \frac{0.22}{0.0603}} \quad \text{not on table 4}\\
+    &< 2\P{Z > 3.5}\\
+    &= 2 \cdot 0.000233\\
+    &= 0.000466\\
+    &< \alpha
+\end{align*}
+Conclusion: This is statistically significant. I.e. supports $H_a$. The sheer strengths are different.
+
+\nl \textbf{Remark:}
+\begin{enumerate}[label=\textcircled{\raisebox{-1pt}{\arabic*}}]
+    \item $p = 2\operatorname{pnorm}(-0.22, 0, 0.0603) = 0.000265$
+    \item In the last 2 examples, using the emperical rule (68-95-99.7), we could have concluded \say{Reject $H_0$} simply on the $Z$-score alone. (Once we're more than $3\sigma$ away from $\mu$, $p < 100\%-99.7\% = 0.3\%$).
+    \end{enumerate}
+
+    $$\P{Z < Z_*} = \alpha \wideand
+    H_0 : \mu' = \mu \wideand
+    H_a : \mu' < \mu.$$
+    $$-Z_* = \frac{C^*-\mu}{\sigma / n} \quad \iff \quad C^* = \mu - Z_* \frac{\sigma}{\sqrt{n}}$$
+
+    \nl The rejection region RR is $\Xbar \leq C^*$
+
+    \nl $\displaystyle \mu_0 \pm Z^* \frac{\sigma}{\sqrt{n}}$ is a $1-\alpha$ level C.I. If $\Xbar$ lands in this interval, it supports $H_0$, else if it lands outside, reject $H_0$.
+
+    \noindent \begin{center}\includegraphics[width=5in]{10_3.png}\end{center}

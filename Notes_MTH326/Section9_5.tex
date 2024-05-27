@@ -1,0 +1,139 @@
+\section{Rao-Blackwell Theorem and Minimum-Variance Unbiased Estimation}%9.5
+\textbf{Theorem: The Rao-Blackwell Theorem}
+
+\nl Let $X$ and $Y$ be a random variable such that $\E{Y} = \mu$ and $\Var{Y} = \sigma^2 y.$
+
+\nl Let $\phi(x) = \E{Y \mid X}$.
+
+\nl Then $\E{\phi(x)} = \mu$ and $\sigma^2_{\phi(x)} \leq \sigma^2y$
+
+\begin{proof}
+    Have $f(x,y)$, $f_1(x)$, $f_2(y)$, and
+    $$h(y\mid x) = \frac{f(x,y)}{f_1(x)} \color{red}{\ast}\color{black}$$
+    
+    \begin{align*}
+        \phi(x) &= \E{\phi(x)} \\
+        &= \int_{\R} yh(y \mid x)dy.\\
+        &= \int_{\R} y\frac{f(x,y)}{f_1(x)}dy\\
+        &= \over{f_1(x)}\int_{\R} yf(x,y) dy
+    \end{align*}
+    Then
+    $$f_1(x) \phi(x) = \int_{\R} y f(x,y) dy$$
+    \begin{align*}
+        \E{\phi(x)} &= \int_{\R} \phi(x)f_1(x)dx\\
+        &= \int_{\R} \brac{\int_{\R} y f(x,y) dy}dx\\
+        &= \int_{\R}\int_{\R}f(x,y)dydx\\
+        &= \int_{\R} y \brac{\int_{\R}f(x,y)dx}dy\\
+        &= \int_{\R} y f_2(y)dy \\
+        &= \E{Y} \\
+        &= \mu.
+    \end{align*}
+
+\nl Note that $\sigma^2_{\phi(x)} = \E{(\phi(x)-\mu)^2}.$
+\begin{align*}
+    \sigma_y^2 &= \E{(y-\mu)^2}\\
+    &= \E{(\color{red}(\color{black}y \color{orange}-\phi(x) \color{red})(\color{orange}\phi(x)\color{black}-\mu \color{red})\color{black}  ^2}\\
+    &=\E{ (y-\phi(x))^2 + 2(y-\phi(x))(\phi(x)-\mu) + (\phi(x)-\mu)^2}\\
+    &= \underbrace{\E{(y-\phi(x))^2}}_{\textstyle \geq\; 0} + \underbrace{2\E{(y-\phi(x))(\phi(x)-\mu)}}_{\textstyle \color{orange}\ast\color{black}} + \underbrace{\E{(\phi-\mu)^2}}_{\textstyle \color{red}\sigma^2_{\phi(x)}\color{black}}\\
+    \color{orange}(\ast) \color{black} &= \int_{\R} \int_{\R} (y-\phi(x))(\phi(x)-\mu)f(x,y)\,dydx\\
+    &= \int_{\R}(\phi(x)-\mu)\brac{\int_{\R}(y-\phi(x))f(x,y)\,dy}dx\\
+    \color{red}(\ast) \color{black} &= \int_{\R} (\phi(x)-\mu)\brac{\int_{\R} (y-\phi(x)) f_1(x) h(y \mid x) \,dy }dx\\
+    &= \int_{\R} (\phi(x)-\mu)f_1(x)\brac{\underbrace{\int_{\R} (y-\phi(x))h(y\mid x)\,dy}_{\text{\color{orange}note**\color{black}}}}dx\\
+    &= 0
+\end{align*}
+\color{orange}\textbf{Note**}: This is \underline{zero} as $$\phi = \E{y \mid x} = \int yh(y\mid x)\,dy$$\color{black}
+
+\nl So $\sigma^2_y = \E{(y-\phi(x))^2}+\sigma^2_{\phi(x)} \geq \sigma^2_{\sigma(x)}$
+
+\nl Aside: This almost always a strict inequality. For equality,
+$$\P{Y-\phi = 0} = 0$$
+\end{proof}
+
+\disc Using the RBT (Rao-Blackwell Theorem) to construct \say{best} statistics.
+
+\nl Big Idea: We can take any unbiased estimator of $\theta$ and combine with a sufficient stat for $\theta$ to get a \say{better} estimator.
+
+\nl Let $\thru{x}$ denote a random sample of $f(x \mid \theta)$. We have $T = \tau(\thru{x})$ sufficient for $\theta.$ Let $U = u(\thru{x})$ be an unbiased stat for $\theta$ which is not itself a function of $T$. Consider $\E{u \mid T}$:
+
+\noindent Since $T$ is sufficient, the conditional probability of $U$ given $T = \tau$ does \underline{not} depend upon $\theta$.
+
+\nl Define a new stat
+$$\phi(\tau) = \E{U \mid T}$$
+which is a function of $\tau$ alone. Hence, $\phi(T)$ is a statistic (does not depend opon $\theta$). (i.e. only a function of the data.)
+
+\nl By RBT, $\phi(T)$ is an unbiased statistic for $\theta$ with the guarantee that
+$$\sigma^2_{\phi(T)} < \sigma^2_u$$
+
+\nnl Theorem: Rao-Blackwell Theorem (Textbook version):
+
+\noindent Let $\that$ be an unbiased estimator for $\theta$ such that $\Var*{\that} < \infty$.\\If $T$ is a sufficient statistic for $\theta$, define $\that^* = \E{\that^* \mid T}$.
+
+\nl Then, for all $\theta$, $\E{\that^*}= \theta$ and
+$$\Var*{\that^*} \leq \Var*{\that}$$
+
+\disc Minimum Variance Unbiased Estimator (MVUE)
+
+\nl If $\that$ is an MVUE, then
+$$\Var*{\that} \leq \Var*{\Psihat} \quad \text{for any other estimator } \Psihat.$$
+
+\nl \underline{Typically} (almost always) the process we described above lends to an MVUE.
+
+\begin{enumerate}[label=\textcircled{\raisebox{-1pt}{\arabic*}}]
+    \item $\that$ unbiased estimator for $\theta$
+    \item $T$ sufficient for $\theta$
+    \item $\E{\that \mid T}$ is a MVUE
+\end{enumerate}
+
+\nl Remark: All of yesterdays sufficiency examples indicate that all traditional estimators are MVUE.
+
+\example $\operatorname{Bern}(p)$\\
+Here unbiased estimator $\phat = \dfrac{S}{n}$.\\
+Here $S = \sum Y_i$ is sufficient.
+$$\E{\phat\mid S} = \frac{S}{n} \text{ sufficient stat, has no } p.$$
+Rao-Blackwell $\quad \implies \quad \phat \text{ is an}$ MVUE.
+
+\nl Also note, $\Var{\phat} < \Var{S}$, is much better $\dfrac{p}{n} < np$.
+
+\example Last day we showd that $S = \sum Y_i$ is a sufficient stat for $\lambda$ in $\operatorname{Pois}(\lambda)$.
+$$f(y) = \frac{\lambda^ye^{\lambda}}{y!}\;, \quad y = 0, 1, 2, \dots$$
+
+\nl We seek an MVUE of $e^{-\lambda}$. Need an unbiased estimator of $\thru{Y}$ iid.
+
+\begin{enumerate}[label={\alph*})]
+    \item Show that
+    $$W= \begin{cases} 1 & Y_1 = 0\\0 & Y_1 \neq 0\end{cases}$$
+    is unbiased for $e^{-\lambda}$. (New idea: Not just looking for $\lambda$, but a function of $\lambda$.)
+    
+    %add align
+    \nl \textbf{Solution:} $\E{W} = 1 \cdot \P{Y_1 = 0} + 0 \cdot \P{Y_1 \neq 0} = \P{Y_1 = 0} = \dfrac{\lambda^0 e^{-\lambda}}{0!} = e^{-\lambda}$
+
+    \item Use RBT to find a MVUE. Compute $\E{W \mid S}$
+    \begin{align}
+        \E{W \mid S} &= 1 \cdot \Pr(Y_1 = 0 \mid Y_1 + Y_2 + \cdots + Y_n = S) + 0 \cdot \Pr(Y_1 \neq 0 \mid S)\notag\\
+        &=\frac
+        {\Pr(Y_1 = 0 \;\text{ and }\; \sumThru{Y} = S)}
+        {\Pr(\sumThru{Y} = S)}\notag\\
+        &= \frac
+        {\Pr(Y_1 = 0 \;\text{ and }\; Y_2 + \cdots + Y_n = S)}
+        {\Pr(\sumThru{Y} = S)}\quad \text{top now independent events}\notag\\
+        &= \frac{\Pr(Y_1=0)\cdot \Pr(Y_2 + \cdots + Y_n = S)}{\Pr(\sumThru{Y} = S)}\notag\\
+        &= \frac{ e^{-\lambda} \cdot \Pr(Y_2 + \cdots Y_n = s)}{\Pr(Y_1 + \cdots + Y_n = s)}\notag
+    \end{align}
+    \color{red}325 FACT: \color{black} How is $Y_1 + \cdots + Y_n$ distributed? $Y_i \sim \operatorname{Pois}(\lambda)$.
+    
+    \nl Via moment generating functions, we proved that $Y_1 + \cdots + Y_n \sim \operatorname{Pois}(n\lambda)$
+
+    \nl Hence $Y_2 + \cdots + Y_n \sim \operatorname{Pois}\pars{(n-1)\lambda}$, so
+    \begin{align}
+        \E{W \mid S} &=
+        \frac{e^{-\lambda}\pars{\dfrac{((n-1)\lambda)^S e^{-(n-1)\lambda} }{S!} } }
+        {\dfrac{(n\lambda)^S e^{-n\lambda}}{S!} } \notag\\
+        &= e^{-\lambda} \pars{\frac{(n-1)\lambda}{n\lambda}}^S\cdot \frac{e^{-(n-1)\lambda}}{e^{-n\lambda}} \notag\\
+        &= e^{-\lambda} \cdot \pars{\frac{n-1}{n}}^S e^{\lambda}\notag\\
+        &=  \pars{\frac{n-1}{n}}^S\notag
+    \end{align}
+    By RBT, $\displaystyle \phi(S) =  \pars{\frac{n-1}{n}}^S$ is an MVUE of $e^{-\lambda}$, $\displaystyle S = \sum Y_i$.
+
+    \nnl Aside: $$e^{-\lambda} = \limn \pars{1-\over{n}}^n$$
+    $$\phi(S) =  \limn \pars{1-\over{n}}^S$$
+\end{enumerate}

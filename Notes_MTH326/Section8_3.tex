@@ -1,0 +1,65 @@
+\section{Some Common Unbiased Point Estimators}
+Table 8.1, page 397: Common unbiased estimator for $\mu,\quad \rho,\quad \mu_1 - \mu_2,\quad \rho_1 - \rho_0$.
+
+\example Variance of a data set and the $n-1$.
+
+\nnl Natural definition is $S^2 = \dfrac{1}{n}\sum \pars{X_i-\Xbar}^2$
+
+\nnl Why do we use $n-1$?
+
+\nl Check $\bias{S^2}$. Is $\E{S^2} = \sigma^2$? Let
+$$\E{X} = \mu \qquad \text{and}\qquad \Var{X} = \sigma^2$$
+and $\thru{X}$ iid random sample. Then,
+\begin{align*}
+    \E{S^2} &= \Eb{\over{n}\sum_{i=1}^{n} \pars{X_i - \Xbar}^2} \\
+    &= \over{n}\underbrace{\Eb{\sum \pars{X_i^2 - 2X_i\Xbar + \Xbar ^2}}}_{\text{focus on this}}\\
+    &= \over{n}\pars{\Eb{\sum X_i^2 - 2\sum X_i\Xbar + \sum \Xbar^2}}\\
+    &= \over{n}\pars{\underbrace{\Eb{\sum X_i^2}}_{\text{\cir{1}}} - \underbrace{2\Eb{\sum X_i\Xbar}}_{\text{\cir{2}}} + \underbrace{\Eb{\sum \Xbar}^2}_{\text{\cir{3}}}} 
+\end{align*}
+\cir{1} and \cir{3} uses the same \say{trick} of $\Var{X} = \Eb{X^2} - \pars{\Eb{X}}^2 $. So,
+\begin{align*}
+    \text{Part \cir{1} } &= \Eb{\sum_{i=1}^{n} X_i^2} \\ 
+    &= \sum \Eb{X_i^2}\\
+    &= \sum \pars{\Var{X_i} + \pars{\Eb{X_i}}^2}\\
+    &= \sum \pars{\sigma^2 + \mu^2} \\
+    &= n\pars{\sigma^2 + \mu^2}
+\end{align*}
+\begin{align*}
+    \text{Part \cir{3} } &= \Eb{\sum_{i=1}^{n} \Xbar^2} \\
+    &= \sum \pars{\Var{\Xbar} + \pars{\Eb{\Xbar}}^2}\\
+    &= \sum \pars{\frac{\sigma^2}{n} + \mu^2}\\ %since xbar dist by N(mu, sig^2/n)
+    &= n \pars{\frac{\sigma^2}{n} + \mu^2} \\
+    &= \sigma^2 + n \mu^2
+\end{align*}
+\begin{align*}
+    \text{Part \cir{2} } &= -2\Eb{\sum_i X_i\pars{\over{n}\sum_j X_j}}\\
+    &= -\frac{2}{n} \Eb{\sum_i \sum_j X_i X_j} \\%n^2 terms
+    &= -\frac{2}{n} \Eb{\underbrace{\sum_i X_iX_j}_{n \text{ terms}} + \underbrace{\mathop{\sum\sum}_{i\neq j}  X_i X_j}_{n^2-n \text{ terms}}} \\
+    &= -\frac{2}{n} \pars{\underbrace{\sum_i \Eb{X_i^2}}_{\text{this is part \cir{1} again}} + \underbrace{ \mathop{\sum\sum}_{i\neq j} \Eb{X_i X_j}}_{\text{covariance like}}}
+\end{align*}
+\recall
+\begin{align*}
+    \Cov(X_i,X_j) &= \Eb{\pars{X_i - \Xbar}\pars{X_j - \Xbar}} \\
+    &= \Eb{X_iX_j} - \Eb{X_i}\Eb{X_j} 
+\end{align*}
+But iid, \say{i} for independent $\implies \Cov(X_i, X_j) = 0$. Therefore,
+$$\Eb{X_i X_j} = \Eb{X_i}\Eb{X_j} = \mu \cdot \mu = \mu^2$$
+\begin{align*}
+    \text{Part \cir{2} } &= -\frac{2}{n}\Big(n(\sigma^2 + \mu^2) + (n^2 - n)\mu^2\Big)\\
+    &= -2\brac{(\sigma^2+\mu^2) + (n-1)\mu^2}
+\end{align*}
+Substituting back into the original parts,
+\begin{align*}
+    \E{S^2} &= \over{n}\pars{\underbrace{\Eb{\sum X_i^2}}_{\text{\cir{1}}} - \underbrace{2\Eb{\sum X_i\Xbar}}_{\text{\cir{2}}} + \underbrace{\Eb{\sum \Xbar}^2}_{\text{\cir{3}}}} \\
+    &= \over{n}\pars{\underbrace{n(\sigma^2+\mu^2)}_{\text{\cir{1}}} - \underbrace{2\Big( \pars{\sigma^2 + \mu^2} + (n-1)\mu^2 \Big) }_{\text{\cir{2}}} + \underbrace{\sigma^2 + n\mu^2}_{\text{\cir{3}}}} \\
+    &= \over{n}\pars{n\sigma^2+n\mu^2 -2\sigma^2 -2\mu^2 -2(n-1)\mu^2+ \sigma^2 + n\mu^2} \\
+    &= \over{n}\pars{n\sigma^2\color{red}{+n\mu^2} -2\sigma^2 \color{blue} -2\mu^2 \color{red}{-2n\mu^2} \color{blue} + 2\mu^2 + \sigma^2 \color{red}{+n\mu^2}} \\
+    &= \over{n}\pars{n\sigma^2 -2\sigma^2 + \sigma^2} \\
+    &= \over{n}\pars{n\sigma^2 -\sigma^2} \\
+    &= \frac{\sigma^2(n-1)}{n} \\
+    &\neq \sigma^2 
+\end{align*}
+Therefore, it is a \underline{biased} point estimate.
+
+\nl To make an \underline{unbiased} estimator, rescale the summation of the natural definition...
+$$S := \over{n-1} \sum_{i=1}^n \pars{X_i - \Xbar}^2$$
