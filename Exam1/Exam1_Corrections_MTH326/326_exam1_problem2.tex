@@ -1,0 +1,21 @@
+(10 points) Air trapped in amber from the Cretaceous era (75 million years ago) may
+suggest that the composition of our atmosphere has changed. Nine different samples
+have been obtained and the gas tested for the percentage of nitrogen in the atmosphere.
+We will treat these as a random sample.
+\begin{enumerate}[label=(\alph*)]
+\item Given that $\xbar = 59.6\%$ and $S^2 = 39.13$, compute a 99\% confidence interval on the
+nitrogen level in the ancient atmosphere. (FYI, the nitrogen level of our air is 78.1\%
+today.)
+\begin{mybox}
+    We are given that $\alpha = 0.01$, $n=9$, and therefore d.f.$\,= 8$. Since $n < 30$ we need a $t$-test and will use the following formula: $\text{CI} = \xbar \pm t_{\alpha/2}(\text{d.f.}) \cdot \text{SE}$, where $\text{SE} = \dfrac{\sigma}{\sqrt{n}} = \sqrt{\dfrac{\sigma^2}{n}}$. We have $t_{0.005}(8) = 3.355$ and hence
+    \begin{align*}
+        \text{C.I.} &= 59.6\% \pm 3.355 \cdot \sqrt{\frac{39.13\%}{9}} = \pars{52.60438\%,\, 66.59561\%}.
+    \end{align*}
+\end{mybox}
+
+
+\item Construct a 90\% confidence interval for the population variance $\sigma^2$.
+\begin{mybox}
+    For the 90\% \textit{lower} tail, using a modified formula $\displaystyle \pars{0, \; \dfrac{(n-1)S^2}{\chi^2_{\alpha}}}$ and with $\alpha = 0.10$, $n=9$, $\text{df}=8$, $S^2 = 39.13\%$. Then $\chi^2_{0.1}(8) \approx 13.36$ and thus, $$\text{C.I.} \equiv \pars{0, \; \dfrac{8\cdot 39.13\%}{13.36}} \approx \pars{0\%,\; 23.43113\%}.$$
+\end{mybox}
+\end{enumerate}

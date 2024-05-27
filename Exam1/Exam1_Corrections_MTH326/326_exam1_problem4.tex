@@ -1,0 +1,55 @@
+(25 points) Suppose that $\thru{X}$ is an iid sample from a Rayleigh distribution with parameter $\theta > 0$ unknown:
+$$f(x) = \dfrac{2x}{\theta}e^{-x^2/\theta},\quad 0 < x < \infty.$$
+Note that $\E{X} = \dfrac{\sqrt{\pi \theta}}{2},\; \E{X^2} = \theta, \; \E{X^3} = \dfrac{3\sqrt{\pi \theta^3}}{4},\; \text{and } \E{X^4} = \dfrac{\theta^4}{2}$. (You do not need to prove these facts.)
+\begin{enumerate}[label=(\alph*)]
+    \item Find the method of moments estimator $\theta_{\text{MOM}}$ for $\theta$.
+    \begin{mybox}
+        $\mu_1'= \Eb{X} = \dfrac{\sqrt{\pi \theta}}{2}$ and $m_1' = \displaystyle \over{n}\sum_{i=1}^n X_i = \xbar$. Equating them,
+            $$\dfrac{\sqrt{\pi \theta}}{2} = \xbar 
+            \;\iff\; \sqrt{\pi \theta} = 2\xbar 
+            \;\iff\;  \pi \theta = 4\xbar^2
+            \;\iff\;  \theta_{\text{MOM}} = \frac{4 \xbar^2}{\pi}$$
+    \end{mybox}
+    \vspace{.2in}
+    \item Find and simplify the likelihood function $L(\thru{x} \mid \theta)$, complete the factorization, and determine a sufficient statistic for $\theta$.
+    \begin{mybox}
+        \begin{align*}
+            L(\vec{x} \mid \theta) &= \prod_{i=1}^n f(x_i \mid \theta ) = \prod_{i=1}^n \dfrac{2x_i}{\theta}e^{-x_i^2/\theta} = \pfrac{2}{\theta}^n \prod_{i=1}^n x_i e^{-x_i^2/\theta} \\
+            &= \pfrac{2}{\theta}^n e^{-(\sum_{i=1}^n x_i^2 )/\theta} \prod_{i=1}^n x_i = \pfrac{2}{\theta}^n e^{-S/\theta} \prod_{i=1}^n x_i \hspace{.5in} S:=\sum_1^n x_i^2
+        \end{align*} 
+        $$\therefore \quad g(S \mid \theta) = \pfrac{2}{\theta}^n e^{-S/\theta} \quad \text{and} \quad h(\vec{x}) = \prod_{i=1}^n x_i$$
+        And $S$ is sufficient for $\theta$ by the Factorization Theorem.
+    \end{mybox}
+\vspace{.2in}
+    \item Find the maximum likelihood estimator $\theta_{\text{MLE}}$ for $\theta$.
+    \begin{mybox}
+        \begin{align*}
+            \ln(L(\theta)) &= n \ln \pfrac{2}{\theta} -\frac{1}{\theta}\sum_{i=1}^n x_i^2 + \ln \pars{\prod_{i=1}^n x_i} \\
+            &= \underbrace{n \ln 2 - n \ln \theta}_{\text{log division law}} -\frac{1}{\theta}\sum_{i=1}^n x_i^2 + \sum_{i=1}^n \ln x_i\\
+            \frac{\partial}{\partial \theta}\pars{\ln\big(L(\theta)\big)} &= 0 - \frac{n}{\theta} + \over{\theta^2} \sum_{i=1}^n x_i^2 + 0 = 0
+            \iff \frac{n}{\theta} = \over{\theta^2} \sum_{i=1}^n x_i^2 \\
+            \iff n\theta &=  \sum_{i=1}^n x_i^2
+            \iff \theta_{\text{MLE}} = \over{n}\sum_{i=1}^n x_i^2
+        \end{align*}
+
+
+    \end{mybox}
+    \item Show that the maximum likelihood estimator of $\theta$ is consistent.
+    \begin{mybox}
+        For a consistent estimator, we need $\displaystyle \limn \Vs{\theta_{MLE}} = 0$. Computing the variance,
+        \begin{align*}
+            \Vb{\theta_{\text{MLE}}} = \Vb{\over{n}\sum_{i=1}^n x_i^2} &= \over{n^2}\Vb{\sum_{i=1}^n x_i^2} = \over{n^2}\sum_{i=1}^n \Vb{x_i^2} = \over{n} \Vb{x_i^2}\\
+            &= \over{n} \pars{\Eb{x_i^{2\cdot 2}} - \Eb{x_i^2}^2} = \over{n} \pars{\frac{\theta^4}{2} - \theta^2}\\
+            \limn \Vs{\theta_{\text{MLE}}} &= \limn \over{n}\pars{\dfrac{\theta^4}{2} - \theta^2} = \pars{\dfrac{\theta^4}{2} - \theta^2} \limn \over{n} = 0.
+        \end{align*}
+        Therefore $\theta_{\text{MLE}}$ is consistent.
+    \end{mybox}
+\vspace{.5in}
+    \item Is the maximum likelihood estimator a minimum variance unbiased estimator? Briefly explain your answer.
+    \begin{mybox}
+        $$\Eb{\theta_{\text{MLE}}} = \Eb{\over{n}\sum_{i=1}^n x_i^2} = \Eb{x_i^2} = \theta.$$
+        $$\operatorname{B}[\,\theta_{\text{MLE}}\,] = \Eb{\theta_{\text{MLE}}} - \theta = \theta - \theta = 0 \quad \therefore \quad \text{unbiased.}$$
+        Because $\theta_{\text{MLE}}$ is unbiased and $S$ is a sufficient statistic (part b), then our $\theta_{\text{MLE}}$ is an MVUE via the Rao-Blackwell Theorem. 
+    \end{mybox}
+
+    \end{enumerate} 

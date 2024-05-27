@@ -1,0 +1,13 @@
+(5 points) In a study to compare the perceived effects of two pain relievers, 200 patients
+were given medicine $A$, of whom 90\% found relief, and 300 patients were given medicine
+$B$ with 80\% experiencing relief. Find a 95\% confidence interval for the difference in
+population proportions experiencing relief between $A$ and $B$.
+\begin{mybox}
+    We want $\mu_A - \mu_B$ on a large sample $n > 30$ so we will need to use a $\mathcal{Z}\text{-test}$. For a 95\% confidence interval ($\alpha = 0.05$) we use a $\mathcal{Z}\text{-score}$ of $\mathcal{Z}_{0.025} = 1.960$.
+    
+    \nl We have $\displaystyle \text{CI} \equiv \mu_1 - \mu_2 \pm \mathcal{Z}_{\alpha/2} \sqrt{\dfrac{p_1(1-p_1)}{n_1} + \dfrac{p_2(1-p_2)}{n_2}}$. Substituting in our given information with $A \equiv 1$ and $B \equiv 2$,
+    \begin{align*}
+        \text{C.I.} &= 0.9 - 0.8 \pm 1.960 \sqrt{\dfrac{0.9(1-0.9)}{200} + \dfrac{0.8(1-0.8)}{300}}\\
+        &\approx (0.03853, \; 0.16146) .
+    \end{align*}
+\end{mybox}

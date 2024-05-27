@@ -1,0 +1,53 @@
+(20 points) Suppose $Y_1,\; Y_2,\; Y_3\;$ and $Y_4$ is an iid random sample from an exponential distribution with unknown rate parameter $\beta > 0$:
+$$f(y) = \dfrac{1}{\beta}e^{-y/\beta}, \quad 0 < y < \infty .$$
+Consider the two estimators of $\beta$: $\that_1 = \ybar$ and $\that_2 = \dfrac{2Y_1 + 3Y_2}{5}$.
+\begin{enumerate}[label=(\alph*)]
+    \item Show that $\that_2$ is an unbiased estimator of $\beta$.
+    \begin{mybox}
+        In order to show unbiased, we need $\operatorname{B}(\that_2) = \Es{\that_2} - \Es{\that} = 0$. Exponential is a gamma with $\alpha = 1$. Hence $\mu = \alpha \beta = \beta$ and $\sigma^2 = \alpha \beta^2 = \beta^2$. Computing the expected value, 
+        $$
+            \Es{\that_2} \;=\; \Eb{\dfrac{2Y_1 + 3Y_2}{5}} \;=\; \frac{2}{5}\Eb{Y_1} + \frac35 \Eb{Y_2} \;=\; \frac{2}{5}\beta + \frac35 \beta \;=\; \beta$$
+        Thus $\operatorname{B}(\that_2) = \Es{\that_2} - \Es{\that} = \beta - \beta = 0$. Hence, $\that_2$ is unbiased.
+    \end{mybox}
+\vspace{1.2in}
+    \item Determine the efficiency of $\that_2$ relative to $\that_1$.
+    \begin{mybox}
+        The definition of efficiency is $\eff{\that_2}{\that_1} = \dfrac{\Vs{\that_1}}{\Vs{\that_2}}$, so we will compute the respective variances.
+        \begin{align*}
+            \Vs{\that_1} &= \Vs{\ybar} = \Vb{\over 4 \sum_{i=1}^4 Y_i} = \over{4^2} \Vb{Y_1 + Y_2 + Y_3 + Y_4} \\ &= \frac{\Vb{Y_1} + \Vb{Y_2} + \Vb{Y_3} + \Vb{Y_4}}{16} = \frac{4\beta^2}{16} = \frac{\beta^2}{4}
+        \end{align*}
+        \begin{align*}
+            \Vs{\that_2} &= \Vb{\dfrac{2Y_1 + 3Y_2}{5}} = \Vb{\frac{2}{5}Y_1} + \Vb{\frac{3}{5}Y_2} \;=\; \frac{4}{25} \Vb{Y_1} + \frac{9}{25}\Vb{Y_2}\\
+            &=  \frac{4}{25} \beta^2 + \frac{9}{25}\beta^2 \;=\; \frac{13}{25}\beta^2
+        \end{align*}
+        \begin{align*}
+            \eff{\that_2}{\that_1} &= \dfrac{\Vs{\that_1}}{\Vs{\that_2}} = \dfrac{\beta^2/4}{13\beta^2/25} = \over4 \times \frac{25}{13} = \frac{25}{52}
+        \end{align*}
+    \end{mybox}
+
+    \item Now consider a third estimator of $\beta$, $\that_3 = \min \pars{Y_1, \; Y_2, \; Y_3, \; Y_4}$. Show that the distribution of $\that_3$ is also exponentially distributed. (Recall the general density function for min order statistic is $f_{(1)}(y) = n \brac{1-F(y)}^{n-1}f(y)$.)
+    \begin{mybox}
+        From gamma with $\alpha = 1$ we have $f(y) := \over{\beta}e^{-y/\beta},\;y\in(0,\infty)$. Computing the antiderivitive, 
+    \begin{align*}
+        F(y) &= \int_0^y \frac{1}{\beta}e^{-y/\beta}\,dy \hspace{1.1in} g(y) = u = -\frac{y}{\beta}\\
+        &= \over{\beta} \int_{g(0)}^{g(y)} -\beta e^u du \hspace{1in} du = -\over{\beta}dy \iff dy = -\beta du\\
+        &= - \int_0^{-y/\beta} e^u du = -\bbrac{e^u}_{u=0}^{u=-\frac{y}{\beta}} = - \bbrac{e^{-\frac{y}{\beta}} - 1} = -e^{-\frac{y}{\beta}} + 1.
+    \end{align*}
+    Substituting into the formula, 
+    $$f_1(y) = 4\bbrac{1- \pars{-e^{-y/\beta} + 1}}^{3} \frac{e^{-y/\beta}}{\beta} = 4\pars{e^{-y/\beta}}^3 \frac{e^{-y/\beta}}{\beta} = \frac{4}{\beta}e^{-4y/\beta}.$$
+    Hence it is still an exponential distribution with $\lambda = \dfrac{4}{\beta}$.
+\end{mybox}
+\vspace{.5in}
+    \item Show that $\that_3$ is a biased estimator and compute the mean square error of $\that_3$.
+\begin{mybox}
+    $$\Eb{f_{(1)}(y)} = \Eb{ \frac{4}{\beta}e^{-4y/\beta}} = \Eb{\frac{1}{\beta/4}e^{-y/(\beta/4)}} = \frac{\beta}{4}$$
+    $$\operatorname{B}(\that_3) = \Es{\that_3} - \Es{\that} = \frac{\beta}{4} - \beta = -\frac{3}{4}\beta \neq 0 \quad \therefore \quad \that_3 \text{ is biased}$$
+    $$\Vs{\that_3} = \pfrac{\beta}{4}^2 = \frac{\beta^2}{16}$$
+    \begin{align*}
+        \operatorname{MSE}[\,\that_3\,] &= \Vs{\that_3}+ \operatorname{B}[\,\that_3\,]^2\\
+        &= \frac{\beta^2}{16} + \pars{-\frac{3}{4}\beta}^2 \\ 
+        &= \frac{1}{16}\beta^2 + \frac{9}{16} \beta^2\\
+        &= \frac{5}{8}\beta^2
+    \end{align*}
+\end{mybox}
+\end{enumerate} 
