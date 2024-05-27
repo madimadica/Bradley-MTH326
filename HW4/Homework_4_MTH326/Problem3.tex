@@ -1,0 +1,45 @@
+Let $X_1, X_2, \dots, X_n$ be iid from a Bernoulli distribution with probability $p$. We are going to construct the MVUE for variance $pq$. Recall that in class we showed that $S = \sum X_i$ is a sufficient statistic for $p$.
+\begin{enumerate}[label=({\alph*})]
+    %a
+    \item Define the statistic
+    $$T = \tau(\thru{x}) = \begin{cases}1 & X_1 = 1 \text{ and } X_2 = 0\\ 0 & \text{otherwise} \end{cases}$$
+    Show that $\tau$ is an unbiased estimator for $pq$.
+    
+    \nl \textbf{Solution: } We need to show that $E[\,T\,] = pq$
+    \begin{align*}
+        E[\,T\,] &= 1 \cdot P(X = 1 \text{ and } X=0)\\
+        &= P(X=1)\cdot P(X=0)\\
+        &= p^1 q^0 \cdot p^0 q^1 \\&= pq
+    \end{align*}
+    Therefore $T$ is an unbiased estimator.
+
+    \vspace{1in}
+    %b
+    \item Show that $$P(T = 1 \mid S = s) = \frac{s(n-s)}{n(n-1)}$$
+    
+    \nnl \textbf{Solution: } By the definition of a conditional probability,
+    \begin{align*}
+        P(T = 1 \mid S = s) &= \frac{P(T = 1 \,\cap\, S = s)}{P(S=s)}\\&= P(X_1 = 1,\; X_2 = 0, \;S = \sum_{i=3}^n X_i - 1)\\&= \frac{pq \cdot \binom{n-2}{s-1}p^{s-1}q^{n-s-1}}{\binom{n}{s}p^sq^{n-s}}\\ &= \frac{\binom{n-2}{s-1}}{\binom{n}{s}}\\ &=
+        \frac{(n-2)!}{(s-1)! \, (n-2-(s-1))!} \cdot \frac{s!}{n!\,(n-s)!}
+        \\&= \frac{s(n-s)}{n(n-1)}
+    \end{align*}
+
+    \newpage
+    %c
+    \item Using the Rao-Blackwell Theorem states that to find an MVUE of $pq$, we define a new statistic $\phi(s) = E[\,T \mid S = s\,]$. Show that
+    $$\phi(s) = \frac{n}{n-1}[\xbar(1-\xbar)]$$
+    is the minimum variance unbiased estimator of $pq$.
+    
+    \nnl \textbf{Solution: } 
+    \begin{align*}
+        \phi(s) &= E[\,T \mid S = s\,] &\\ &= 1 \cdot P(T = 1 \mid S = s) + 0 \cdot P(T = 0 \mid S = s) &\\
+        &= \frac{s(n-s)}{n(n-1)} & \text{via part B}\\
+        &= \frac{\sum X_i (n-\sum X_i)}{n(n-1)} & \text{Substituting } S = \sum X_i\\
+        &= \frac{\xbar (n-\sum X_i)}{n-1} & \text{Substituting } \xbar = \over{n} \sum X_i \\
+        &= \frac{n \cdot \over{n} \xbar (n-\sum X_i)}{n-1} & \text{multiply by fancy 1: } \frac{n}{n}\\
+        &= \frac{n \xbar (\frac{n}{n}- \over{n}\sum X_i)}{n-1} & \text{distribution of } \over{n}\\\
+        &= \frac{n \xbar (1 - \xbar)}{n-1} & \text{Substituting } \xbar = \over{n} \sum X_i \\
+        &= \frac{n}{n-1}[\xbar(1-\xbar)]
+    \end{align*}
+    Since $S$ is a sufficient stat for $p$, $\phi(s)$ is the MVUE by the Rao Blackwell Theorem.\vspace{.2in}
+\end{enumerate}

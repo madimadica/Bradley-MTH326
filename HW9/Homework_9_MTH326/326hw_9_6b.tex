@@ -1,0 +1,18 @@
+Via the definition, compute the expected value $\displaystyle \E{\over{X}}$.
+
+\soln*
+\begin{align*}
+    \E{\over{X}} &= \int_0^{\infty} \over{x} f(x) dx \\
+    &= \int_0^{\infty} \over{x}
+        \pars{\over{\Gamma(\frac{n}{2}) 2^{\frac{n}{2}}}} x^{\frac{n}{2} - 1} e^{- \frac{x}{2}
+    }
+\\
+    &=\over{\Gamma(\frac{n}{2}) 2^{\frac{n}{2}}} \int_0^{\infty} \over{x}
+    x^{\frac{n}{2} - 1} e^{- \frac{x}{2}
+}\\
+&=\over{\Gamma(\frac{n}{2}) 2^{\frac{n}{2}}} \int_0^{\infty} 
+x^{\frac{n}{2} - 2} e^{- \frac{x}{2}}\\
+&=\over{\Gamma(\frac{n}{2}) 2^{\frac{n}{2}}}  \cdot  2^{\frac{n}{2}-1} \Gamma \pars{\frac{n}{2} - 1} \tag{substitution from (a)}\\
+&= \over{(\frac{n}{2} - 1) \Gamma(\frac{n}{2} - 1) 2^{\frac{n}{2}}}  \cdot  2^{\frac{n}{2}-1} \Gamma \pars{\frac{n}{2} - 1}
+\\ &= \over{n-2} \tag{\say{lots of killing} - (McAsey)}\\
+\end{align*}

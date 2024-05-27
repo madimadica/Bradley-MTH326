@@ -1,0 +1,18 @@
+\textbf{Solution: } As per the notes,
+$$\underbrace{\mu_k' =E[\,X^k\,]}_{\text{\color{red}population}} \qquad \text{and} \qquad \underbrace{m_k' = \over{n}\sum X_i^k}_{\text{\color{red}data set}}$$
+Computing $\mu_1'$, we have
+\begin{align*}
+    \mu_1' &= \Eb{X}\\
+    &= \int_{\theta}^{\infty} x \cdot \frac{2\theta^2}{x^3} \,dx\\
+    &= 2\theta^2 \int_{\theta}^{\infty} x^{-2}\,dx\\
+    &= 2\theta^2 \brac{-\frac{1}{x}}_{x=\theta}^{x=\infty}\\
+    &= 2\theta^2 \brac{- \limx \over{x} + \frac{+1}{\theta}}\\
+    &= \frac{0 + 2\theta^2}{\theta}\\
+    &= 2\theta
+\end{align*}
+Then for $m_k'$,
+\begin{align*}
+    m_k' &= \over{n}\sum X_i^k = 2\theta\\
+    &\iff m_k' = \xbar = 2\theta\\
+    &\iff \boxed{\that = \frac{\xbar}{2}}
+\end{align*}

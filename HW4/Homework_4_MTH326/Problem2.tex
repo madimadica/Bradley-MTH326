@@ -1,0 +1,16 @@
+Suppose the population has a gamma distribution and we know $\beta$ but $\alpha$ is unknown. Let $X_1, X_2, \dots, X_n$ denote a random sample from the distribution. Determine the likelihood function, compute the factorization, and using the Factorization Theorem, show that
+$$T = \sum_{i=1}^n \ln (X_i)$$ is a sufficient statistic for $\alpha$.
+
+\nnl \textbf{Solution: } The gamma distribution has the probability distribution function
+$$f(x) = \frac{\lambda^{\alpha} e^{-x\lambda}}{\Gamma \alpha}x^{\alpha-1} \qquad \lambda = \over{\beta}$$
+Then,
+\begin{align*}
+L(\thru{X} \mid \alpha) &= \prod_{i=1}^n f(X_i \mid \alpha)\\
+&= \prod_{i=1}^n \frac{\lambda^{\alpha} e^{-X\lambda}}{\Gamma \alpha}X^{\alpha-1}\\
+&= \pars{\frac{\lambda^{\alpha}}{{\Gamma \alpha}}}^n \prod_{i=1}^n  e^{-X\lambda} X^{\alpha-1}
+\end{align*}
+$$g(X_i \mid \alpha) = \pars{\frac{\lambda^{\alpha}}{{\Gamma \alpha}}} \prod_{i=1}^n X_i^{\alpha-1} = (\alpha-1)\sum_{i=1}^n \ln X_i$$
+And
+$$h(X_i) = e^{-\lambda \sum_{i=1}^n X_i}$$
+Then by the factorization theorem, since $gh = L$,
+$$T = \sum_{i=1}^n \ln (X_i)$$

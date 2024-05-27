@@ -1,0 +1,42 @@
+Determine the rejection region for the most powerful test of
+\begin{align*} H_0 &: \theta = \theta_0\;\text{versus} \\ H_a &: \theta = \theta_a, \end{align*} assuming $\theta_a > \theta_0$.
+
+\nl \textbf{Solution: } The likelihood function is
+\begin{align*}
+    L(y \mid \theta) &= \prod_{i=1}^n \dfrac{{y_i}^2e^{-y_i/\theta}}{2\theta^3} \\
+    &= \pdfrac{1}{2\theta^3}^n \prod_{i=1}^n {y_i}^2 e^{-y_i/\theta}\\
+    &= \pdfrac{1}{2\theta^3}^n \exp \pars{ - \frac{\sum y_i}{\theta}} \prod_{i=1}^n {y_i}^2
+\end{align*}
+By the Neyman Pearson Lemma, there exists some $k$ such that $\dfrac{L(\theta_0)}{L(\theta_a)} < k$ (strictly less than since $\theta_a > \theta_0$). And 
+\begin{align*}
+    \dfrac{L(\theta_0)}{L(\theta_a)} &= \dfrac{
+        \pdfrac{1}{2{\theta_0}^3}^n \exp \pars{ - \frac{\sum y_i}{\theta_0}} \prod_{i=1}^n {y_i}^2
+    } {
+        \pdfrac{1}{2{\theta_a}^3}^n \exp \pars{ - \frac{\sum y_i}{\theta_a}} \prod_{i=1}^n {y_i}^2
+    }\\ 
+    &= \dfrac{
+        \dfrac{1}{{\theta_0}^{3n}} \exp \pars{ - \frac{\sum y_i}{\theta_0}}
+    } {
+        \dfrac{1}{{\theta_a}^{3n}} \exp \pars{ - \frac{\sum y_i}{\theta_a}}
+    }\\ 
+    &= \pdfrac{\theta_a}{\theta_0}^{3n}  \cdot 
+        \exp \pars{ \frac{\sum y_i}{\theta_a} - \frac{\sum y_i}{\theta_0}}
+        \\
+    &= \pdfrac{\theta_a}{\theta_0}^{3n}  \cdot 
+    \exp \pars{\pars{\over{\theta_a} - \over{\theta_0} } \sum_{i=1}^n y_i }
+    \\
+    &< k
+\end{align*}
+To get this in terms of a statistic, we take the natural log of both sides. Thus,
+\begin{align*}
+    & \ln \brac{ \pdfrac{\theta_a}{\theta_0}^{3n}  \cdot 
+    \exp \pars{\pars{\over{\theta_a} - \over{\theta_0} } \sum_{i=1}^n y_i } } < \ln k\\
+    \iff & 3n \pars{ \ln \theta_a - \ln \theta_0} + \pars{\over{\theta_a} - \over{\theta_0} } \sum_{i=1}^n y_i < \ln k\\
+    \iff & \pars{\over{\theta_a} - \over{\theta_0} } \sum_{i=1}^n y_i < \ln k - 3n \pars{ \ln \theta_a - \ln \theta_0}\\
+    \iff & \sum_{i=1}^n y_i > \frac{ \ln k - 3n \pars{ \ln \theta_a - \ln \theta_0} }{\over{\theta_a} - \over{\theta_0} } := k' \tag{Divide by negative value}\\
+\end{align*}
+Let $S := \displaystyle \sum_{i=1}^n y_i$, then we reject $H_0$ if $S > k'$, with the best critical region
+$$C := \set{\vec{y} \mid S > k'}$$
+where $k'$ is selected such that
+$$\Pr \pars{S > k' \mid H_0 : \mu = \mu_0 } = \alpha$$
+for some $\mu_0$ and $\alpha$.

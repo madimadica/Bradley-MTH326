@@ -1,0 +1,35 @@
+\section{}
+Last semester 7 of the 19 MTH 325 students filled out the end of the semester course evaluations.  When asked how much time (in hours) they spent outside of class per week on the course, they answered
+\[
+15, 6, 6, 7, 4, 10, \text{and } 8.
+\]
+\subsection{}
+    Find a 98\% confidence interval for the average time spent outside of class on the course per week for all student.
+    \begin{mybox}
+        \textbf{Solution: } Let $\xbar$ denote the sample mean. Then $\xbar = 8$. The sample variance, $S^2$ is
+        \begin{align}
+            S^2 &= \frac{\sum_{i=1}^{7} (X_i - \xbar)^2}{n-1}\notag\\
+            &= \frac{1}{6}\brac{(15-8)^2 + (6-8)^2 + (6-8)^2 + (7-8)^2 + (4-8)^2  + (10-8)^2 + (8-8)^2}\notag\\
+            &= \frac{1}{6}\brac{49 + 4 + 4 + 1 + 16 + 4 + 0}\notag\\
+            &= \frac{78}{6}\notag\\
+            &= 13\notag
+        \end{align}
+        There are 6 degrees of freedom, and by table 5, the 98\% C.I. $t_{0.010} = 3.143$. Thus,
+        \begin{align}
+            \text{C.I. } &= \xbar \pm t_{0.010} \cdot \sqrt{\frac{S^2}{n}}\notag\\
+            &= 8 \pm 3.143 \sqrt{\frac{13}{7}} \notag\\
+            &\approx 8 \pm 4.2831870143620859646952709212442871657432591793749504350476 \notag 
+        \end{align}
+        Thus, the 98\% CI is approximately \\(3.7168129856379140353047290787557128, 12.2831870143620859646952709212442872).
+    \end{mybox}
+    \newpage
+\subsection{}
+    Find a 95\% confidence interval for the true variance in the time students spent outside of class on the course per week.
+    \begin{mybox}
+        \textbf{Solution: } Using table 6 (with 6 degrees of freedom) to obtain values for the 95\% C.I., we have that $\chi^2_{0.025} = 14.4494$ and $\chi^2_{0.975} = 1.237347$. Then the confidence interval, $I$ is 
+        \begin{align}
+            I &= \pars{\frac{(n-1)S^2}{14.4494},\; \frac{(n-1)S^2}{1.237347}}\notag\\
+            &= \pars{\frac{6\cdot 13}{14.4494},\; \frac{6 \cdot 13}{1.237347}}\notag\\
+            &\approx \pars{5.398148019986989079131313410937,\;63.03809683136581734953897330336599 }\notag
+        \end{align}
+    \end{mybox}

@@ -1,0 +1,8 @@
+We first need the variance:
+\begin{align*}
+    \Vb{U} &= \V{\over{n} \sum_{i=1}^n X_i^r}\\
+    &= \over{n^2} \sum_{i=1}^{n} \V{X_i^r}\\
+\end{align*}
+Taking the limit,
+$$\limn \Vb{U} = \limn \pars{\over{n^2} \sum_{i=1}^n \V{X_i^r}}$$
+We know that $\limn \dfrac{1}{n^2} = 0$. Since we showed in (f) that $\Vb{U}$ is finite, $\Vb{X}$ is also finite since $U$ is a sum of $X$'s. 0 times a finite quantity is going to be 0. Therefore $\Vb{U} = 0$. Since the variance is zero, $U$ is a consistent estimator of $\theta$.

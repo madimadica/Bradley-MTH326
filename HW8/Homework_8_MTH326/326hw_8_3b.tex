@@ -1,0 +1,9 @@
+Test if the quadratic term is really necessary. That is, test $H_0 := \beta_2 = 0$.
+
+\nnl \textbf{Solution: } We need to compute $\Var*{\betah_2} = S^2 c_{2\,2}$. From $(X^TX)^{-1}$ we already have \\$c_{2\,2} = 0.00000240297$, so we're left with computing $S^2$. This requires the $\operatorname{SSE}$ and \\$\operatorname{SSE} = Y^TY - \betah^TX^TY$. Hence, computing the components (with code) $Y^TY = 708.83$ and $\betah^TX^TY \approx 707.2151367160669$. Then $\operatorname{SSE} \approx 1.61486328$.
+
+\nl Then we have $\df = n - (k+1) = 12 - (2+1) = 9$.
+As such, $$S^2 = \displaystyle \frac{\operatorname{SSE}}{\df} = \frac{1.61486328}{9} \approx 0.179429253.$$ Therefore $\Var*{\betah_2} = 0.179429253 \cdot 0.00000240297 = 0.000000431163112$. Computing our $t$-value, \notab{$$
+    t = \frac{\betah_2 - \beta_2}{\sqrt{\Var*{\betah_2}}} = \frac{0.0009574426749999754 - 0}{\sqrt{0.000000431163112}} = \frac{0.0009574426749999754}{0.000656630118} \approx 1.45811569.$$
+}
+Then $p = \P{|T| > 1.45811569} = 0.178804$ (by Webassign Student's $t$-distribution with two-tailed, the t-value of 1.45811569 and 9 degrees of freedom). Since $p > \alpha$ there is \textbf{not} sufficient evidence that the quadratic term is necessary.

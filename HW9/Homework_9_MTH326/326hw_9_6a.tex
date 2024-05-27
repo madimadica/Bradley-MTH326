@@ -1,0 +1,17 @@
+Using the definition of the gamma function (the \textit{function}, not distribution), write
+the following integral as a multiple of a gamma function:
+\notab{
+    $$\int_0^{\infty} x^{\frac{n}{2}-2}e^{-x/2} \, dx$$
+    $$\text{Goal: }\, c\Gamma(z) = c\int_0^{\infty} x^{z-1} e^{-x}dx  \to \int_0^{\infty} x^{\frac{n}{2}-2}e^{-x/2}dx$$
+}
+
+\begin{align*}
+    &\; \int_0^{\infty} x^{\frac{n}{2} -2} e^{-\frac{x}{2}} dx \tag{$u = \frac{x}{2}\; du = \over{2}dx$}\\
+    =&\; \int_0^{\infty} (2u)^{\frac{n}{2} - 2} e^{-\frac{2u}{2}} (2du) \tag{apply $u$-sub}\\
+    =&\; 2 \int_0^{\infty} 2^{\frac{n}{2} - 2} u^{\frac{n}{2} - 2} e^{-u} du \tag{pull constant \& distribute}\\
+    =&\; 2^{\frac{n}{2} - 1} \int_0^{\infty} u^{\frac{n}{2} - 2} e^{-u} du \tag{pull new base 2 constant}\\
+    =&\; 2^{\frac{n}{2}-1} \int_0^{\infty} u^{(\frac{n}{2} - 1) - 1} e^{-u} du \tag{linearity of addition}\\
+    =&\; 2^{\frac{n}{2}-1} \, \Gamma\pars{\frac{n}{2} - 1} \tag{Gamma function substitution $z = \frac{n}{2} - 1$}
+\end{align*}
+Doing some factorial algebra, $\displaystyle \Gamma\pars{\frac{n}{2} - 1} = \frac{\Gamma\pars{\frac{n}{2}}}{n/2}$, so the above equals
+$$\frac{2^{\frac{n}{2}-1}}{n/2} \Gamma \pars{\frac{n}{2}}.$$

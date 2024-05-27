@@ -1,0 +1,20 @@
+Find a 95\% confidence interval for the amount of calories in a burger made with 10 grams of fat, 20 grams of carbohydrates, and 15 grams of protein.
+
+\nnl \textbf{Solution: } Let a vector $a \in \R^3$ be defined as $a = \displaystyle \vvec{10}{20}{15}$. By duality we will treat this as a matrix. As shown in (c), we have 3 degrees of freedom, so for $\alpha = 1 - 0.95 = 0.05$ then $t_{\alpha/2}(\df) = t_{0.05}(3) = 3.182$. Then using the formula 
+$$a^T \betah \pm t_{\alpha/2} S \sqrt{a^T(X^TX)^{-1}a},$$
+we have $a^T \betah = 244.02182825$ from part $(b)$. Next, 
+\begin{align*}
+    a^T(X^TX)^{-1}a &= (10, 20, 15) \cdot \over*{\num{3386813}} \begin{bmatrix}
+        73100 & 4728 & -79797\\
+        4728 & 62019 & -133406\\
+        -79797 & -133406 & 356153
+    \end{bmatrix} \cdot \vvec{10}{20}{15}\\
+    &= (10, 20, 15) \cdot \over*{\num{3386813}} \vvec{-371395}{-713430}{1876205}\\
+    &= \over*{\num{3386813}} \Bigbrac{ 10 \cdot -371395 +  20 \cdot -713430 + 15 \cdot 1876205}\\
+    &= \frac{\num{10160525}}{\num{3386813}}
+    \\ & \approx 3.00002539.
+\end{align*}
+Therefore
+$$t_{\alpha/2} S \sqrt{a^T(X^TX)^{-1}a} = 3.182 \cdot 5.03722807 \sqrt{3.00002539} \approx 27.76222$$
+and
+$$I \equiv 244.02182825 \pm 27.76222 \equiv (216.259608,\; 271.784048).$$

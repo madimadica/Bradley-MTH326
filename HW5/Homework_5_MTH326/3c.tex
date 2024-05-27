@@ -1,0 +1,11 @@
+$$L(\thru{X} \mid \theta) = \frac{r^n \cdot e^{-\xbar^r/\theta}}{\theta^n} \prod_{i=1}^n x^{r-1}_i $$ 
+\begin{align*}\ln \pars{L(\thru{X} \mid \theta)} &= \ln\pover{\theta}^n + \ln r^n + \ln \pars{ \prod_{i=1}^n x^{r-1}_i } + \ln \pars{ e^{-\xbar^r/\theta}}\\
+    &= -n \ln \theta + n \ln r + (r-1)\ln \xbar - \frac{\xbar^r}{\theta} 
+\end{align*}
+
+\begin{align*}
+    \pdv{}{\theta}\bigg[\ln \Big(L(\thru{X} \mid \theta)\Big)\bigg] &= -\frac{n}{\theta} + 0 + 0 + \frac{\xbar^r}{\theta^2}
+    \\ &= 0
+    \\ & \iff  \frac{\xbar^r}{\theta^2} = \frac{n}{\theta}\\
+    & \iff \theta = \frac{\xbar^r}{n}
+\end{align*}

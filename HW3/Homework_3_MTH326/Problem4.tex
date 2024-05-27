@@ -1,0 +1,31 @@
+\section{}
+A phone poll survey is undertaken to see if men and women have a difference of opinions on a specific topic.
+\subsection{}
+    If 1000 men and 1000 women are to be interviewed, how accurately could you estimate the difference in the proportions?  Find an error bound on the estimation.
+    \begin{mybox}
+        \textbf{Solution: } Using
+        $$\hat{p}_1-\hat{p}_2 \,\pm\, \underbrace{Z_{\alpha/2}\sqrt{ \frac{\hat{p}_1(1-\hat{p}_1)}{n_1}   \, + \, \frac{\hat{p}_2(1-\hat{p}_2)}{n_2}  }}_{E \text{ error bound}}.$$
+        With $n_1 = 1000$ men, $n_2 = 1000$ women, and a total size of $n_1+n_2 = 2000$. Then $\hat{p}_1$, the proportion of men, is $\frac{1000}{2000} = 0.5$, and similarly $\hat{p}_2$, the proportion of women, is also $0.5$. Using a $2\sigma$ confidence interval, $Z_{0.025} = 1.960$. Thus we can compute the error,
+        \begin{align}
+            E &= Z_{\alpha/2}\sqrt{ \frac{\hat{p}_1(1-\hat{p}_1)}{n_1}   \, + \, \frac{\hat{p}_2(1-\hat{p}_2)}{n_2}  } \notag\\
+            &= 1.960 \sqrt{ \frac{0.5(1-0.5) }{1000} \, + \, \frac{0.5(1-0.5)}{1000}}\notag\\
+            &= 1.960 \sqrt{2 \cdot \frac{0.25}{1000}}\notag\\
+            &\approx 0.0438269323589958780496198039071330142146361198483859041957.\notag
+        \end{align}
+    \end{mybox}
+    \newpage
+\subsection{}
+    Suppose that you were designing the survey and wished to estimate the difference in a pair of proportions, correct to within 2\%, with probability 90\%.  How many interviewees should be included in each sample.
+    \begin{mybox}
+        \textbf{Solution: } We want $E < 0.02$, For a 90\% C.I., $Z_{0.05} = 1.645$. Assuming that $n_1 = n_2$, we get
+        \begin{align}
+            0.02 &\geq Z_{\alpha/2}\sqrt{ \frac{\hat{p}_1(1-\hat{p}_1)}{n_1}   \, + \, \frac{\hat{p}_2(1-\hat{p}_2)}{n_2}  } \notag\\
+            &= 1.645 \sqrt{\frac{0.25}{n_1}+ \frac{0.25}{n_2}} \notag\\
+            &= 1.645 \sqrt{\frac{0.5}{n_1}}\notag\\
+            \Longleftrightarrow \quad 0.012158 &\geq  \sqrt{\frac{0.5}{n_1}}\notag\\
+            \Longleftrightarrow \quad 0.000147818294 &\geq  \frac{0.5}{n_1}\notag\\
+            \Longleftrightarrow \quad n_1  &\geq  \frac{0.5}{0.000147818294}\notag\\
+            &= 3382.53125828 \notag
+        \end{align}
+        Thus we would need at least 3383 interviewees from each group (men/women) to be correct within 2\%.
+    \end{mybox}

@@ -1,0 +1,15 @@
+Is there statistical evidence that the slope of the regression line is greater than 10?
+    Run a hypotheses test at $\alpha = 0.05$.
+
+
+    \nl \textbf{Solution: } Let $H_0 : \beta_1 = 10$ and $H_a : \beta_1 > 10$. Then our one-sided $t$-value is $t_{\alpha}(\text{df}) = t_{0.05}(4) = 2.132$.
+
+    \nl Then the $\mathcal T$ statistic is defined as
+    \begin{align*}
+        \mathcal T &= \frac{\widehat{\beta}_1 - \beta_1}{S\sqrt{c_{1\,1}}} \\
+        &= \frac{ \dfrac{4570}{377} - 10}{\dfrac{5\sqrt{6893822}}{377} \sqrt{\dfrac{6}{377}}}\\
+        &= \frac{377 \pars{ \dfrac{4570}{377} - 10}}{10\sqrt{27429}}\\
+        &= \frac{80\sqrt{27429}}{27429}\\
+        &\approx 0.483042.
+    \end{align*}
+    Then $\Pr \pars{\mathcal T < t} \approx 0.327157$ by webassign technology ($t$-distribution, right tail, \\$\mathcal T = 0.4830$, $\text{df} = 4$). Since $p > \alpha$ then we accept the null hypothesis. Hence, there is \textbf{not} enough statistical evidence that the slope is greater than 10.

@@ -1,0 +1,380 @@
+\documentclass[12pt]{article}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{diagbox}
+\usepackage{empheq}
+\usepackage{makecell}
+\usepackage[autostyle]{csquotes}
+\usepackage{amssymb, amsthm, linguex, enumerate, amsmath}
+%\usepackage{mathabx}
+\pagestyle{empty}
+
+\textwidth 6.5in
+\hoffset=-.65in
+\textheight=9.5in
+\voffset=-1.in
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+\newcommand{\pf}{\mathcal{P}(\mathbf{F})}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Cb}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Fb}{\mathbf{F}}
+\newcommand{\Rb}{\mathbf{R}}
+\newcommand{\x}{x \in \mathbb{R}}
+\newcommand{\nat}{n \in \mathbb{N}}
+\newcommand{\dx}{\frac{d}{dx}}
+\newcommand{\dxof}[1]{\frac{d}{dx} \left( {#1} \right) }
+\renewcommand{\vector}[1]{\left\langle{#1}\right\rangle}
+\newcommand{\pars}[1]{\left( {#1} \right) }
+\newcommand{\brac}[1]{\left[ {#1} \right] }
+\newcommand{\limit}[3]{\lim_{{#1}\to {#2}} {#3}}
+\newcommand{\xo}{x_0}
+\newcommand{\iid}{independent identically distributed }
+\newcommand{\dble}{differentiable }
+\newcommand{\xbar}{\bar{X}}
+\newcommand{\ybar}{\bar{Y}}
+\newcommand{\rv}{random variable }
+\newcommand{\distn}{distribution }
+\newcommand{\cont}{continuous }
+\newcommand{\disc}{discontinuous }
+\newcommand{\forx}{\qquad \text{for all } x}
+\newcommand{\cbi}{closed bounded interval }
+\newcommand{\seq}[1]{\{{#1}\}}
+\newcommand{\limn}{\lim_{n\to\infty}}
+\renewcommand{\f}[1]{f^{({#1})}}
+\renewcommand{\sup}[1]{\text{sup}\left\{ {#1} \right\}}
+\renewcommand{\inf}[1]{\text{inf}\left\{ {#1} \right\}}
+\newcommand{\N}[2]{N \left( {#1},{#2} \right)}
+\newcommand{\gammaDist}[2]{\gamma \left( {#1},{#2} \right)}
+\newcommand{\Ndef}{N\left(\mu, \sigma^2\right)} %default normal
+\newcommand{\thru}[1]{{#1}_1, \dots, {#1}_n}
+\newcommand{\yn}{Y_1, \dots, Y_n}
+\renewcommand{\max}[1]{\text{max}\left( {#1} \right)}
+\renewcommand{\min}[1]{\text{min}\left\{ {#1} \right\}}
+\renewcommand{\over}[1]{\frac{1}{{#1}}}
+\newcommand{\prob}[1]{P \left( {#1} \right) }
+\newcommand{\E}[1]{E\left( {#1} \right)}
+
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{Matthew Wilder}
+\fancyhead[RE,LO]{MTH 326 - Homework 01}
+\fancyfoot[LE,RO]{Page \thepage}
+
+\noindent \textbf{Matthew Wilder}\\MATH 326 - Spring 2022 \\
+Homework 01 \\
+Due: Wednesday, 01/26/22 23:59\\
+\begin{enumerate}
+    %Problem #1
+    \item Benford's Law states that in a legitimate financial record, $30.1 \%$ of all randomly selected first digits will be \textquotedblleft one\textquotedblright.
+    \begin{enumerate}
+        \item What is the probability that exactly two out of 10 records begin with a \textquotedblleft 1\textquotedblright? \vspace{0.15in}\\
+        \textbf{Solution:} This is a binomial distribution with
+        $$p = 0.301 \qquad\qquad q = 0.699 \qquad\qquad n = 10 \qquad\qquad y = 2$$
+        Substituting into the binomial distribution formula, we obtain the answer
+        \begin{align}
+            P(Y=2) &= f(2)\notag\\
+            &= \binom{10}{2}p^2 q^{10-2} \notag\\
+            &= \binom{10}{2}(0.301)^2  (0.699)^{8} \notag\\
+            &\approx 45 \cdot 0.090601 \cdot 0.05699 \notag\\
+            &\approx 0.23236\notag
+        \end{align}
+        \vspace{0.15in}
+        \item What is the probability that at least 20 out of 100 records begin with a \textquotedblleft 1\textquotedblright?
+        \vspace{0.15in}\\
+        \textbf{Solution:} This is $P(Y \geq 20)$ which is equivalent to $1 - P(Y < 20)$ Similar to part (a),
+        $$p = 0.301 \qquad\quad q = 0.699 \qquad\quad n = 100 \qquad\quad y = k \qquad \text{for} \quad k \in [0,100] \,\cap\, \mathbb{Z}$$
+        \begin{align}
+            P(Y \geq 20 ) &= 1 - P(Y < 20) \notag \\
+            &= 1 - \sum_{k=0}^{k=19} f(k) \notag\\
+            &= 1 - \sum_{k=0}^{k=19} \brac{\binom{100}{k}(0.301)^k (0.699)^{100-k}} \notag\\
+            &\approx 0.991605  \qquad\quad\text{by Wolfram Alpha}\notag
+        \end{align}
+        \vspace{0.15in}
+        \item What is the probability that we have not seen a \textquotedblleft 1\textquotedblright \text{ }in our first eight records? \vspace{0.15in}\\
+        \textbf{Solution:} This is, again, a binomial distribution with
+        $$p = 0.301 \qquad\qquad q = 0.699 \qquad\qquad n = 8 \qquad\qquad y = 0$$
+        Where we want to find $P(Y = 0)$. Applying the binomial distribution formula once again, we obtain
+        \begin{align}
+            P(Y = 0) &= f(0) \notag\\
+            &= \binom{8}{0}p^0 q^{8-0} \notag\\
+            &= 1 \cdot 1 \cdot (0.699)^8 \notag\\
+            &\approx 0.05699246 \notag
+        \end{align}
+    \end{enumerate}
+    \newpage
+    %Problem #2
+    \item Consider a continuous random variable $Y$ with density function
+    $$f(y)=\frac{k}{y} \text { with support } 1 \leq y \leq 3 .$$
+    \begin{enumerate}
+        \item Find the value of $k$ that will make $f(y)$ a legitimate density function.
+        \vspace{0.15in}\\
+        \textbf{Solution:} In order for $f$ to be a valid probability density function, $\int_S f = 1$ on support $S \in [1,3]$. Therefore, we need $\int_1^3 f = 1$. We will integrate with the fixed constant $k$ and solve for it after evaluating.
+        \begin{align}
+            \int_1^3 f &= \int_1^3 \frac{k}{y}\,dy \notag\\
+            &= k \int_1^3 \over{y}\,dy\notag\\
+            &= k \bigg[ \ln(y) \bigg]_{y=1}^{y=3} \notag\\
+            &= k \Big[ \ln(3) - \ln(1) \Big] \notag\\
+            &= k\ln3 \notag \\ &= 1 \notag
+        \end{align}
+        Now, solving the equation $k\ln3 = 1$ for $k$, we see that
+        $$\boxed{\color{blue}k = \frac{1}{\ln3} \approx 0.910239}$$
+        \vspace{0.15in}
+        \item Find $P(Y \leq 2.5)$.
+        \vspace{0.15in}\\
+        \textbf{Solution:} Filling in the information obtained from part (a), we see that
+        $$f(y) = \begin{cases} 
+          \frac{1}{y\ln3} & y \in [1,3] \\
+          \hspace{0.25cm} 0 & \text{elsewhere} 
+       \end{cases}$$
+        \begin{align}
+            P(Y \leq 2.5) &= P( -\infty < Y \leq 2.5) \notag\\
+            &= \int_{-\infty}^{2.5} f \notag\\
+            &= \int_{-\infty}^{1}f + \int_{1}^{2.5}f \notag\\
+            &= 0 + \int_{1}^{2.5} \frac{1}{y\ln3} \notag\\
+            &= \frac{1}{\ln3} \int_1^{2.5} \over{y} \notag\\
+            &= \frac{1}{\ln3} \bigg[ \ln y \bigg]_{y=1}^{y=2.5}\notag\\
+            &= \frac{\ln 2.5 - \ln 1}{\ln3}\notag\\
+            &= \frac{\ln 2.5}{\ln 3} \notag\\
+            &\approx 0.834043767 \notag
+        \end{align}
+        \vspace{0.15in}
+        \item Find the mean and standard deviation of $Y$.
+        \vspace{0.15in}\\
+        \textbf{Solution:} Using the definition of expected value on a continuous pdf, $E[Y] = \int_S y f$, we can compute the following
+        \begin{align}
+            \color{violet}E[Y]\color{black} &= \int_S yf \notag\\
+            &= \int_1^3 \frac{y}{y\ln3}dy \notag\\
+            &= \over{\ln3} \int_1^3 dy \notag\\
+            &= \frac{3-1}{\ln3} \notag\\
+            &= \frac{2}{\ln3} \notag\\
+            &  \color{violet} \approx 1.82047845 \notag
+        \end{align}
+        Similarly we can compute variance from the definition $V[Y] = E[Y^2] - \big( \color{violet} E[Y] \color{black}\big)^2$
+        \begin{align}
+            \color{magenta}V[Y]\color{black} &= E[Y^2] - \big( \color{violet} E[Y] \color{black}\big)^2 \notag \\
+            &= \int_S y^2f - \pars{ \color{violet} \frac{2}{\ln3} \color{black}}^2 \notag \\
+            &= \int_1^3 \frac{y^2}{y\ln3}dy - \color{violet} \frac{4}{\ln^23} \color{black} \notag \\
+            &= \int_1^3 \frac{y}{\ln3}dy - \color{violet} \frac{4}{\ln^23} \color{black} \notag\\
+            &= \frac{1}{\ln3}\int_1^3 ydy - \color{violet} \frac{4}{\ln^23} \color{black} \notag\\
+            &= \frac{1}{2\ln3} \bigg[ y^2 \bigg]_{y=1}^{y=3} - \color{violet} \frac{4}{\ln^23} \color{black} \notag\\
+            &= \frac{9-1}{2\ln3} - \color{violet} \frac{4}{\ln^23} \color{black} \notag\\
+            &= \frac{4}{\ln3} - \color{violet} \frac{4}{\ln^23} \color{black} \notag\\
+            &= 4\pars{ \frac{1}{\ln3} - \color{violet} \frac{1}{\ln^23} \color{black}} \notag\\
+            &= 4\pars{ \frac{\ln3 - 1}{\ln^23}} \notag\\
+            & \color{magenta}\approx 0.326815108 \notag
+        \end{align}
+        Since $V[Y] = \sigma^2$, the standard deviation, $\sigma$ is 
+        $$\sigma = \sqrt{\sigma^2} = \sqrt{\color{magenta}V[Y]\color{black}} = \sqrt{4\pars{ \frac{\ln3 - 1}{\ln^23}}} = \frac{2\sqrt{\ln3 - 1}}{\ln3} \approx 0.571677451$$
+        $$\boxed{\underbrace{\color{blue}\mu = \frac{2}{\ln3} \approx 1.82047845\color{black}}_{\text{mean}} \hspace{1in} \underbrace{\color{blue}\sigma =  \frac{2\sqrt{\ln3 - 1}}{\ln3} \approx 0.571677451 \color{black}}_{\text{standard deviation}}}$$
+        \vspace{0.25in}
+        \item Suppose random variables $Y_{1}, Y_{2}, Y_{3}$, and $Y_{4}$ are independent random event from the above distribution $f(y)$. Let $M=\max{Y_{1}, Y_{2}, Y_{3}, Y_{4}}$. Find $P(M \leq 2.5)$.
+        \vspace{0.15in}\\
+        \textbf{Solution:} We want to find $P\big(\max{Y_{1}, Y_{2}, Y_{3}, Y_{4}} \leq 2.5 \big)$, which is equivalent to $P\Big(\pars{Y_1 \leq 2.5} \land \pars{Y_2 \leq 2.5} \land \pars{Y_3 \leq 2.5} \land \pars{Y_4 \leq 2.5}\Big)$. Since $Y$ is an i.i.d., this is further equivalent to $\prob{(Y \leq 2.5)^4}$.\\\\That is to say, what is the probability that \textit{all} 4 individual (identical) events are successes (less than 2.5). This can be written as a binomial distribution with
+        $$p = \frac{\ln2.5}{\ln3} \qquad\qquad n = 4 \qquad\qquad y = 4$$
+        Substituting into the binomial distribution formula, we get
+        \begin{align}
+            \prob{Y=4} &= \binom{4}{4} p^4 q^{4-4} \notag\\
+            &= 1 \cdot p^4 q^0 \notag\\
+            &= \pars{\frac{\ln2.5}{\ln3}}^4 \notag\\
+            & \color{blue}\approx 0.483899713 \notag
+        \end{align}
+    \end{enumerate}
+    \newpage
+    %Problem #3
+    \item Consider the random variable $X$ and $Y$ whose joint probability distribution $p(x, y)$ is given in the following table.\vspace{0.1in}\\
+    $$\begin{tabular}{|c|c|c|c|}
+        \hline
+        \theadfont\diagbox[width=1cm]{\textit{X}}{\textit{Y}}&
+        \thead{0}&\thead{1}&\thead{2}\\
+        \hline 1 & $0.15$ & $0.10$ & $0.05$ \\
+        \hline 2 & $0.05$ & $0.20$ & $0.10$ \\
+        \hline 3 & $0.05$ & $0.05$ & $0.25$ \\
+        \hline
+    \end{tabular}$$
+    Find each of the following:
+    \begin{enumerate}
+        \item $p_x(1) = P(X = 1)$
+        \vspace{0.15in}\\
+        \textbf{Solution:} This is going to be the sum of all the probabilities such that $x = 1$. We can fix $x$ at 1 and iterate over the $y$'s. Thus,
+        \begin{align}
+            P(X=1) &= \sum_{y=0}^2 p(1,y) \notag\\
+            &= p(1,0) + p(1,1) + p(1,2)\notag\\
+            &= 0.15 + 0.10 + 0.05 \notag\\
+            & \fbox{\color{blue}= 0.30} \notag
+        \end{align}
+                \vspace{0.15in}
+        \item $E[X]$
+        \vspace{0.15in}\\
+        \textbf{Solution:} Using the definition of discrete expected value,
+        \begin{align}
+            E[X] &= \sum_{x=1}^3 x \prob{X=x} \notag\\
+            &= 1\pars{  \prob{X=1}} + 2\pars{\prob{X=2}} + 3\pars{\prob{X=3}} \notag \\
+            &= 1 \sum_{y=0}^2 p(1,y) + 2 \sum_{y=0}^2 p(2,y) + \sum_{y=0}^2 p(3,y) \notag\\
+            &= 1 (0.15 + 0.10 + 0.05) + 2 (0.05 + 0.20 + 0.10) + 3 (0.05 + 0.05 + 0.25) \notag\\
+            &= 1(0.30) + 2(0.35) + 3(0.35) \notag\\
+            & \fbox{\color{blue} = 2.05}\notag
+        \end{align}
+        \vspace{0.15in}
+        \item $P(X=1 \mid Y=2)$
+        \vspace{0.15in}\\
+        \textbf{Solution:} We begin with computing the probability that $Y = 2$.
+        $$p_y(2) = \sum_{x=1}^3 p(x,2) = 0.05 + 0.10 + 0.25 = 0.40$$
+        We have already show in (a) that $p_x(1) = 0.30$. Using the following formula,
+        $$\prob{X = x \mid Y = y} = \frac{\prob{X = x \,\cap\, Y = y}}{\prob{Y=y}}$$
+        Substituting in, 
+        \begin{align}
+            P(X=1 \mid Y=2) &= \frac{\prob{X=1 \,\cap\, Y=2}}{\prob{Y=2}}\notag\\
+            &= \frac{p(1,2)}{p_y(2)}\notag\\
+            &= \frac{0.05}{0.40} \notag\\
+            & \fbox{\color{blue} = 0.125} \notag
+        \end{align}
+                \vspace{0.15in}
+        \item $E(X \mid Y=2)$
+                \vspace{0.15in}\\
+        \textbf{Solution:} Using a modified definition for discrete expected value, where $y$ is fixed,
+        \begin{align}
+            E(X \mid Y=2) &= \sum_{x=1}^3 x p(x,2)\notag\\
+            &= 1\pars{p(1,2)} + 2\pars{p(2,2)} + 3\pars{p(3,2)} \notag \\
+            &= 1(0.05) + 2(0.10) + 3(0.25)\notag\\
+            & \fbox{\color{blue} = 1}\notag
+        \end{align}
+        \vspace{0.15in}
+        \item Find the mean and variance of each random variable.
+                        \vspace{0.15in}\\
+        \textbf{Solution:} We already know $\color{orange}E[X] = 2.05\color{black}$ from part (b), so our next step would be computing $V[Y]$. Similarly to how we computed it in part (b),\\
+        \begin{align}
+            \color{violet} E[Y] \color{black} &= \sum_{y=0}^2 y \prob{Y=y} \notag\\
+            &= 0\pars{  \prob{Y=0}} + 1\pars{\prob{Y=1}} + 2\pars{\prob{Y=2}} \notag \\
+            &= 0 \sum_{x=1}^3 p(x,0) + 1 \sum_{x=1}^3 p(x,1) + 2 \sum_{x=1}^3 p(x,2) \notag\\
+            &= 0 + (0.10 + 0.20 + 0.05) + 2(0.05 + 0.10 + 0.25) \notag\\
+            & \color{violet} = 1.15\notag
+        \end{align}
+        By the definition of variance, $V[X] = E[X^2] - \Big(\color{orange}E[X]\color{black}\Big)^2$
+        \begin{align}
+            \color{brown} V[X] \color{black} &= E[X^2] - \Big(\color{orange}E[X]\color{black}\Big)^2\notag\\
+            &= \sum_{x=1}^3 x^2 \prob{X=x} - (\color{orange}2.05\color{black})^2 \notag\\
+            &= 1^2 p_x(1) + 2^2 p_x(2) + 3^2 p_x(3) \color{orange}- 4.2025\color{black} \notag\\
+            &= 1(0.30) + 4(0.35) + 9(0.35) \color{orange}- 4.2025\color{black} \notag\\
+            &= 0.30 + 1.40 + 3.15 \color{orange}- 4.2025\color{black} \notag\\
+            &= 4.85 \color{orange}- 4.2025\color{black} \notag\\
+            & \color{brown}= 0.6475\notag
+        \end{align}
+        Again, by the definition of variance, $V[Y] = E[Y^2] - \Big(\color{violet}E[Y]\color{black}\Big)^2$
+        \\\begin{align}
+            \color{magenta} V[Y] \color{black} &= E[Y^2] - \Big(\color{violet}E[Y]\color{black}\Big)^2 \notag\\
+            &= \sum_{y=0}^2 y^2 \prob{Y=y} - (\color{violet}1.15\color{black})^2\notag\\
+            &= 0^2\pars{  \prob{Y=0}} + 1^2\pars{\prob{Y=1}} + 2^2\pars{\prob{Y=2}} \color{violet} - 1.3225 \notag \\
+            &= 0 \sum_{x=1}^3 p(x,0) + 1 \sum_{x=1}^3 p(x,1) + 4 \sum_{x=1}^3 p(x,2) \color{violet} - 1.3225 \notag\\
+            &= 0 + (0.10 + 0.20 + 0.05) + 4(0.05 + 0.10 + 0.25) \color{violet} - 1.3225\notag\\
+            &= 1.95 \color{violet} - 1.3225\notag\\
+            &  \color{magenta} = 0.6275\notag
+        \end{align}
+        And to conclude,
+        \begin{empheq}[box=\widefbox]{align}
+        \color{orange}E[X] = 2.05 \hspace{.7in}&\hspace{.7in} \color{violet}E[Y] = 1.15\notag\\
+        \color{brown}V[X] = 0.6475 \hspace{.7in}&\hspace{.7in} \color{magenta} V[Y] = 0.6275\notag
+        \end{empheq}
+        \vspace{0.15in}
+        \item Find $\operatorname{Cov}(X, Y)$.
+        \vspace{0.15in}\\
+        \textbf{Solution:} Using the formula
+        $$\operatorname{Cov}(X, Y) = E[XY] - \mu_x \mu_y$$
+        We simply need to calculate $E[XY]$ as we already have $\mu_x$ and $\mu_y$ from $E[X]$ and $E[Y]$ respectively. We can directly compute $E[XY]$ from definition.\\
+        \begin{align}
+            \color{cyan} E[XY] \color{black} &= \mathop{\sum\sum}_{(x,y) \in S}xy\cdot p(x,y) \notag\\
+            &= \sum_{x=1}^{3}\sum_{y=0}^2 xy \cdot p(x,y) \notag\\
+            &= \sum_{x=1}^{3}\sum_{y=1}^2 xy \cdot p(x,y) \notag\\
+            &= p(1,1) + 2p(1,2) + 2p(2,1) + 4p(2,2) + 3p(3,1) + 6p(3,2)\notag\\
+            &= 1(0.10) + 2(0.05) + 2(0.20) + 4(0.10) + 3(0.05) + 6(0.25) \notag\\
+            & \color{cyan}= 2.65\notag
+        \end{align}
+        Substituting back into the formula,
+        \begin{align}
+            \operatorname{Cov}(X, Y) &= \color{cyan} E[XY] \color{black} - \color{orange} \mu_x \color{violet} \mu_y \notag\\
+            &= \color{cyan} E[XY] \color{black} - \color{orange} 2.05 \color{black} \cdot \color{violet} 1.15 \notag\\
+            &= \color{cyan} 2.65 \color{black} - 2.3575\notag\\
+            & \fbox{\color{blue}= 0.2925} \notag 
+        \end{align}
+        \vspace{0.15in}
+        \item Suppose that $U= 3X - 2Y$. Use Theorem $5.12$ to find the mean and variance of U.
+        \vspace{0.15in}\\
+        \textbf{Solution:} These can be computed by the linearity definitions. We'll start with mean,
+        \begin{align}
+            \color{orange}\mu_u\color{black} &= E[U] \notag\\
+            &= E[3X-2Y] \notag\\
+            &= E[3X] - E[2Y] \notag\\
+            &= 3E[X]- 2E[Y] \notag\\
+            &= 3(2.05) - 2(1.15)\notag\\
+            & \color{orange} = 3.85 \notag
+        \end{align}
+        Next for variance, we will follow a similar method, using a modified Theorem 5.12, 
+        $$V[aY_1 + bY_2] = a^2V[Y_1] + b^2V[Y_2] + 2ab\operatorname{Cov}(X,Y)$$
+        \begin{align}
+            \color{violet}\sigma^2_u\color{black} &= V[U] \notag\\
+            &= V[3X-2Y] \notag\\
+            &= V[3X] + V[-2Y] + 2ab \operatorname{Cov}(Y_1,Y_2) \notag\\
+            &= 3^2V[X] (-2)^2 V[Y] + 2(3)(-2) \operatorname{Cov}(X,Y) \notag\\
+            &= 9(0.6475) + 4(0.6275) - 12(0.2925) \notag\\
+            & \color{violet} = 4.8275 \notag
+        \end{align}
+        \begin{empheq}[box=\widefbox]{align}
+        \color{blue} E[U] = 3.85 \hspace{1.5in} V[U] = 4.8275 \notag
+        \end{empheq}
+    \end{enumerate}
+    \newpage
+    %Problem #4
+    \item The time needed to complete a certain factory job is a normal random variable with mean $\mu = 50$ minutes and standard deviation $\sigma = 5$ minutes.
+    \begin{enumerate}
+        \item What is the probability that a (randomly selected) job will be completed in $53$ minutes or less?
+        \vspace{0.15in}\\
+        \textbf{Solution:} We start by normalizing the distribution, so
+        $$Z = \frac{\ybar - \mu}{\sigma}$$
+        $\mu = 50$ is given, and $\sigma = 5$ is given, so we can directly substitute these into the Z-score equation. Since a success is defined as $\leq 53$, then $\ybar = 53$
+        $$Z = \frac{53 - 50}{5} = \frac{3}{5} = 0.6$$
+        Since Table 4 gives upper tail, $\operatorname{table\_4}(0.6) \approx \int_{0.6}^{\infty}f$, so we need $1-\operatorname{table\_4}(0.6)$, thus,
+        \begin{align}
+            P(Y \leq 53) &= 1 - P(Y \geq 53) \notag\\
+            &= 1 - \operatorname{table\_4}(0.6)\notag\\
+            &\approx 1 - 0.2743 \notag\\
+            & \color{blue}\approx 0.7257 \notag
+        \end{align}
+        \vspace{0.15in}
+        \item What is the probability that the average time of ten randomly selected jobs will be less than $53$ minutes or less?\vspace{0.15in}\\
+        \textbf{Solution:} For $n = 10$, $\bar{M}$ is distributed by $N(50, 5^2/10)$, therefore $\sigma = \sqrt{5^2/10} = \sqrt{10}/2$. The computation follows\\
+        \begin{align}
+            P(\bar{M} \leq 53) &= P\pars{Z \leq \frac{53-50}{\sqrt{10}/2}} \notag\\
+             &= P\pars{Z \leq \frac{3}{\sqrt{10}/2}} \notag\\
+             &= P\pars{Z \leq \frac{3\sqrt{10}}{5}} \notag\\
+             &\approx P\pars{Z \leq 1.8973666} \notag\\ 
+             &\approx 1 - \operatorname{table\_4}(1.90) \notag\\
+             &\approx 1 - 0.0287 \notag\\
+             &\color{blue}\approx 0.9713 \notag
+        \end{align}
+        \vspace{0.15in}
+        \item Only $5\%$ of the time will a single job be completed in M minutes or less. Determine $M$.
+        \vspace{0.15in}\\
+        \textbf{Solution:} Let $\lambda$ represent some Z-score. Then
+           $$P(Y \leq M) = 0.05 = 1 - \operatorname{table\_4}(\lambda)$$
+           In order for the equality to hold, we need $\operatorname{table\_4}(\lambda) = 0.95$, but $\operatorname{table\_4}(x)$ is defined for $x \geq 0$. So we need to instead find a $\operatorname{table\_4}(-\lambda) = 0.05$ by symmetry, and thus $-\lambda \approx 1.645 \Longrightarrow \lambda \approx -1.645$\\
+           \\
+           We now need
+           $$ Z = \lambda \approx -1.645 \approx \frac{\ybar - \mu}{\sigma}
+           = \frac{\ybar - 50}{5}$$
+           Which implies,
+           $$5(-1.645) \approx \ybar - 50$$
+           $$-8.225 \approx \ybar - 50$$
+           $$\ybar \approx 50 - 8.225$$
+           $$\ybar \approx 41.775$$
+           $$\fbox{\color{blue}Thus, $M \approx 41.775$ minutes} $$
+    \end{enumerate}
+\end{enumerate}
+\end{document} 

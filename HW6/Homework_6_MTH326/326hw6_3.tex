@@ -1,0 +1,15 @@
+A federal regulatory agency hypothesises that the average length of a stay in the hospital is in excess of 5 days.  A pilot data set had standard \textit{deviation} of 3.1 days.  Using this as the population standard error, how large a sample would you need in designing a test with $\alpha=0.01$ and $\beta=0.05$ if the true average is 5.5 days.
+
+\begin{mybox}
+    \textbf{Solution:} We assume this follows a normal distribution and let 
+    \begin{align*}
+        H_0 &: \mu_0 = 5
+        \\ H_a &: \mu_a = 5.5
+    \end{align*}
+    Then $Z_{\alpha} = Z_{0.01} \approx 2.33$ and $Z_{\beta} = Z_{0.05} \approx 1.645$.
+    Using the following formula,
+    $$n = \ceil{ \pfrac{Z_{\alpha}+Z_{\beta}}{\mu_a - \mu_0}^2 \cdot S^2 }$$
+    we can substitute in our data to obtain
+    $$n = \ceil{\pfrac{2.33 + 1.645}{5.5-5}^2 \cdot 3.1^2 } = \ceil{607.376} = 608.$$
+    Therefore the sample will need to be at least size $n = 608$.
+\end{mybox}

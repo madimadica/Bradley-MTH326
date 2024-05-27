@@ -1,0 +1,20 @@
+Find an 80\% confidence interval for the slope of the regression line.
+
+\nl \textbf{Solution: } For an 80\% C.I., then $\alpha = 0.2$ and $t_{\alpha/2} = t_{0.1}$. We want to use the formula $I \equiv \widehat{\beta}_i \,\pm\, t_{\alpha/2}(\text{df})\cdot S \sqrt{c_{i\,i}}$. Since the slope coefficient is $\beta_1$ then $i = 1$. 
+
+\nl $t_{0.1}(4) = 1.533$ by Table 5.
+
+\nl $\sqrt{c_{i\,i}} = \sqrt{\dfrac{1}{S_{xx}}} = \sqrt{\dfrac{6}{377}}$ by part (3a).
+
+\nl $\operatorname{SSE} = S_{yy} - \widehat{\beta}_1 \cdot S_{xy} = \dfrac{42250}{3} - \dfrac{4570}{377}  \cdot \dfrac{2285}{3} = \dfrac{\num{1828600}}{377} \approx 4850.39788$ from (3a).
+
+\nl $S = \sqrt{\dfrac{1}{n-2} \operatorname{SSE}} = \sqrt{\dfrac{1}{6-2} \dfrac{\num{1828600}}{377}} =  \dfrac{5\sqrt{\num{6893822}}}{377} \approx 34.822399$ by above.
+
+\nnl Substituting in the respective values, then
+\begin{align*}
+    \widehat{\beta}_1 \,\pm\, t_{\alpha/2}(\text{df})\cdot S \sqrt{c_{1\,1}} &= \frac{4570}{377} \,\pm\, 1.533 \cdot \dfrac{5\sqrt{\num{6893822}}}{377} \cdot \sqrt{\dfrac{6}{377}}  \\
+    &= \frac{4570}{377} \,\pm\, \dfrac{15.33\sqrt{27429}}{377}\\
+    &= \dfrac{4570 \pm 15.33\sqrt{27429}}{377}
+\end{align*}
+$$\text{C.I.} = \pars{\dfrac{4570 - 15.33\sqrt{27429}}{377}, \quad \dfrac{4570 + 15.33\sqrt{27429}}{377}}$$
+$$\text{C.I.} \approx \pars{5.387509175, \, 18.85652265}$$

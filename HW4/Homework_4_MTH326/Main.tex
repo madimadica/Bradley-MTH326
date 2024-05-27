@@ -1,0 +1,84 @@
+\documentclass[12pt]{article}
+\usepackage[english]{babel}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{xcolor, diagbox, empheq, makecell, tcolorbox}
+\usepackage[autostyle]{csquotes}
+\usepackage{amssymb, amsthm, linguex, enumitem, amsmath}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\pagestyle{empty}
+
+\textwidth 6.5in
+\hoffset=-.65in
+\textheight=9.5in
+\voffset=-1.in
+
+\newcommand{\pf}{\mathcal{P}(\mathbf{F})}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Cb}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Fb}{\mathbf{F}}
+\newcommand{\Rb}{\mathbf{R}}
+\newcommand{\pars}[1]{\left( {#1} \right) }
+\newcommand{\brac}[1]{\left[ {#1} \right] }
+\newcommand{\limit}[3]{\lim_{{#1}\to {#2}} {#3}}
+\newcommand{\xbar}{\bar{X}}
+\newcommand{\ybar}{\bar{Y}}
+\newcommand{\forx}{\qquad \text{for all } x}
+\newcommand{\seq}[1]{\{{#1}\}}
+\newcommand{\set}[1]{\{{#1}\}}
+\newcommand{\limn}{\lim_{n\to\infty}}
+\newcommand{\norm}[1]{N \left( #1 ) \right)}
+\newcommand{\gammaDist}[2]{\gamma \left( {#1},{#2} \right)}
+\newcommand{\Ndef}{N\left(\mu, \sigma^2\right)} %default normal
+\newcommand{\thru}[1]{{#1}_1, \dots, {#1}_n}
+\newcommand{\sumthru}[1]{{#1}_1 + \cdots + {#1}_n}
+\newcommand{\yn}{Y_1, \dots, Y_n}
+\newcommand{\prob}[1]{P \left( {#1} \right) }
+\newcommand{\E}[1]{E\left( {#1} \right)}
+\newcommand*{\Var}[1]{\operatorname{Var}(#1)}
+\newcommand{\that}{\hat{\theta}}
+
+\newcommand{\nl}{\vspace{0.1in}\noindent}
+\newcommand{\nnl}{\vspace{0.2in}\noindent}
+\definecolor{ggreen}{RGB}{0, 127, 0}
+\newcommand{\red}[1]{\color{red}{#1}\color{black}}
+\newcommand{\grn}[1]{\color{ggreen}{#1}\color{black}}
+\newcommand{\blu}[1]{\color{blue}{#1}\color{black}}
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+\renewcommand{\max}[1]{\text{max}\left( {#1} \right)}
+\renewcommand{\min}[1]{\text{min}\left\{ {#1} \right\}}
+\renewcommand{\over}[1]{\frac{1}{{#1}}}
+\renewcommand{\vector}[1]{\left\langle{#1}\right\rangle}
+\renewcommand{\f}[1]{f^{({#1})}}
+\renewcommand{\sup}[1]{\text{sup}\left\{ {#1} \right\}}
+\renewcommand{\inf}[1]{\text{inf}\left\{ {#1} \right\}}
+\newcommand{\say}[1]{\textquotedblleft{#1}\textquotedblright}
+\newtcolorbox{mybox}[1][]{colback=white, sharp corners, #1}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[RO]{Matthew Wilder}
+\fancyhead[LO]{MTH 326 - Homework 04}
+\fancyfoot[CO]{Page \thepage}
+
+\noindent \textbf{Matthew Wilder}\\MATH 326 - Spring 2022 \\
+Homework 04\\
+Due: Saturday 02/19/22 at 03:00\\
+
+\begin{enumerate}
+    \item \input{Problem1.tex}\newpage
+    \item \input{Problem2.tex}\newpage
+    \item \input{Problem3.tex}
+\end{enumerate}
+\begin{center}
+    \includegraphics[width=3in]{3am.png}\end{center}
+
+    \begin{center}Thanks. \#1 was a delightful, albeit time consuming, work of calculus art.
+    \end{center}\end{document} 

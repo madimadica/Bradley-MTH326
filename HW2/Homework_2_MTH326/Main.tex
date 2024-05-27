@@ -1,0 +1,408 @@
+\documentclass[12pt]{article}
+\usepackage[english]{babel}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{xcolor, diagbox, empheq, makecell, tcolorbox}
+\usepackage[autostyle]{csquotes}
+\usepackage{amssymb, amsthm, linguex, enumitem, amsmath}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\pagestyle{empty}
+
+\textwidth 6.5in
+\hoffset=-.65in
+\textheight=9.5in
+\voffset=-1.in
+
+\newcommand{\pf}{\mathcal{P}(\mathbf{F})}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Cb}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Fb}{\mathbf{F}}
+\newcommand{\Rb}{\mathbf{R}}
+\newcommand{\pars}[1]{\left( {#1} \right) }
+\newcommand{\brac}[1]{\left[ {#1} \right] }
+\newcommand{\limit}[3]{\lim_{{#1}\to {#2}} {#3}}
+\newcommand{\xbar}{\bar{X}}
+\newcommand{\ybar}{\bar{Y}}
+\newcommand{\forx}{\qquad \text{for all } x}
+\newcommand{\seq}[1]{\{{#1}\}}
+\newcommand{\set}[1]{\{{#1}\}}
+\newcommand{\limn}{\lim_{n\to\infty}}
+\newcommand{\norm}[1]{N \left( #1 ) \right)}
+\newcommand{\gammaDist}[2]{\gamma \left( {#1},{#2} \right)}
+\newcommand{\Ndef}{N\left(\mu, \sigma^2\right)} %default normal
+\newcommand{\thru}[1]{{#1}_1, \dots, {#1}_n}
+\newcommand{\yn}{Y_1, \dots, Y_n}
+\newcommand{\prob}[1]{P \left( {#1} \right) }
+\newcommand{\E}[1]{E\left( {#1} \right)}
+\newcommand*{\Var}[1]{\operatorname{Var}(#1)}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+\renewcommand{\max}[1]{\text{max}\left( {#1} \right)}
+\renewcommand{\min}[1]{\text{min}\left\{ {#1} \right\}}
+\renewcommand{\over}[1]{\frac{1}{{#1}}}
+\renewcommand{\vector}[1]{\left\langle{#1}\right\rangle}
+\renewcommand{\f}[1]{f^{({#1})}}
+\renewcommand{\sup}[1]{\text{sup}\left\{ {#1} \right\}}
+\renewcommand{\inf}[1]{\text{inf}\left\{ {#1} \right\}}
+
+\newtcolorbox{mybox}[1][]{colback=white, sharp corners, #1}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{Matthew Wilder}
+\fancyhead[RE,LO]{MTH 326 - Homework 02}
+\fancyfoot[LE,RO]{Page \thepage}
+
+\noindent \textbf{Matthew Wilder}\\MATH 326 - Spring 2022 \\
+Homework 02 - ($\S$8.1 - 8.4)\\
+Due: Wednesday 02/02/22 at 23:59\\
+
+\begin{enumerate}
+    %Problem #1
+    \item Suppose $Y_1, Y_2, Y_3$ and $Y_4$ are an iid random sample with $N(\mu,\sigma^2)$. For each of the following, determine which of the following estimators of $\mu$ are unbiased. Then for each unbiased estimator, calculate the mean square error. Which estimator has the lowest MSE?
+    \vspace{0.25in}\\
+    A. $Y_1$ \hspace{0.5in} B. $Y_1 + Y_2$ \hspace{0.8in} C. $\frac{Y_1 + 2Y_2 + 2Y_3 + Y_4}{6}$ \hspace{0.8in} D. $\ybar$
+    \vspace{0.3in}\\
+    \textbf{Solution:} We need to use the following formulas:
+    $$B(\hat{\theta}) = E(\hat{\theta}) - \theta$$
+    $$MSE(\hat{\theta}) = \underbrace{V(\hat{\theta})}_{\text{Precision}} + \underbrace{B(\hat{\theta})^2}_{\text{Accuracy}}$$
+    And by definition of the normal distributions defined on $Y_1, \dots, Y_4$
+    $$\theta = \mu \hspace{1in} E(Y_i) = \mu \hspace{1in} V(Y_i) = \sigma^2$$
+    \begin{enumerate}[label=\textbf{\Alph*}.)]
+        %A
+        \item $Y_1$
+        \begin{align}
+            B(Y_1) &= E(Y_1) - \mu \notag\\ &= \mu - \mu \notag\\ &= 0\notag
+        \end{align}
+        Therefore $Y_1$ is unbiased.
+        \begin{align}
+            \operatorname{MSE}(Y_1) &= V(Y_1) + B(Y_1)^2 \notag\\ &= V(Y_1) + 0^2 \notag\\ &= V(Y_1) \notag\\ &= \color{magenta} \sigma^2\notag
+        \end{align}
+        
+        
+        %B
+        \item $Y_1 + Y_2$
+        \begin{align}
+            B(Y_1 + Y_2)
+            &= E(Y_1 + Y_2) - \mu \notag\\
+            &= E(Y_1) + E(Y_2) - \mu \notag\\
+            &= (\mu + \mu) - \mu \notag\\
+            &= \mu \notag
+        \end{align}
+        Therefore $Y_1 + Y_2$ is biased.
+        \newpage
+        
+        
+        %C
+        \item $\frac{Y_1 + 2Y_2 + 2Y_3 + Y_4}{6}$
+        \begin{align}
+            B\pars{\frac{Y_1 + 2Y_2 + 2Y_3 + Y_4}{6}}
+            &= E\pars{\frac{Y_1 + 2Y_2 + 2Y_3 + Y_4}{6}} - \mu \notag\\
+            &= \frac{E(Y_1) + 2E(Y_2) + 2E(Y_3) + E(Y_4)}{6} - \mu \notag\\
+            &= \frac{6 E(Y_i)}{6} - \mu \notag\\
+            &= \mu - \mu \notag\\
+            &= 0 \notag
+        \end{align}
+        Therefore $\frac{Y_1 + 2Y_2 + 2Y_3 + Y_4}{6}$ is unbiased.
+        \begin{align}
+            \operatorname{MSE}\pars{\frac{Y_1 + 2Y_2 + 2Y_3 + Y_4}{6}} &= V\pars{\frac{Y_1 + 2Y_2 + 2Y_3 + Y_4}{6}} + 0^2 \notag\\ &= \frac{1}{36} \pars{V(Y_1) + 2^2V(Y_2) + 2^2V(Y_3) + V(Y_4)} \notag\\ &= \frac{10}{36}V(Y_i) \notag\\ &= \color{magenta} \frac{5}{18} \sigma^2\notag
+        \end{align}
+        \vspace{0.1in}
+        
+        %D
+        \item $\ybar$
+        \\\\By definition, $\ybar = \frac{\sum_{i=1}^{n}Y_i}{n} = \frac{Y_1 + Y_2 + Y_3 + Y_4}{4}$
+        \begin{align}
+            B\pars{\frac{Y_1 + Y_2 + Y_3 + Y_4}{4}}
+            &= E\pars{\frac{Y_1 + Y_2 + Y_3 + Y_4}{4}} - \mu \notag\\
+            &= \frac{E(Y_1) + E(Y_2) + E(Y_3) + E(Y_4)}{4} - \mu \notag\\
+            &= \frac{4 E(Y_i)}{4} - \mu \notag\\
+            &= \mu - \mu \notag\\
+            &= 0 \notag
+        \end{align}
+        Therefore $\ybar$ is unbiased.
+        \begin{align}
+            \operatorname{MSE}\pars{\frac{Y_1 + Y_2 + Y_3 + Y_4}{4}} &= V\pars{\frac{Y_1 + Y_2 + Y_3 + Y_4}{4}} + 0^2 \notag\\ &= \frac{1}{16} \pars{V(Y_1) + V(Y_2) + V(Y_3) + V(Y_4)} \notag\\ &= \frac{4}{16}V(Y_i) \notag\\ &= \color{magenta} \frac{1}{4} \sigma^2\notag
+        \end{align}
+        
+    \end{enumerate}\begin{center}
+    \color{magenta}\fbox{The estimator $\ybar$ has the lowest MSE at $\sigma^2/4$.}\color{black}\end{center}
+    
+    %Problem #2
+    \item
+    In class we explored the estimators $\hat{p}_1 = \ybar$ and $\hat{p}_2 = \frac{\sum Y_i + 1}{n+2}$ for population proportion $p$. For $n = 15$, what values of $p$ is $\hat{p}_2$ the better estimator with respect to MSE?
+    \begin{mybox}
+        \textbf{Solution:} $\hat{p}_1 = \ybar = \frac{\sum_{i=1}^{15} Y_i}{15}$  by definition of $\ybar$. $\hat{p}_2 = \frac{\sum_{i=1}^{15} Y_i + 1}{15+2}$. Using formulas and equations from the notes, it can be shown that $$MSE(\hat{p}_1) = \frac{p(1-p)}{15}$$ Using the notes we can show that $$MSE(\hat{p}_2) =  \frac{15p(1-p)+(1-2p)^2}{(15+2)^2}$$
+        Setting $MSE(\hat{p}_1) = MSE(\hat{p}_2)$ we can find their intersection:
+        $$\frac{p(1-p)}{15} = \frac{15p(1-p)+(1-2p)^2}{(15+2)^2}$$
+        $$\frac{p-p^2}{15} \operatorname{lcd}(15, 289) = \frac{15p(1-p)+(1-2p)^2}{289} \operatorname{lcd}(15, 289)$$
+        $$\frac{p-p^2}{15}\cdot 4335 = \frac{15p(1-p)+(1-2p)^2}{289} \cdot 4335$$
+        $$289(p-p^2) = 15\brac{15p(1-p)+(1+2p)^2}$$
+        $$289p-289p^2 = 225p-225p^2 + 15-60p+60p^2$$
+        $$124p^2 - 124p + 15 = 0$$
+        $$p = \frac{124 \pm \sqrt{(-124)^2 - 4(124)(15)}}{2(124)}$$
+        $$p = \frac{31 \pm 4\sqrt{31}}{62} = \frac{1}{2} \pm \frac{2\sqrt{31}}{31}$$
+        Therefore the intersection is at $p = \frac{1}{2} \pm \frac{2\sqrt{31}}{31}$. To show which is better, we'll look at their first derivatives.
+        $$MSE(\hat{p}_1)'(p) = \frac{1}{15}(1-2p) \qquad \text{and} \qquad MSE(\hat{p}_2)'(p) = \frac{11}{289}(1-2p)$$
+        Because $\frac{11}{289} < \over{15}$ and the intersections are at $p = \frac{1}{2} \pm \frac{2\sqrt{31}}{31}$ , $$MSE(\hat{p}_2) < MSE(\hat{p}_1) \, \text{ for }\, p \in \pars{\frac{1}{2} - \frac{2\sqrt{31}}{31},\quad \frac{1}{2} + \frac{2\sqrt{31}}{31}}$$
+        \begin{center}\color{magenta}\fbox{Therefore $\hat{p}_2$ is better for $p \in \pars{\frac{1}{2} - \frac{2\sqrt{31}}{31},\quad \frac{1}{2} + \frac{2\sqrt{31}}{31}}$}\end{center}
+    \end{mybox}
+\newpage
+    
+    
+    
+    
+    %Problem #3
+    \item
+    Suppose $Y_1, Y_2, Y_3, \dots, Y_n$ is an iid random sample from a distribution with the following density function
+    $$f(y) = \frac{3y^2}{\theta^3} \quad \text{on support} \quad y \in (0, \theta)$$
+    Consider two estimators of $\theta$:
+    $$\hat{\theta}_1 = \ybar \hspace{1in} \text{and} \hspace{1in} \hat{\theta}_2 = \max{Y_1, Y_2, Y_3, \dots, Y_n}$$
+    \begin{enumerate}
+    
+        % (a)
+        \item 
+        Show that $\hat{\theta}_1$ is a biased estimator of $\theta$
+        \begin{mybox}
+            \textbf{Solution: } We need to compute the bias for $\hat{\theta}_1$. But note that $\hat{\theta}_1 = \ybar = \frac{Y_1 + \cdots + Y_n}{n}$. Thus
+            \begin{align}
+            B(\hat{\theta}_1) &= B(\ybar) \notag\\
+            &= B\pars{\frac{Y_1 + \cdots + Y_n}{n}} \notag\\
+            &= \color{blue}\E{\frac{Y_1 + \cdots + Y_n}{n}}\color{black} - \theta \notag\\
+            &= \color{blue}E\pars{\frac{n\cdot Y_i}{n}}\color{black} - \theta \notag\\
+            &= \color{blue}E(Y_i)\color{black} - \theta \notag\\
+            &= \color{blue}\int_0^{\theta} y \cdot f(y) \color{black} - \theta \notag\\
+            &= \color{blue}\int_0^{\theta} y \cdot \frac{3y^2}{\theta^3}\,dy \color{black} - \theta \notag\\
+            &= \color{blue}\frac{3}{\theta^3} \int_0^{\theta} y^3 \,dy \color{black} - \theta \notag\\
+            &= \color{blue}\frac{3}{4\theta^3} \left[ y^4 \right]_{y=0}^{y=\theta} \color{black} - \theta \notag\\
+            &= \color{blue}\frac{3}{4\theta^3} \cdot \theta^4 \color{black} - \theta \notag\\
+            &= \color{blue} \frac{3}{4} \theta \color{black} - \theta \notag\\
+            &= -\frac{\theta}{4} \notag\\
+            &\neq 0 \notag
+            \end{align}
+            \begin{center}\color{magenta}\fbox{Therefore $\hat{\theta}_1$ is biased}\color{black}\end{center}
+        \end{mybox}
+        
+        % (b)
+        \newpage
+        \item
+        Define a multiple of $\hat{\theta}_1$ that is an unbiased estimator of $\theta$. Call this new estimator $\tilde{\theta}_1$.
+                \begin{mybox}
+            \textbf{Solution: } We know from (a) that $E(\hat{\theta}_1) = \frac{3}{4}\theta$. But we want this to equal just $\theta$. Therefore we can find a constant $c > 0$ such that
+            $E(c\hat{\theta}_1) = \theta = \tilde{\theta}_1$
+            \begin{align}
+                \tilde{\theta}_1 &= E(c\hat{\theta}_1) \notag\\
+                &= E(c\ybar) \notag\\ &= \E{\frac{cY_1 + \cdots + cY_n}{n}} \notag\\ &= c\E{Y_i} \notag\\ &= c\frac{3}{4}\theta \notag\\ &= 1 \notag
+            \end{align}
+            $$c\frac{3}{4}\theta \qquad \Longrightarrow \qquad c = \frac{4}{3} $$
+            \begin{center}\color{magenta}\fbox{Therefore $\tilde{\theta}_1 = \frac{4}{3} \hat{\theta}_1$}\color{black}\end{center}
+        \end{mybox}
+        
+        
+        % (c)
+        \newpage
+        \item
+        Compute the MSE for $\tilde{\theta}_1$.
+        \begin{mybox}
+                \begin{align}
+                    \operatorname{MSE}(\tilde{\theta}_1) &= \Var{\tilde{\theta}_1} - \operatorname{B}(\tilde{\theta}_1)^2 \notag \\
+                    &=  \operatorname{Var}\pars{\frac{4}{3}\hat{\theta}_1} - 0^2 \notag \\
+                    &=  \operatorname{Var}\pars{\frac{4}{3}\ybar} \notag \\
+                    &= \operatorname{Var}\pars{\frac{4}{3n}\brac{Y_1 + \cdots + Y_n}} \notag\\
+                    &= \pars{\frac{4}{3n}}^2 \operatorname{Var}\pars{Y_1 + \cdots + Y_n} \notag\\
+                    &= \frac{16}{9n^2} \pars{\underbrace{\operatorname{Var}(Y_1) +\cdots+ \operatorname{Var}(Y_n)}_{n \text{ iid}}} \notag\\
+                    &= \frac{16}{9n^2} n\operatorname{Var}(Y_i) \notag\\
+                    &= \frac{16}{9n} \operatorname{Var}(Y_i) \notag\\
+                    &= \frac{16}{9n}  \pars{ \color{blue}\E{Y^2}\color{black} - \color{violet}\brac{\E{Y}}^2 \color{black}}\notag\\
+                    &= \frac{16}{9n}  \pars{ \color{blue}\int_{0}^{\theta} y^2 f(y) \color{black}-\color{violet} \brac{\int_{0}^{\theta} y f(y)}^2 \color{black}}\notag\\
+                    &= \frac{16}{9n}  \pars{ \color{blue}\int_{0}^{\theta} \frac{3y^4}{\theta^3}\,dy \color{black}-\color{violet}\brac{ \int_{0}^{\theta} \frac{3y^3}{\theta^3}\,dy}^2\color{black}}\notag\\
+                    %
+                    &= \frac{16}{9n}  \pars{ \color{blue} \frac{3}{\theta^3}\int_{0}^{\theta} y^4\,dy \color{black}-\color{violet}\brac{\int_{0}^{\theta} \frac{3y^3}{\theta^3}\,dy}^2\color{black}}\notag\\
+                    %
+                    &= \frac{16}{9n}  \pars{ \color{blue} \frac{3}{5\theta^3} \brac{y^5}_{y=0}^{y=\theta} \color{black}-\color{violet} \brac{\frac{3}{4\theta^3} \brac{y^4}_{y=0}^{y=\theta}}^2\color{black}}\notag\\
+                    %
+                    &= \frac{16}{9n}  \pars{ \color{blue} \frac{3}{5}\theta^2 \color{black}-\color{violet}\brac{\frac{3}{4}\theta}^2 \color{black}}\notag\\
+                    &= \frac{16}{9n}  \pars{ \color{blue} \frac{3}{5}\theta^2 \color{black}-\color{violet}\frac{9}{16}\theta^2 \color{black}}\notag\\
+                    &= \frac{1}{15n}\theta^2 \notag
+                \end{align}
+                \begin{center}\color{magenta}\fbox{Therefore $\operatorname{MSE}(\tilde{\theta}_1) = \frac{1}{15n}\theta^2$} \color{black}\end{center}
+        \end{mybox}
+        
+        \newpage
+        % (d)
+        \item 
+        Show that $\hat{\theta}_2$ is a biased estimator of $\theta$
+        \begin{mybox}
+            \textbf{Solution: } We need to compute the bias for $\hat{\theta}_2$. But note that $\hat{\theta}_2 = \operatorname{max}(Y_1, \dots, Y_n)$. We will first compute a closed form for the maximum.
+            \begin{align}
+                \operatorname{max}(Y_1, \dots, Y_n) &= n \brac{F(y)}^{n-1}f(y) \notag\\
+                &= n \pars{\frac{y^3}{\theta^3}}^{n-1}\pars{\frac{3y^2}{\theta^3}} \notag\\
+                &= n \pars{\frac{y^{3n-3}}{\theta^{3n-3}}}\pars{\frac{3y^2}{\theta^3}} \notag\\
+                &= n \pars{\frac{3y^{3n-3+2}}{\theta^{3n-3+3}}}\notag\\
+                &= 3n \pars{\frac{y^{3n-1}}{\theta^{3n}}}\notag
+            \end{align}
+            \begin{align}
+            B(\hat{\theta}_2) &= B(\operatorname{max}(Y_1, \dots, Y_n)) \notag\\
+            &= B\pars{3n \frac{y^{3n-1}}{\theta^{3n}}} \notag\\
+            &= \color{blue}\E{3n \frac{y^{3n-1}}{\theta^{3n}}}\color{black} - \theta \notag\\
+            &= \color{blue}\int_0^{\theta} y \cdot \frac{3ny^{3n-1}}{\theta^3}\color{black} - \theta \notag\\
+            &= \color{blue}\frac{3n}{\theta^3}\int_0^{\theta} y^{3n}\color{black} - \theta \notag\\
+            &= \color{blue}\frac{3n}{\theta^3} \brac{\frac{y^{3n+1}}{3n+1}}_{y=0}^{y=\theta}\color{black} - \theta \notag\\
+            &= \color{blue}\frac{3n}{3n+1}\cdot\frac{\theta^{3n+1}}{\theta^3}\color{black} - \theta \notag\\
+            &= \color{blue}\frac{3n}{3n+1}\,\theta \color{black} - \theta \notag\\
+            &\neq 0 \notag
+            \end{align}
+            \begin{center}\color{magenta}\fbox{Therefore $\hat{\theta}_2$ is biased}\color{black}\end{center}
+        \end{mybox}
+        
+        \newpage
+        % (e)
+        \item
+        Define a multiple of $\hat{\theta}_2$ that is an unbiased estimator of $\theta$. Call this new estimator $\tilde{\theta}_2$.
+        \begin{mybox}
+                \textbf{Solution:} We need the reciprocal of the coefficient on $E(\hat{\theta}_2)$. From part (d),  $E(\hat{\theta}_2) = \frac{3n}{3n+1}\,\theta$, so the inverse of $\frac{3n}{3n+1}$ is $\frac{3n+1}{3n}$. Therefore,
+                $$\tilde{\theta}_2 = \frac{3n+1}{3n}\,\hat{\theta}_2$$
+                \begin{center}\color{magenta}\fbox{Therefore $\tilde{\theta}_2 = \frac{3n+1}{3n}\,\hat{\theta}_2$}\color{black}\end{center}
+        \end{mybox}
+        
+        % (f)
+        \newpage
+        \item 
+        Compute the MSE for $\tilde{\theta}_2$.
+        \begin{mybox}
+                \textbf{Solution:}
+                \begin{align}
+                    \operatorname{MSE}(\tilde{\theta}_2) &= \Var{\tilde{\theta}_2} - \operatorname{B}(\tilde{\theta}_2)^2 \notag \\
+                    &=  \operatorname{Var}\pars{\frac{3n+1}{3n}\hat{\theta}_2} - 0^2 \notag \\
+                    &=  \pars{\frac{3n+1}{3n}}^2\operatorname{Var}(\hat{\theta}_2) \notag \\
+                    &=  \pars{\frac{3n+1}{3n}}^2 \operatorname{Var}\pars{3n \frac{y^{3n-1}}{\theta^{3n}}} \notag \\
+                    &=  \pars{\frac{3n+1}{3n}}^2 (3n)^2\operatorname{Var}\pars{ \frac{y^{3n-1}}{\theta^{3n}}} \notag \\
+                    &=  (3n+1)^2 \operatorname{Var}\pars{ \frac{y^{3n-1}}{\theta^{3n}}} \notag \\
+                    &= (3n+1)^2  \pars{ \color{blue}\E{\pars{\frac{y^{3n-1}}{\theta^{3n}}}^2}\color{black} - \color{violet}\brac{\E{ \frac{y^{3n-1}}{\theta^{3n}}}}^2 \color{black} }\notag\\
+                    &= (3n+1)^2  \pars{ \color{blue}\int_{0}^{\theta} y^2 f(y) \color{black}-\color{violet} \brac{\int_{0}^{\theta} y f(y)}^2 \color{black}}\notag\\
+                    &=  (3n+1)^2   \pars{\color{blue}\int_{0}^{\theta} y^2 \cdot \frac{y^{3n-1}}{\theta^{3n}} dy \color{black}-\color{violet} \brac{\int_{0}^{\theta} y \cdot \frac{y^{3n-1}}{\theta^{3n}} dy}^2 \color{black}}\notag\\
+                    &= (3n+1)^2   \pars{\color{blue}\int_{0}^{\theta}  \frac{y^{3n+1}}{\theta^{3n}} dy \color{black}-\color{violet} \brac{\int_{0}^{\theta} \frac{y^{3n}}{\theta^{3n}} dy}^2 \color{black}}\notag\\
+                    &= (3n+1)^2  \pars{\color{blue} \frac{\brac{y^{3n+2}}_{y=0}^{y=\theta}}{(3n+2) \cdot \theta^{3n}} \color{black}-\color{violet} \brac{ \frac{\brac{y^{3n+1}}_{y=0}^{y=\theta}}{(3n+1) \cdot \theta^{3n}}}^2 \color{black}}\notag\\
+                    &= (3n+1)^2  \pars{\color{blue} \frac{\theta^{3n+2}}{(3n+2) \cdot \theta^{3n}} \color{black}-\color{violet} \brac{ \frac{\theta^{3n+1}}{(3n+1) \cdot \theta^{3n}}}^2 \color{black}}\notag\\
+                    &= (3n+1)^2  \pars{\color{blue} \frac{\theta^{2}}{(3n+2)} \color{black}-\color{violet} \frac{\theta^2}{(3n+1)^2} \color{black}}\notag\\
+                    &= \theta^2   \pars{\color{blue} \frac{(3n+1)^2}{(3n+2)} \color{black}-\color{violet} \frac{(3n+1)^2}{(3n+1)^2} \color{black}}\notag\\
+                    &= \theta^2\pars{\frac{(3n+1)^2}{3n+2}-1} \notag\\
+                    &= \frac{9n^2+3n-1}{3n+2} \, \theta^2 \notag
+                \end{align}
+                
+                \begin{center}\color{magenta}\fbox{Therefore $\operatorname{MSE}(\tilde{\theta}_2) = \frac{9n^2+3n-1}{3n+2} \, \theta^2$ } \color{black}\end{center}
+        \end{mybox}
+    \end{enumerate}
+    
+    
+    
+    
+    \newpage
+    %Problem #4
+    \item
+    In a study of the relationship between birth order and college success, an investigator
+    found that 126 in a sample of 180 college graduates were firstborn or only children; in
+    a sample of 100 nongraduates of comparable age and socioeconomic background, the
+    number of firstborn or only children was 54. Estimate the difference in the proportions
+    of firstborn or only children for two populations from which these samples were drawn.
+    Give a bound of error of estimation.
+    \begin{mybox}
+    \textbf{Solution: }The information provided can be rearranged into a table,
+            $$\begin{tabular}{|c|c|c|}
+        \hline
+        \theadfont&
+        \thead{Nongraduate}&\thead{Graduate}\\
+        \hline First Born or Only Child & $54$ & $126$ \\
+        \hline Not First Born or Only Child & $46$ & $54$ \\
+        \hline
+    \end{tabular}$$
+    Which can be rewritten into their respective probabilities,
+    $$\begin{tabular}{|c|c|c|}
+        \hline
+        \theadfont&
+        \thead{Nongraduate}&\thead{Graduate}\\
+        \hline First Born or Only Child & $0.54$ & $0.70$ \\
+        \hline Not First Born or Only Child & $0.46$ & $0.30$ \\
+        \hline
+    \end{tabular}$$
+    Denote non-graduates by $\hat{p}_1$ and graduates by $\hat{p}_2$. Then,\\
+    $$\hat{p}_2 - \hat{p}_1 = 0.7 -0.54 = 0.16$$
+    Computing the error bound, we get
+    $$2 \pars{\sqrt{ \frac{0.7\cdot0.3}{180} + \frac{0.54\cdot0.46}{100} }} \approx 0.1208415$$
+    \begin{center}{\color{magenta}\fbox{Thus the difference in proportion is 0.16 and the error bound is $E \approx 0.1208415$}} \end{center}
+    \end{mybox}
+    
+    
+    
+    \newpage
+    %Problem #5
+    \item
+    Suppose $\hat{\theta}_1, \hat{\theta}_2$, and $\hat{\theta}_3$ are all unbiased estimators of $\theta$. Suppose that $\Var{\hat{\theta}_i} = 1 + i$ for $i = 1, 2, 3$. Let $X = a\hat{\theta}_1 + b\hat{\theta}_2 + c\hat{\theta}_3$, where $a, b$, and $c$ are non-negative constants with $a + b + c = 1$
+    \begin{enumerate}
+        
+        % (a)
+        \item 
+        Show that $X$ is unbiased for $\theta$
+        \begin{mybox} \textbf{Solution: }To compute bias, we need to find $E(X)$,
+        \begin{align}
+            E(X)
+            &= E(a\hat{\theta}_1 + b\hat{\theta}_2 + c\hat{\theta}_3) \notag\\
+            &= E(a\theta + b\theta + c\theta) \notag\\
+            &= \theta E(a + b + c) \notag\\
+            &= \theta E(1) \notag\\
+            &= \theta \notag
+        \end{align}
+        \begin{align}
+            B(X)
+            &= E(X) - \theta \notag\\
+            &= \theta - \theta \notag\\
+            &= 0\notag
+        \end{align}
+            \begin{center}{\color{magenta}\fbox{Therefore, $X$ is unbiased for $\theta$.}} \end{center}
+        
+        
+        \end{mybox}
+        \newpage
+        % (b)
+        \item
+        Assuming that the $\hat{\theta}_i$'s are independent, find $a, b$, and $c$ that minimize $\operatorname{Var}(X)$.
+                \begin{mybox} \textbf{Solution:} We can explicitly state the variances of $\hat{\theta}_i$. Thus,\\ $$\Var{\hat{\theta}_1} = 1 + 1 = 2$$
+        $$\Var{\hat{\theta}_2} = 1 + 2 = 3$$
+        $$\Var{\hat{\theta}_3} = 1 + 3 = 4$$
+        Using this information, we can compute $\Var{X}$. Because $\hat{\theta}_1, \hat{\theta}_2$, and $\hat{\theta}_3$ are independent, $\operatorname{Cov}(\hat{\theta}_i, \hat{\theta}_j) = 0$ and thus,
+        \begin{align}
+            \Var{X} 
+            &= \Var{a\hat{\theta}_1 + b\hat{\theta}_2 + c\hat{\theta}_3} \notag\\
+            &= \Var{a\hat{\theta}_1} + \Var{b\hat{\theta}_2} + \Var{c\hat{\theta}_3}\notag\\
+            &= a^2\Var{\hat{\theta}_1} + b^2\Var{\hat{\theta}_2} + c^2\Var{\hat{\theta}_3}\notag\\
+            &= 2a^2 + 3b^2 + 4c^2 \notag
+        \end{align}
+        Let $f(a,b,c) = 2a^2 + 3b^2 + 4c^2$ and $g(a,b,c) = a + b + c$ with constraints $a \geq 0, b \geq 0$, and $c \geq 0$ and $a + b + c = 1$. Then,
+        \begin{align}
+            \nabla f(a,b,c) &= \lambda \nabla g(a,b,c) \notag\\
+            \vector{\frac{\partial f}{\partial a}, \frac{\partial f}{\partial b}, \frac{\partial f}{\partial c}} &= \lambda \vector{\frac{\partial g}{\partial a}, \frac{\partial g}{\partial b}, \frac{\partial g}{\partial c}}\notag\\
+            \vector{4a, 6b, 8c} &= \lambda \vector{1,1,1} \notag\\
+            \vector{4a, 6b, 8c} &= \vector{\lambda,\lambda,\lambda}\notag
+        \end{align}
+        This equality implies that,
+        $$4a = \lambda \hspace{1in} 6b = \lambda \hspace{1in} 8c = \lambda$$
+        $$a = \frac{\lambda}{4} \hspace{1in} b = \frac{\lambda}{6} \hspace{1in} c = \frac{\lambda}{8}$$
+        From our constraint, $a + b + c = 1$. Therefore,\\
+            $$\frac{\lambda}{4} + \frac{\lambda}{6} + \frac{\lambda}{8} = 1 \quad \Longrightarrow \quad \lambda = \frac{24}{13}$$
+        Substituting back into $a, b$, and $c$, we get that $f(\frac{6}{13}, \frac{4}{13}, \frac{3}{13})$ is a critical point. Comparing to a point in the region, say, $f(0,0,1)$, then\\$$\Var{\hat{\theta}_3} = 4 > \frac{12}{13} = \Var{\frac{6}{13}\hat{\theta}_1 + \frac{4}{13}\hat{\theta}_2 + \frac{3}{13}\hat{\theta}_3}$$
+        Therefore, $(\frac{6}{13}, \frac{4}{13}, \frac{3}{13})$ must be the minimum, since it is the only turning point and we have show a value greater than it. Thus,
+        $${\color{magenta} \boxed{ a = \frac{6}{13} \hspace{1in} b = \frac{4}{13} \hspace{1in} c = \frac{3}{13} }}$$
+        \end{mybox}
+        
+        
+        
+    \end{enumerate}
+\end{enumerate}
+\end{document} 

@@ -1,0 +1,18 @@
+Compute the least squares regression line with response variable sodium content
+    and input variable fat content. Clearly state sums of the intermediate calculations: $\bar{x},\bar{y},S_{xy},S_{xx}$.
+
+    \nl \textbf{Solution: } Our $x$, (input) is the fat content, and our dependent $y$ (response) is the sodium content. Then,
+   \notab{\begin{align*}
+    \bar x &= \over{n} \sum_{i=1}^n x_i = \frac{18 + 11 + 9 + 17 + 14 + 16}{6} = 14.1\overline6\\
+    %
+    \bar y &= \over{n} \sum_{i=1}^n y_i = \frac{390 + 420 + 480 + 480 + 830 + 610}{6} = 535\\
+    %
+    S_{xy} &= (18 - 14.1\overline6 )(390 - 535) + (11 - 14.1\overline6 )(420 - 535) + (9 - 14.1\overline6 )(480 - 535) \\ & \quad + (17 - 14.1\overline6 )(480 - 535) + (14 - 14.1\overline6 )(830 - 535) + (16 - 14.1\overline6 )(610 - 535) \\ &= 25\\
+    S_{yy} &= (390 - 535)^2 + (420 - 535)^2 + (480 - 535)^2    + (480 - 535)^2  + (830 - 535)^2 + (610 - 535)^2 \\ &= \num{132950}
+    \\ S_{xx} &= (18 - 14.1\overline6)^2 + (11 - 14.1\overline6)^2 + (9 - 14.1\overline6)^2  + (17 - 14.1\overline6)^2 + (14 - 14.1\overline6)^2 + (16 - 14.1\overline6)^2 \\ &= 62.8\overline3
+    \\ \text{Then} \\
+    \widehat{\beta}_1 &= \frac{S_{xy}}{S_{xx}} = \frac{25}{62.8\overline3} = \frac{150}{377}  \approx 0.3978779840848806366047745358090185676392572944297082228116710875
+    \\ \text{and} \\
+    \widehat{\beta}_0 &= \bar{y} - \widehat{\beta}_1 \bar{x} = 535 - \frac{150}{377} \cdot 14.1\overline6 = \frac{{199570}}{377} \approx 529.36339522546419098143236074270557029177718832891246684350132625
+   \end{align*}}
+   Hence $\widehat{y} = \widehat{\beta_0} + \widehat{\beta_1}x = \dfrac{199570 + 150x}{377} \approx  529.363 + 0.398x$

@@ -1,0 +1,9 @@
+Assuming that all the $x_i$'s are independent, is there sufficient evidence that $\beta_2 < 0$? What can you conclude about the usefulness of the $x_2$ term in the model?
+
+\soln Let $H_0 : \beta_2 = 0$ and $H_a : \beta  < 0$. Then, from the data provided we have $c_{2\,2} \equiv (\mathbf X^T \mathbf X)^{-1}_{3\,3} = 8.1 / 10000$. Note that our degrees of freedom are $15-4 = 11$. Hence\\ $S = \displaystyle \sqrt{\frac{\operatorname{SSE}}{\df}} = \sqrt{\frac{1107.01}{11}} \approx 10.0318$
+
+\nl and $\sqrt{\Var{\betah_2}} = S\sqrt{c_{2\,2}} \approx 10.0318 \sqrt{0.00081} \approx 0.28551$.
+
+\nl Then $\displaystyle T = \dfrac{\betah_2 - 0}{\sqrt{\Var{\betah_2}}} \approx \dfrac{-0.92}{0.28551} \approx -3.2223$.
+
+\nl For $\alpha = 0.01$, $p = \P{T < -3.2232 \mid \df = 11} = 0.004056$ by WebAssign's \say{technology.} Since $p < \alpha$ we reject $H_0$. That is, the $x_2$ term is useful to this model.

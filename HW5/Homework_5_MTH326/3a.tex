@@ -1,0 +1,10 @@
+\begin{align*}
+    L(\thru{X} \mid \theta) &= f(X_1 \mid \theta) \times \cdots \times f(X_n \mid \theta)\\
+    &= \prod_{i=1}^{n} f(X_i \mid \theta)\\
+    &= \prod_{i=1}^{n} \over{\theta} f(X_i)\\
+    &= \over{\theta^n}\prod_{i=1}^{n} f(X_i)\\
+    &= \over{\theta^n}\prod_{i=1}^{n} rx_i^{r-1}e^{-x_i^r/\theta}\\
+    &= \frac{e^{-\xbar^r / \theta}r^n}{\theta^n}\prod_{i=1}^{n} x^{r-1}_i
+\end{align*}
+To factorize, we will let
+$$g(U, \theta) = \over{\theta^n} e^{-\xbar^r/\theta} \qquad \text{and} \qquad h(\thru{X})  = r^n \prod_{i=1}^n x^{r-1}_i$$

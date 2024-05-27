@@ -1,0 +1,47 @@
+Fit the model $Y = \beta_0 + \beta_1 X + \beta_2 X^2 + \varepsilon$ where $X$ is the temperature and $Y$ is the gas usage.
+
+\nnl \textbf{Solution: } We need to construct the $X$ and $Y$ matrices first, so 
+\begin{align*}
+    X &= \begin{bmatrix}
+        1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1\\
+        53 & 41 & 14 & 22 & 32 & 39 & 56 & 36 & 33 & 13 & 35 & 43\\
+        53^2 & 41^2 & 14^2 & 22^2 & 32^2 & 39^2 & 56^2 & 36^2 & 33^2 & 13^2 & 35^2 & 43^2
+    \end{bmatrix}^T\\
+    &= \begin{bmatrix}
+        1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1\\
+        53 & 41 & 14 & 22 & 32 & 39 & 56 & 36 & 33 & 13 & 35 & 43\\
+        2809 & 1681 & 196 & 484 & 1024 & 1521 & 3136 & 1296 & 1089 & 169 & 1225 & 1849
+    \end{bmatrix}^T
+\end{align*}
+and
+$$Y = \begin{bmatrix}
+    3 & 6.2 & 12.6 & 9.2& 7.5 & 5.5 & 2 & 6.5 & 7.3 & 12.5 & 6.9 & 5.3
+\end{bmatrix}^T.$$
+Computing $X^TX$, which exceeds Symbolab's space and WolframAlpha's \say{maximum number of characters}, but my old java code works for 2147483641 x 2147483641 matrices, (assuming you have 32 EB (exabytes) of RAM (and a lot of patience)), hence
+$$X^TX = \begin{bmatrix}
+    12 & 417 & 16479\\
+    417 & 16479 & 706065\\
+    16479 & 706065 & 31998951
+\end{bmatrix}.$$
+Now WolframAlpha can handle this, and $\det X^TX = \num{9928933560} \neq 0$. Hence, it is invertible and bijective. Then, according to WolframAlpha (after setting it to decimal approximations), 
+$$(X^TX)^{-1} \approx \begin{bmatrix}
+    2.89889 & -0.172054 & 0.00230354\\
+    -0.172054 & 0.0113235 & -0.00016125\\
+    0.00230354 & -0.00016125 & 2.40298 \cdot 10^{-6}
+\end{bmatrix}.$$
+Then using my code with rational precision,
+$$X^TY = \begin{bmatrix}
+    169/2\\24653/10\\169655/2
+\end{bmatrix} = \begin{bmatrix}
+    84.5\\2465.3\\84827.5
+\end{bmatrix}.$$
+Then using my code with floating point precision,
+\begin{align*}
+    \betah &= (X^TX)^{-1}X^TY \\
+    &= \begin{bmatrix}
+        16.195018149999925\\
+        -0.30117282499999476\\
+        0.0009574426749999754
+    \end{bmatrix}
+\end{align*}
+Therefore $\displaystyle \widehat{y} \approx 16.195018 - 0.301172825x + 0.000957442675x^2$.

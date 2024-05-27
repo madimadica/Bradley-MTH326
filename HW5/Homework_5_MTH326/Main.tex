@@ -1,0 +1,235 @@
+\documentclass[12pt]{article}
+\usepackage[english]{babel}
+\usepackage{array}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{sistyle} %\num{100000} for commas
+\SIthousandsep{,}
+\usepackage{fancyhdr}
+\usepackage{listings} % For code listings, may break stuff
+\usepackage{xcolor, diagbox, empheq, makecell, tcolorbox}
+\usepackage[autostyle]{csquotes}
+\usepackage{amssymb, amsthm, linguex, enumitem, amsmath}
+\usepackage{tcolorbox} %dont know what this does
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{lipsum}
+\usepackage{physics}
+
+\makeatletter   %% <- make @ usable in macro names
+\newcommand*\notab[1]{%
+  \begingroup   %% <- limit scope of the following changes
+    \par        %% <- start a new paragraph
+    \@totalleftmargin=0pt \linewidth=\columnwidth
+    %% ^^ let other commands know that the margins have been reset
+    \parshape 0
+    %% ^^ reset the margins
+    #1\par      %% <- insert #1 and end this paragraph
+  \endgroup
+}
+\makeatother    %% <- revert @
+
+\pagestyle{empty}
+
+\textwidth 6.5in
+\hoffset=-.65in
+\textheight=9.5in
+\voffset=-1.in
+
+%Sets
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Cb}{\mathbf{C}}
+\newcommand{\Fb}{\mathbf{F}}
+\newcommand{\Rb}{\mathbf{R}}
+
+%Misc
+\newcommand{\pars}[1]{\left( {#1} \right) } %auto size parenthesis 
+\newcommand{\brac}[1]{\left[ {#1} \right] } %auto size brackets around arg
+\newcommand{\set}[1]{\left\{{#1}\right\}} %auto size curly braces around arg
+\newcommand{\vbrac}[1]{\left\langle{#1}\right\rangle} %vector angle brackets
+
+\newcommand{\ceiling}[1]{\left\lceil {#1} \right\rceil} %auto size ceiling around arg
+\newcommand{\floor}[1]{\left\lfloor {#1} \right\rfloor} %auto size floor around arg
+
+\newcommand{\limn}{\lim_{n\to\infty}} %limit as n approaches infinity
+\newcommand{\limx}{\lim_{x\to\infty}} %limit as n approaches infinity
+\newcommand{\thru}[1]{{#1}_1, \dots, {#1}_n}
+\newcommand{\sumthru}[1]{{#1}_1 + \cdots + {#1}_n}
+\renewcommand{\over}[1]{\frac{1}{{#1}}}
+\newcommand{\pfrac}[2]{\left( \frac{{#1}}{{#2}} \right) } %auto size parenthesis over fraction 
+\newcommand{\pover}[1]{\left( \frac{1}{{#1}} \right) } %auto size parenthesis over fraction
+
+%Boolean Algebra
+\newcommand{\OR}{\,\lor\,}
+\newcommand{\AND}{\,\land\,}
+
+%Probability and Statistics
+\newcommand{\xbar}{\bar{X}}
+\newcommand{\ybar}{\bar{Y}}
+\newcommand{\yn}{Y_1, \dots, Y_n}
+\newcommand{\yx}{X_1, \dots, X_n}
+\newcommand{\normDistT}{N\left(\mu, \sigma^2\right)} %default normal distribution
+\newcommand{\gammaDist}[2]{\operatorname{Gamma} \left( {#1},{#2} \right)}
+\newcommand{\normDist}[1]{N \left( {#1} \right)}
+\newcommand{\prob}[1]{P \left( {#1} \right) }
+\newcommand{\E}[1]{E \left( {#1} \right) }
+\newcommand{\Eb}[1]{E[ \,{#1}\, ]} %E bracket
+\newcommand{\Bb}[1]{B[ \,{#1}\, ]} %E bracket
+\newcommand*{\V}[1]{V \left( {#1} \right) }
+\newcommand{\Vb}[1]{V [ \,{#1}\, ] }
+\newcommand{\that}{\hat{\theta}} %theta hat
+\newcommand{\phat}{\hat{p}}
+\newcommand{\psihat}{\hat{\psi}}
+\newcommand{\Psihat}{\hat{\Psi}}
+
+%Linear Algebra
+\newcommand{\poly}[1]{\mathcal{P}_{#1}(\mathbf{R})} %polynomial up to degree (arg)
+\newcommand{\pf}{\mathcal{P}(\mathbf{F})} %set of all polynomials
+\newcommand{\Lc}{\mathcal{L}} %Set of linear maps
+\newcommand{\vdub}[2]{\begin{pmatrix}{#1}\\{#2}\end{pmatrix}} %vertical vector parenthesis, 3 args
+\newcommand{\vtrip}[3]{\begin{pmatrix}{#1}\\{#2}\\{#3}\end{pmatrix}} %vertical vector parenthesis, 3 args
+\newcommand{\vquad}[4]{\begin{pmatrix}{#1}\\{#2}\\{#3}\\{#4}\end{pmatrix}} %vertical vector parenthesis, 4 args
+\newcommand{\vquin}[5]{\begin{pmatrix}{#1}\\{#2}\\{#3}\\{#4}\\{#5}\end{pmatrix}} %vertical vector parenthesis, 5 args
+\newcommand{\vvector}[3]{\begin{bmatrix}{#1}\\{#2}\\{#3}\end{bmatrix}} %vertical vector braces, 3 args
+\newcommand{\dimn}[1]{\operatorname{dim}\,{#1}}
+\renewcommand{\rank}[1]{\operatorname{dim}\operatorname{range}{#1}}
+\newcommand{\nullity}[1]{\operatorname{dim}\operatorname{null}{#1}}
+\newcommand{\matx}[4]{\begin{bmatrix}{#1} & {#2}\\{#3}&{#4}\end{bmatrix}} % 2x2 matrix
+\newcommand{\detx}[4]{\begin{vmatrix}{#1} & {#2}\\{#3}&{#4}\end{vmatrix}} % 2x2 determinant
+\newcommand{\nf}{\infty}
+%colors
+\definecolor{ggreen}{RGB}{0, 127, 0}
+\definecolor{dgray}{RGB}{63,63,63}
+\definecolor{neonorange}{RGB}{255,47,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\newcommand{\red}[1]{\color{red}{#1}\color{black}}
+\newcommand{\grn}[1]{\color{ggreen}{#1}\color{black}}
+\newcommand{\blu}[1]{\color{blue}{#1}\color{black}}
+\newcommand{\redx}[1]{\color{red}\not{#1}\color{black}}
+
+\newcommand{\say}[1]{\textquotedblleft{#1}\textquotedblright} %quote the "argument"
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+\newtcolorbox{mybox}[1][]{colback=white, sharp corners, #1}
+
+%Line break spacings
+\newcommand{\nl}{\vspace{0.1in}\noindent}
+\newcommand{\nnl}{\vspace{0.2in}\noindent}
+\newcommand{\nnnl}{\vspace{0.3in}\noindent}
+
+% Code snippets
+\newcommand*{\code}{\fontfamily{qcr}\selectfont}
+\lstset{
+    backgroundcolor=\color{white},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+    breaklines=true,                 % sets automatic line breaking
+    captionpos=b,                    % sets the caption-position to bottom
+    commentstyle=\color{dgray},    % comment style
+    deletekeywords={...},            % if you want to delete keywords from the given language
+    escapeinside={(*@}{@*)},          % if you want to add LaTeX within your code
+    extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+    firstnumber=1,                % start line enumeration with line 1
+    frame=single,	                   % adds a frame around the code
+    keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+    keywordstyle=\color{neonorange},       % keyword style
+    language=C++,                 % the language of the code
+    morekeywords={*,...},            % if you want to add more keywords to the set
+    numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+    numbersep=5pt,                   % how far the line-numbers are from the code
+    numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+    rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+    showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+    showstringspaces=false,          % underline spaces within strings only
+    showtabs=false,                  % show tabs within strings adding particular underscores
+    stringstyle=\color{purple},     % string literal style
+    tabsize=4,	                   % sets default tabsize to 4 spaces
+}
+
+\lstdefinestyle{cpp}{language=C++,
+    morekeywords={cout, cin, Comparable, T},numbers=none
+}
+%Examples:
+%{\code while}
+%
+%{\code \begin{lstlisting}[language=C++]
+%sum1 = 0;
+%for (i = 1; i <= n; i *= 2)
+%    for (j = 1; j <= n; j++)
+%        sum1++;
+%\end{lstlisting}}
+
+
+
+
+
+
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[RO]{Matthew Wilder} %header top right
+\fancyhead[LO]{MTH 326 - Homework \#5} %header top left
+\fancyfoot[CO]{Page \thepage} %page center bottom
+
+\noindent MTH 326 - Spring 2022
+\\Assignment \#5
+\\Due: Friday, February 25, 2022 (23:59)\\
+
+\begin{enumerate}
+    \item Suppose $X_1, X_2, \dots, X_n$ are iid with the common density function
+    $$f(x) = \frac{2\theta^2}{x^3}, \quad x > \theta$$
+    where $\theta$ is unknown.
+    \begin{enumerate}
+        \item Find the method of moments estimator of $\theta$.
+        
+        \nl \input{1a.tex}
+        \newpage\item Find the bias and variance of your estimator.
+        
+        \nl \input{1b.tex}
+    \end{enumerate}
+
+    \newpage
+    \item \input{2.tex}
+    
+    \newpage
+    \item Let $X_1, X_2, \dots, X_n$ denote a remote sample from the density function given by
+    $$f(x) = \pover{\theta} rx^{r-1}e^{-x^r/\theta},\qquad x > 0, \qquad \theta > 0$$
+    where $r$ is a known positive constant. Consider the statistic defined by $U = \dfrac{1}{n} \sum X_i^r$.
+    \begin{enumerate}
+        \item Find and simplify the likelihood function $L(x_1,x_2,...,x_n \mid \theta)$ and complete the factorization.
+        
+        \nl \input{3a.tex}
+\vspace{0.5in}
+        \item Show that $U$ is a sufficient statistic for $\theta$.
+         
+        \nl \input{3b.tex}
+
+        \newpage  \item Show that $U$ is the MLE for $\theta$.
+         
+        \nl \input{3c.tex}
+
+        \vspace{1in}
+        \item Show that $U$ is an unbiased estimator of $\theta$.
+        
+        \nl \input{3d.tex}
+\newpage
+        \item What can we now conclude about the estimator $U$.
+         
+        \nl \input{3e.tex}
+
+        \vspace{.5in}
+        \item Explain why $V(U)$ is finite. (You do not have to compute it, but clearly explain
+        why it is finite.)
+         
+        \nl \input{3f.tex}
+        \vspace{.5in}
+        \item Show that $U$ is a consistent estimator of $\theta$.
+         
+        \nl \input{3g.tex}
+
+    \end{enumerate}
+\end{enumerate}
+\end{document} 

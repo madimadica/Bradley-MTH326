@@ -1,0 +1,53 @@
+\section{}
+Let $Y$ have probability density function $f_Y(y)=\dfrac{2(\theta-y)}{\theta^2}$ on support $0<y<\theta$.
+\subsection{}
+    Determine the cumulative distribution function for $Y$ and explain why it is not pivotal.
+    \begin{mybox}
+        \textbf{Solution: } We compute the CDF of $Y$ by integration.
+        \begin{align}
+            P(Y \leq y)
+            &= \int_0^y f_Y(y)dy \notag\\
+            &= \int_{0}^{y} \frac{2(\theta-y)}{\theta^2}\,dy\notag\\
+            &= \frac{2}{\theta^2} \int_{0}^{y} \theta - y \,dy\notag\\
+            &= \frac{2}{\theta^2} \brac{y\theta - \frac{y^2}{2}}_{y=0}^{y=y}\notag\\
+            &= \frac{2}{\theta^2} \pars{y\theta - \frac{y^2}{2}}\notag\\
+            &= \frac{2y}{\theta} - \frac{y^2}{\theta^2}.\notag
+        \end{align}
+        Therefore the CDF for $Y$ is
+        $$F_Y(y) = \begin{cases}0 & y \leq 0\\\frac{2y}{\theta} - \frac{y^2}{\theta^2} & y \in (0, \theta)\\1 & y \geq \theta\end{cases}.$$
+        Which is \underline{not pivotal} because $F_Y(y)$ depends on some $\theta$.
+    \end{mybox}
+    \newpage
+\subsection{}
+    Show that the change of variables $U=Y/\theta$ is a pivotal quantity.
+    \begin{mybox}
+        \textbf{Solution: } Compute the CDF of $U$,
+        \begin{align}
+            P(U \leq u)
+            &= P(Y/\theta \leq u) \notag\\
+            &= P(Y \leq \theta u) \notag\\
+            &= F_Y(\theta u) \notag\\
+            &= \frac{2\theta u}{\theta} - \frac{ (\theta u)^2}{\theta^2} \notag\\
+            &= 2u - u^2\notag\\
+            &= u(2-u).\notag
+        \end{align}
+        Therefore the CDF for $U$ is
+        $$F_U(u) = \begin{cases}0 & u \leq 0\\u(2-u) & u \in (0, 1)\\1 & u \geq 1\end{cases}.$$
+        Which is \underline{pivotal} because $F_U(u)$ no longer depends on $\theta$.
+    \end{mybox}
+\subsection{}
+    For a single observation of $Y$, construct a 90\% lower confidence interval for $\theta$.
+    \begin{mybox}
+        \textbf{Solution: } We want
+        $$P(\hat{\theta}_L \leq \theta) = 0.90.$$
+        That is, $F_U(u) = 0.90$ and thus
+        \begin{align}
+            & \quad u(2-u) = 0.90\notag\\
+            \Longleftrightarrow & \quad -u^2 + 2u - 0.90 = 0 \notag\\
+            \Longleftrightarrow & \quad u = \frac{-2\,\pm\,\sqrt{2^2-4(-1)(-0.90)}}{2(-1)} \notag\\
+            \Longleftrightarrow & \quad u = \frac{2\,\pm\,\sqrt{0.4}}{2} \notag\\
+            \Longleftrightarrow & \quad u = \frac{10 \pm \sqrt{10}}{10} \notag\\
+            \Longleftrightarrow & \quad u \approx 0.6838 \;\text{ or }\; u \approx 1.3162\notag
+        \end{align}
+        But $u$ is only defined for $u \in [0,1]$, therefore the 90\% lower confidence interval is \\(0, 0.6838).
+    \end{mybox}

@@ -1,0 +1,20 @@
+Give a 95\% confidence interval for the mean percent increase in yield if $x_1 = 914$, $x_2 = 65$, and $x_3 = 6$.
+
+\soln The interval we are looking for is $\E{Y} \pm t_{0.025}(11) \cdot S \sqrt{a^T (\mathbf X^T \mathbf X)^{-1}}$ where\\ $a = (1,\, 914, \, 65, \,6)^T$. Then 
+\begin{align*}
+    a^T (\mathbf X^T \mathbf X)^{-1} &=
+        \begin{pmatrix}
+            1 & 914 & 65 & 6
+        \end{pmatrix}
+        \over{10000}
+        \begin{bmatrix}
+        151401.8 & 2.6 & 100.5 & -28082.9\\
+        2.6 & 1 & 0 & 0.4\\
+        100.5 & 0 & 8.1 & 5.2\\
+        -28082.9 & 0.4 & 5.2 & 6038.2
+        \end{bmatrix}
+        \vvec{1}{914}{65}{6}\\
+        &= 92.9772\\
+        \iff \sqrt{a^T (\mathbf X^T \mathbf X)^{-1}} &\approx 9.64246856
+\end{align*}
+Then $t_{0.025}(11) = 2.201$ by table and $S = 10.0318$ from (a). Lastly $\E{Y} = \widehat{y}(a) = 39.9812$. Hence the confidence interval is $$39.9812 \pm 2.201 \cdot 10.0318 \cdot 9.64246856 \equiv (-172.92442,\; 252.88682)$$

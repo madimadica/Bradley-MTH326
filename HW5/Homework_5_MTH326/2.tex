@@ -1,0 +1,40 @@
+Suppose that $X_1, X_2, \dots, X_n$ are a random sample from an exponentially distributed population with unknown mean $\theta$. Find the maximum likelihood estimator of the population variance $\theta^2$. 
+
+\nnl \textbf{Solution: } An exponential distribution is a Gamma distribution with $\alpha = 1$, therefore
+$$f(x) = \lambda e^{-\lambda x} \qquad x \in [0, \infty) \qquad \mu_x = \over{\lambda}$$
+If $\theta$ is the mean then $\theta = \over{\lambda}$. Solving for $\lambda$, $\lambda = \over{\theta}$. Substituting this into the exponential formula,
+$$f(x) = \frac{e^{-x / \theta}}{\theta}.$$
+Now we can start to find the likelihood estimator,
+\begin{align*}
+    L(\thru{X} \mid \theta) &= \prod_{i=1}^n f(X_i \mid \theta)\\
+    &= \frac{e^{-x_1/\theta}}{\theta} \times \cdots \times \frac{e^{-x_n/\theta}}{\theta}\\
+    &= \frac{e^{-x_1/\theta} \times \cdots \times e^{-x_n/\theta  }}{\theta^n}\\
+    &= \frac{e^{\frac{-x_1 - x_2 - \cdots - x_n}{\theta}}}{\theta^n}\\
+    &= \frac{e^{-\xbar\,/\,\theta}}{\theta^n}
+\end{align*}
+Then, taking the log likelihood function,
+\begin{align*}
+    \ln \pars{L(\thru{X} \mid \theta)} &= \ln \pars{ \frac{e^{-\xbar\,/\,\theta}}{\theta}}\\
+    &= \ln \pover{\theta^n} + \ln \pars{e^{-\xbar\,/\,\theta}}\\
+    &=  \ln \pars{\theta^{-n}} + \pfrac{-\xbar}{\theta}\ln \pars{e^1}\\
+    &= -n \ln \theta + \pfrac{-\xbar}{\theta}\cdot (1)\\
+    &= -n \ln \theta - \frac{\xbar}{\theta}.
+\end{align*}
+Differentiating said log likelihood function,
+\begin{align*}
+    \pdv{\ln L}{\theta} &= \pdv{}{\theta}\pars{-n\ln \theta} - \pdv{}{\theta}\pfrac{\xbar}{\theta}\\
+    &= -\frac{n}{\theta} + \frac{\xbar}{\theta^2}
+\end{align*}
+To maximize (or minimize) $\theta$, we let $-\frac{n}{\theta} + \frac{\xbar}{\theta^2} = 0$ and solve.
+\begin{align*}
+    -\frac{n}{\theta} + \frac{\xbar}{\theta^2} = 0 &\iff \frac{\xbar}{\theta^2} = \frac{n}{\theta} \\
+    &\iff \xbar \theta = n\theta^2\\
+    &\iff \xbar = n\theta\\
+    &\iff \theta = \frac{\xbar}{n}
+\end{align*}
+
+\nl By the invariance property, the MLE of $\theta^2$ is the square of the MLE of $\theta$. So,
+\begin{align*}
+    & \operatorname{MLE}(\theta^2) = \pars{\operatorname{MLE}(\theta)}^2\\
+    & \iff \boxed{\operatorname{MLE}(\theta^2) = \pars{ \frac{\xbar}{n}}^2}
+\end{align*}

@@ -1,0 +1,27 @@
+\textbf{Solution: } By the definition for Bias, $B = \Eb{\that} - \theta$. Substituting in our estimator from part (a),
+\begin{align*}
+    \Bb{\that} &= \Eb{\that} - \theta & \text{ Definition of Bias}\\
+    &= \E{\frac{\xbar}{2}} - \theta & \text{Substituting from (a)}\\
+    &= \over{2} \Eb{\xbar} - \theta & \text{Linearity of E}\\
+    &= \over2 \brac{\E{\over{n} \sum_{i = 1}^n X_i }} - \theta & \text{Definition of } \xbar \\
+    &= \over{2n} \sum_{i = 1}^n \Eb{X_i} - \theta & \text{Linearity of } E\\
+    &= \over{2n} \sum_{i = 1}^n 2\theta - \theta & \Eb{X} \text{ from (a)}\\
+    &= \frac{n\cdot 2\theta}{2n} - \theta & \text{Sum } n \text{ times}\\
+    &= \theta - \theta & \text{Cancel } 2n\\
+    &= 0
+\end{align*}
+\begin{center} \fbox{Therefore $\that$ is an unbiased estimator.}
+\end{center}
+As for variance, 
+$$\Vb{X_i} = \blu{\Eb{X_i^2}} - \grn{\Eb{X_i}^2}$$
+\begin{align*}
+    \blu{\Eb{X^2}} &= \int_{\theta}^{\infty} x^2 \cdot \frac{2\theta}{x^3}\,dx \\
+    &= 2\theta^2 \int_{\theta}^{\infty} \over{x}\,dx\\
+    &= 2\theta^2 \brac{\ln x}_{x = \theta}^{x = \infty}\\
+    &= 2\theta^2 \brac{\limx \ln x - \ln \theta}\\
+    &= \infty
+\end{align*}
+And $\grn{\Eb{X_i}^2} = \grn{(2\theta)^2} = \grn{4\theta^2}$. Therefore 
+$$\Vb{X_i} = \blu{\infty} - \grn{4\theta^2} = \infty.$$
+\begin{center} \fbox{Therefore the variance is infinite.}
+\end{center}

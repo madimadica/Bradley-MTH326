@@ -1,0 +1,8 @@
+Are the intervals for $\E{Y}$ or the intervals for $Y^*$ wider? How can this be explained?
+
+\nnl \textbf{Solution: } The intervals for $Y^*$ are wider than $\E{Y}$ because the $(\betah_0 + \betah_1x^*)$ is held constant as the center of the interval, then the scalar $t_{\alpha/2}(\df)S$ is a fixed constant. Lastly, the scalar value under the squareroot is positive since $\frac{1}{n} > 0$, $(x^*-\xbar)^2 > 0 \, \forall \, x \in \R$, and $S_{xx} > 0$ since its also squares.  Adding positive values together is stilll positive. Hence adding another positive number (+1) to this value results in a larger positive value. Therefore the squareroot of the new positive value is also larger. Hence the scalar around the center of the interval is larger (\say{wider}).
+
+\notab{
+$$\overbrace{\pars{\widehat{\beta_0} + \widehat{\beta_1} x^*} \, \pm \, t_{\alpha/2}(\text{df})S \displaystyle \sqrt{\over{n} + \dfrac{\pars{x^* - \bar x}^2}{S_{xx}}}}^{\textstyle \E{Y}} < \overbrace{\pars{\widehat{\beta_0} + \widehat{\beta_1} x^*} \, \pm \, t_{\alpha/2}(\text{df})S \displaystyle \sqrt{1 + \over{n} + \dfrac{\pars{x^* - \bar x}^2}{S_{xx}}}}^{\textstyle Y^*}$$
+$$\iff t_{\alpha/2}(\text{df})S \sqrt{\over{n} + \dfrac{\pars{x^* - \bar x}^2}{S_{xx}}} < t_{\alpha/2}(\text{df})S \sqrt{1 + \over{n} + \dfrac{\pars{x^* - \bar x}^2}{S_{xx}}}$$
+$$\iff \sqrt{\underbrace{\over{n} + \dfrac{\pars{x^* - \bar x}^2}{S_{xx}}}_{> 0}} < \sqrt{1 + \underbrace{\over{n} + \dfrac{\pars{x^* - \bar x}^2}{S_{xx}}}_{>0}}$$}
